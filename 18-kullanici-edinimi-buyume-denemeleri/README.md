@@ -103,7 +103,7 @@ Reklamın bir "kumar makinesi" (Slot Machine) gibi düşün. 1$ atınca kaç $ v
 
 ---
 
-# 6️⃣ Case Study: SilentCut.io Büyüme Deneyleri
+# 6️⃣ Case Study: SilentCut.io Büyüme Deneyleri (Hayali)
 
 **Hipotez:** "YouTuberlar montaj yaparken en çok zamanı sessizlikleri silmeye harcıyor."
 

@@ -99,7 +99,7 @@ Mükemmeli arama, **"Kabul Edilebilir"**i tanımla.
 SilentCut.io geliştirilirken:
 
 * **FFmpeg Algoritması:** Karmaşık matematik. Buraya **Unit Test** yazıldı. Çünkü elle test etmek imkansızdı.
-* **Ödeme Akışı:** Stripe entegrasyonu. Buraya **Integration Test** yazıldı.
+* **Ödeme Akışı:** Paddle entegrasyonu. Buraya **Integration Test** yazıldı.
 * **Video Listeleme Sayfası:** Test **YAZILMADI**. Çünkü UI sürekli değişiyordu. Elle kontrol edildi.
 
 *Sonuç:* Hızlı geliştirme, sıfır kritik bug. UI bugları oldu ama kullanıcılar bunu dert etmedi.

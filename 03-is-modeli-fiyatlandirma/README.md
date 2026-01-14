@@ -64,9 +64,10 @@ Yazılımcı diliyle en yaygın modelleri inceleyelim:
 
 **Hipotez v2 (Pivot):** *"Kredi (Token) Sistemi."*
 **Mantık:**
-* 1 Video = 1 Kredi.
-* Kullanıcı 10 kredi alır, isterse 1 ayda harcar, isterse 1 yılda.
+* 5 Dakika = 1 Kredi.
+* Kullanıcı 30 kredi alsa bile, isterse 1 ayda harcar, isterse 1 yılda.
 **Sonuç:** Satışlar arttı. Kullanıcı "kontrol bende" hissini sevdi.
+**Subscription**: Eğer Kullanıcılar daha yoğun kullanım hedefliyorsa onlar için detaylı preview ve sınırsız işleme hakkı sağlandı.
 
 > **Ders:** İş modelini, kullanıcının **tüketim alışkanlığına** (Frequency of Use) göre seçmelisin.
 

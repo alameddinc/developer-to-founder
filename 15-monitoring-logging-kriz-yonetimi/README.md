@@ -120,17 +120,17 @@ Telefonun günde 50 kere "Hata var" diye ötüyorsa, bir süre sonra bakmazsın.
 
 # 7️⃣ Case Study: SilentCut.io FFMPEG Faciası
 
-**Olay:** SilentCut.io'ta bir kullanıcı bozuk bir video dosyası yükledi. **Sonuç:** FFMPEG işlemi sunucunun tüm RAM'ini yedi. Sunucu kilitlendi (OOM Kill).
+**Olay:** SilentCut.io'ta bir test sırasında çok yüksek adette sessizlik barındıran bir video dosyası yükledi. **Sonuç:** FFMPEG işlemi sunucunun tüm RAM'ini yedi ve 1 saat boyunca işleyemedi Sunucu kilitlendi (OOM Kill).
 
 **Eksik Olan Ne İdi?**
 
--   **Monitoring:** RAM kullanımı %99'a geldiğinde uyarı yoktu.
+-   **Monitoring:** RAM/CPU/GPU kullanımı %99'a geldiğinde uyarı yoktu.
 -   **Logging:** Neden çöktüğü loglanmamıştı, sadece "Process killed" yazıyordu.
 
 **Ders:**
 
--   Loglara `resource_usage` eklendi.
--   RAM %80 olunca "Autoscale" veya "Reject Job" mekanizması kuruldu.
+-   Loglara `segment size, processing status` eklendi.
+-   Büyük dosyalar için özel formülasyon kullanıldı
 
 ----------
 

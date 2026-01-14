@@ -100,11 +100,11 @@ Patron yoksa, mesai de yoktur. Bu tehlikelidir çünkü ya hiç çalışmazsın 
 # 🧪 Case Study: SilentCut.io'ta Kaos Yönetimi
 
 **Sorun:**
-SilentCut.io'ı geliştirirken bir yandan "Video işleme çok yavaş" şikayetleri geliyor, bir yandan "Logo mobilde kayık duruyor" deniyordu.
+SilentCut.io'ı geliştirirken bir yandan "Video işleme çok yavaş" şikayetleri geliyor, bir yandan "Ses UIda Kayıyor" deniyordu.
 Ben ne yaptım? Hepsine aynı anda saldırdım ve veritabanını bozdum.
 
 **Çözüm (Ders Alındı):**
-1.  **Labeling:** İşleri etiketledim. `bug/critical` (Video yavaş) vs `ui/minor` (Logo kayık).
+1.  **Labeling:** İşleri etiketledim. `bug/critical` (Video yavaş) vs `ui/minor` (ses UI'da kayıyor).
 2.  **Priority:** Önce sistemi kilitleyen (kritik) bug çözüldü. Logo 3 gün yamuk kaldı, kimse ölmedi.
 3.  **Focus:** Video işleme kodunu yazarken, frontend dosyalarına dokunmadım.
 

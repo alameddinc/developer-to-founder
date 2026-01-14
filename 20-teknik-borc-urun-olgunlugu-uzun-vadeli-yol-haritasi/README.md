@@ -92,7 +92,7 @@ Founder olarak en zor kararı verme vakti.
 
 ---
 
-# 6️⃣ Case Study: SilentCut.io'ın Kaderi
+# 6️⃣ Case Study: SilentCut.io'ın Kaderi (Hayali)
 
 **Durum:**
 * YouTube API kotası sürekli doluyor (Teknik Borç).
