@@ -1,271 +1,147 @@
-# 13 – Test Stratejisi, Kalite Eşiği & Teknik Borç  
-## “Kalite, Ürünü Yavaşlatmamalı”
+# 13 – Strategic Quality: Test Stratejisi & Teknik Borç Yönetimi
 
-Bu haftanın amacı:
-> **Test yazmayı amaç değil araç olarak görmek,  
-> kalite ile hız arasında bilinçli denge kurmak  
-> ve teknik borcu kontrolsüz değil, stratejik almak.**
+> **Haftanın Mottosu:** "Test yazmak kodun doğru çalıştığını kanıtlamaz; sadece test ettiğin senaryoların bozuk olmadığını kanıtlar. MVP'de hedef %100 kapsama (coverage) değil, %100 kritik güvenliktir."
 
-Bu hafta:
-- “%100 test coverage” peşinde koşmuyoruz
-- Test framework karşılaştırmıyoruz
-- Akademik test piramitleri ezberlemiyoruz
-
-Ama:
-> Gerçek hayatta ürün çıkaran profesyoneller  
-> **testi nasıl konumlandırıyor** onu öğreniyoruz.
+Bu haftanın amacı; TDD (Test Driven Development) fanatiği olmak değil, **"Risk Driven Development"** yapmaktır.
+Solo founder veya küçük bir ekipsen, her satıra test yazacak vaktin yok. Ama ödeme sisteminin bozulmasına da tahammülün yok. Denge nerede?
 
 ---
 
-## 🎯 Haftanın hedefi
+## 🎯 Haftanın Hedefleri (Learning Outcomes)
 
-Bu hafta sonunda katılımcı:
-
-- Test ≠ kalite yanılgısından kurtulacak
-- Nerede test yazılmaması gerektiğini bilecek
-- Manuel test refleksi kazanacak
-- Teknik borcun kötü değil, **kontrolsüz** olduğunda tehlikeli olduğunu anlayacak
-- “Şimdi mi, sonra mı?” kararlarını bilinçli verecek
-- Ürünü yavaşlatmayan bir kalite eşiği tanımlayacak
+Bu modülü tamamladığında:
+* [ ] **"Test Coverage"** metriğinin bir MVP için neden anlamsız (vanity metric) olduğunu anlayacaksın.
+* [ ] **Volatile (Uçucu)** kod ile **Core (Çekirdek)** kod arasındaki farkı görüp, sadece çekirdeği test edeceksin.
+* [ ] Teknik Borcu (Technical Debt) kötü bir şey olarak değil, **"Vadeyle Hız Satın Almak"** olarak göreceksin.
+* [ ] **TODO Driven Development** ile borçlarını yönetmeyi öğreneceksin.
 
 ---
 
-## 🧠 Büyük yanılgı
+# 1️⃣ The "Testing Pyramid" for Founders (Ters Piramit)
 
-> “Test yazarsak kalite olur.”
+Kurumsal dünyada: Unit > Integration > E2E.
+Founder dünyasında bu değişir. Çünkü senin UI'ın sürekli değişiyor.
 
-Gerçek:
-> Test yazmak sadece **güvenlik ağıdır**.  
-> Kalite ise **doğru kararlar zinciridir**.
+### 1. Neye ASLA Test Yazma? (The Volatile Zone)
+* **UI Bileşenleri:** Buton rengi, margin, padding. (Yarın değişecek).
+* **Standart CRUD:** Framework'ün zaten yaptığı işler (Django'nun save metodu, Next.js'in routing'i).
+* **Deneysel Özellikler:** Tutup tutmayacağını bilmediğin "Dark Mode" özelliği.
 
-Yanlış yerde yazılan test:
-- Zaman kaybıdır
-- Sahte güven verir
-- Geliştirme hızını düşürür
+### 2. Neye MUTLAKA Test Yaz? (The Money Zone)
+* **Para:** Fiyat hesaplama, fatura kesme, kredi düşme.
+* **Core Logic:** SilentCut için "Video süresi hesaplama" veya "Sessizlik algoritması".
+* **Auth:** "User A, User B'nin verisini silebilir mi?" kontrolü.
 
----
-
-# 1️⃣ Kalite nedir, test nedir?
-
-- **Kalite:** Ürünün doğru işi, doğru şekilde yapması
-- **Test:** Yanlış yaptığında erken fark etmeyi sağlayan araç
-
-Test:
-- Kalite üretmez
-- Kaliteyi **korur**
-
-> Kalite önce tasarımda,  
-> test sonra gelir.
+> **Kural:** Kırıldığında sana **para kaybettirecek** veya **dava açtıracak** her şey test edilmelidir. Gerisi "olsa güzel olur"dur.
 
 ---
 
-# 2️⃣ Nerede test yazILMAZ? (çok kritik)
+# 2️⃣ Unit Test vs. Integration Test: Hangisi?
 
-MVP ve erken aşamada **bilerek test yazılmaması gereken yerler vardır**.
+Solo founder için en yüksek ROI (Yatırım Getirisi) **Integration Test**lerdedir.
 
-## ❌ Test yazılmaması gerekenler
-- Hızla değişecek UI detayları
-- Henüz oturmamış UX akışları
-- Deneme amaçlı feature’lar
-- “Büyük ihtimalle çöpe gidecek” kod
+* **Unit Test:** "Bu fonksiyon 2+2'yi topluyor mu?" (Çok detay, çok bakım ister).
+* **Integration Test:** "Kullanıcı 'Satın Al'a basınca API çalışıyor, DB güncelleniyor ve Mail gidiyor mu?"
 
-> Test, sabitleyici bir güçtür.  
-> Sabitlemek istemediğin şeyi test etme.
+**Öneri:** MVP için **"Critical Path Testing"** yap.
+Kullanıcının sisteme girip, ana işi yapıp, çıktığı o tek yolu (Happy Path) otomatik test et. Geri kalanını manuel test et.
 
 ---
 
-# 3️⃣ Nerede test yazILIR?
+# 3️⃣ Manuel Test Refleksi: "Developer Körlüğü"nden Çıkış
 
-## ✅ Test yazılması gereken yerler
-- İş kuralları (para, kota, yetki)
-- Geri dönülmesi zor logic
-- Bug tekrar eden noktalar
-- “Burası bozulursa felaket” dediğin yerler
+Otomasyon harikadır ama insan gözünün yerini tutmaz.
+Her release öncesi şu 5 dakikalık ritüeli yap:
 
-Kural:
-> **Acı veren yer test edilir.**
+1.  **Incognito Mode:** Cache temizken site açılıyor mu?
+2.  **Mobil Görünüm:** Telefondan butonlara basılıyor mu?
+3.  **Hata Senaryosu:** İnterneti kesip butona basarsam ne oluyor?
 
----
-
-# 4️⃣ Manuel test refleksi (underrated ama hayati)
-
-Birçok solo founder’ın süper gücü:
-> **Manuel test**
-
-Manuel test:
-- Yavaştır
-- Ama öğrenme sağlar
-
-## Sağlıklı manuel test alışkanlığı
-- Yeni feature sonrası:
-  - Mutlu yol
-  - 1–2 hata senaryosu
-- Mobil + desktop dene
-- Gerçek kullanıcı gibi davran
-
-> “Ben biliyorum” diyerek test eden,  
-> kullanıcıyı anlayamaz.
+> **Tavsiye:** Testi kendi bildiğin yoldan yapma. Rastgele tıkla. Kullanıcılar her zaman rastgele tıklar.
 
 ---
 
-# 5️⃣ Test türleri (MVP perspektifiyle)
+# 4️⃣ Teknik Borç: Bir Finansal Enstrüman
 
-Bu eğitimde:
-- Test piramidi ezberi yok
+Teknik borç, startup'ın **Kredi Kartı**dır.
+* Bugün hızlı çıkmak için borçlanırsın (Hızlı kod yazarsın).
+* Yarın faiziyle ödersin (Refactor edersin).
 
-Ama pratik bakış var:
+### Borç Türleri
 
-### 1️⃣ Unit test
-- Saf iş kuralları
-- Hızlı
-- Değeri yüksek
+| Tür | Açıklama | Karar |
+| :--- | :--- | :--- |
+| **Bilinçli Borç** | "Şu an hardcode yapıyorum çünkü Cuma lansman var. Haftaya düzelteceğim." | ✅ **Kabul.** (Not alarak yap). |
+| **Bilinçsiz Borç** | "Nasıl çalıştığını anlamadım ama kopyaladım yapıştırdım, çalıştı." | ❌ **Ret.** (Bu borç değil, mayın tarlasıdır). |
+| **Zehirli Borç** | Veri güvenliğini veya tutarlılığını bozan yamalar. | ❌ **Ret.** (Asla alınmaz). |
 
-### 2️⃣ Entegrasyon test
-- Az ama kritik noktalarda
-- Özellikle para, auth, job akışları
-
-### 3️⃣ E2E test
-- MVP’de **çok sınırlı**
-- Kırılgan
-- Bakımı pahalı
-
-> MVP’de testin düşmanı:  
-> **bakım maliyeti**.
+### 🛠 Debt Management: `// TODO: DEBT`
+Kodun içine yorum bırak:
+`// TODO: DEBT - Burası hardcoded, kullanıcı sayısı 100 olunca DB'ye taşı.`
+Böylece IDE'nde arattığında borcunu görürsün.
 
 ---
 
-# 6️⃣ Teknik borç: Düşman değil, araç
+# 5️⃣ Kalite Eşiği (Quality Threshold)
 
-Teknik borç:
-- Kötü değildir
-- Kaçınılmazdır
+Mükemmeli arama, **"Kabul Edilebilir"**i tanımla.
 
-Ama:
-> **Bilinçsiz teknik borç öldürür.**
-
----
-
-## Sağlıklı teknik borç nedir?
-- Bilinçli alınır
-- Yazılıdır
-- Geri ödeme planı vardır
-
-Örnek:
-> “Şimdilik hardcode yapıyorum,  
-> kullanıcı 100’ü geçerse refactor.”
+**MVP İçin Kalite Anayasası:**
+1.  **Veri Kaybı Asla Olamaz:** Upload edilen video silinemez.
+2.  **Para Hatası Asla Olamaz:** 10$ çekip 9 kredi yüklenemez.
+3.  **UI Bozuk Olabilir:** Buton kayabilir, sorun değil.
+4.  **Hız Yavaş Olabilir:** Video 10 dakikada işlenebilir, sorun değil (Yeter ki bilgi ver).
 
 ---
 
-## Zehirli teknik borç nedir?
-- “Sonra bakarız”
-- Kimsenin hatırlamadığı
-- Testi olmayan
-- Kritik yerde olan borç
+# 6️⃣ Case Study: SilentCut Test Stratejisi
+
+SilentCut geliştirilirken:
+
+* **FFmpeg Algoritması:** Karmaşık matematik. Buraya **Unit Test** yazıldı. Çünkü elle test etmek imkansızdı.
+* **Ödeme Akışı:** Stripe entegrasyonu. Buraya **Integration Test** yazıldı.
+* **Video Listeleme Sayfası:** Test **YAZILMADI**. Çünkü UI sürekli değişiyordu. Elle kontrol edildi.
+
+*Sonuç:* Hızlı geliştirme, sıfır kritik bug. UI bugları oldu ama kullanıcılar bunu dert etmedi.
 
 ---
 
-# 7️⃣ “Şimdi mi, sonra mı?” karar çerçevesi
+# 🛠️ Haftalık Görevler (Commitment Checklist)
 
-Her teknik karar için kendine sor:
+### 1. [ ] "No-Test" Listesi Hazırla
+Projenin hangi kısımlarına test yazmayacağını belirle ve vicdan azabı çekmeyi bırak.
+* *Örn: "Hakkımızda sayfası, Profil fotosu yükleme."*
 
-1. Bu karar **geri dönülebilir mi?**
-2. Yanlış olursa bedeli ne?
-3. Bu karar öğrenmeyi hızlandırıyor mu?
-4. Şimdi yapmazsam gerçekten risk var mı?
+### 2. [ ] 1 Kritik Test Yaz
+Projenin kalbine (Ödeme veya Ana İşlem) sadece 1 tane Integration Test yaz.
+* *"Input ver -> İşlem yap -> Sonuç doğru mu?"*
 
-### Genel kural
-- Geri dönülebilir → sonra
-- Geri dönülemez → şimdi
+### 3. [ ] Borç Defteri Aç
+Kodun içinde `TODO` veya `FIXME` olmayan, ama "içine sinmeyen" yerleri bul ve yorum satırı ekle.
+* `// TODO: Refactor this when scaling to 1000 users.`
 
----
-
-# 8️⃣ Kalite eşiği tanımlamak (çok önemli)
-
-Kalite eşiği:
-> “Bu ürün bu seviyenin altına düşemez.”
-
-MVP için örnek kalite eşiği:
-- Veri kaybı yok
-- Para yanlış hesaplanmaz
-- İşlem yarıda kalmaz
-- Hata kullanıcıya açıklanır
-
-Bunun üstü:
-> **Nice to have**.
+### 4. [ ] Manuel Test Senaryosu (Smoke Test)
+Bir kağıda 5 madde yaz. Her deploydan sonra bunları elle dene.
+1. Login ol.
+2. Video yükle.
+3. Kredi kartı ekranını aç.
+4. Çıkış yap.
 
 ---
 
-# 9️⃣ SilentCut bağlamında düşünürsek
+# ⛔️ Yasaklı Davranışlar (Anti-Patterns)
 
-Bu tip ürünlerde:
-- Job state’leri test edilir
-- Kota / token hesapları detaylı test edilir
-- Upload edge case’leri detaylı test edilir
-- Panic'e düşebilecek case'ler detaylı test edilir
-
-Ama:
-- UI animasyonları detaylı test edilmez
-- Deneysel ayarlar detaylı test edilmez.
-
-> Kritik olan test edilir,  
-> estetik olan değil.
+* **"Test Coverage %100 olsun."** -> Bunu sadece boş vakti olan kurumsal şirketler yapar.
+* **"Sonra test yazarız."** -> Yalan. Asla yazmayacaksın. Kritik yere ŞİMDİ yaz.
+* **"Mock Cehennemi":** Her şeyi mocklayıp (sahteleyip), gerçekte hiçbir şeyin çalışmadığı testler yazmak.
 
 ---
 
-# 🛠️ Bu haftanın görevleri
+## 🔜 Gelecek Hafta: Güvenlik & Veri Sorumluluğu
 
-## 1️⃣ Test yazılmayacak alanları listele
-- Bilinçli olarak
-
----
-
-## 2️⃣ 3 kritik iş kuralını belirle
-- Bunlar mutlaka test edilecek
+Test ettik, borçlandık, hızlandık. Peki kapıyı kilitledik mi?
+* 14. Hafta: "MVP'yi Hacklemek".
+* Basit güvenlik önlemleri, Auth açıkları ve KVKK/GDPR için minimum gereksinimler.
 
 ---
-
-## 3️⃣ Manuel test checklist yaz
-- Release öncesi
-
----
-
-## 4️⃣ 2 teknik borcu yazılı hale getir
-- Ne zaman ödenecek?
-
----
-
-## 5️⃣ Kendi kalite eşiğini tanımla
-- “Burası asla bozulamaz”
-
----
-
-## ✅ Haftanın çıktıları
-
-Bu hafta sonunda elinde:
-
-- Net bir test stratejisi
-- Bilinçli teknik borç listesi
-- Yavaşlatmayan kalite anlayışı
-- Daha az sahte güven
-
-olmalı.
-
----
-
-## ⚠️ Son söz
-
-> Test yazmak seni yavaşlatıyorsa,  
-> yanlış yerde yazıyorsundur.
-
----
-
-## 🔜 Sonraki hafta (14. Hafta)
-
-**14 – Güvenlik, Yetkilendirme & Veri Sorumluluğu**
-
-- MVP’de minimum güvenlik
-- En sık yapılan açıklar
-- Upload, ödeme, auth riskleri
-- Kişisel veri sorumluluğu
-
----
+*Developer to Founder - Week 13*
