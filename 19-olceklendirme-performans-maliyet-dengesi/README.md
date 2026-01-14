@@ -71,7 +71,7 @@ Büyürken batmamak için şu formülü bilmelisin:
 
 **Unit Cost = Toplam Sunucu Gideri / Toplam İşlem Sayısı**
 
-*Örnek (SilentCut):*
+*Örnek (SilentCut.io):*
 * 100 Video işledin, faturan 10$. -> Video başı maliyet: **$0.10**.
 * 1000 Video işledin, faturan 200$. -> Video başı maliyet: **$0.20**.
 
@@ -79,7 +79,7 @@ Büyürken batmamak için şu formülü bilmelisin:
 
 ---
 
-# 5️⃣ Case Study: SilentCut Ölçeklenme Hikayesi
+# 5️⃣ Case Study: SilentCut.io Ölçeklenme Hikayesi
 
 **Aşama 1: MVP**
 * Tek bir VPS ($5). Web + DB + Worker hepsi içinde.

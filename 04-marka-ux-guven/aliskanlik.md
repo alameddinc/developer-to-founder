@@ -37,9 +37,9 @@ Bir e-ticaret sitesinde "Sepet" ikonunu sol alta koyarsan:
 
 ---
 
-## 🧪 Case Study: SilentCut ve "Upload" Refleksi
+## 🧪 Case Study: SilentCut.io ve "Upload" Refleksi
 
-SilentCut'ta bir "Video Yükleme" süreci tasarlarken iki yol vardı:
+SilentCut.io'ta bir "Video Yükleme" süreci tasarlarken iki yol vardı:
 
 **Yol A (Over-Engineering / Yenilikçi):**
 * Ekranda uçuşan partiküller.

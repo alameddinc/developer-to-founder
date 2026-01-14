@@ -109,9 +109,9 @@ Hangi malzemelere sahip olduğuna göre menüyü seç:
 
 ---
 
-# 🧪 Case Study: SilentCut Altyapısı
+# 🧪 Case Study: SilentCut.io Altyapısı
 
-SilentCut'ın ihtiyaçları:
+SilentCut.io'ın ihtiyaçları:
 * Yüksek Disk Alanı (Video dosyaları).
 * Anlık Yüksek CPU (Video işleme).
 

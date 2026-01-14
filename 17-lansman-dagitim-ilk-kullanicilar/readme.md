@@ -78,7 +78,7 @@ Lansman günü sitenin patlamaması ve doğru görünmesi için:
 
 ---
 
-# 5️⃣ Case Study: SilentCut Lansman Stratejisi
+# 5️⃣ Case Study: SilentCut.io Lansman Stratejisi
 
 **Hedef Kitle:** Küçük YouTuberlar ve Podcast Yayıncıları.
 
@@ -92,7 +92,7 @@ Lansman günü sitenin patlamaması ve doğru görünmesi için:
 * **Sonuç:** 500 ziyaretçi, 50 kayıt, 2 ödeme. (Rakamlar küçük görünse de başlangıç için harika).
 
 **Adım 3 (Cold Outreach):**
-* YouTube'da abonesi 10k-50k arası olan kanalların "About" kısmındaki maillere kişisel e-posta: *"Son videondaki sessizlikleri SilentCut ile temizledim, işte sonuç. Denemek istersen link burada."*
+* YouTube'da abonesi 10k-50k arası olan kanalların "About" kısmındaki maillere kişisel e-posta: *"Son videondaki sessizlikleri SilentCut.io ile temizledim, işte sonuç. Denemek istersen link burada."*
 
 ---
 
@@ -103,7 +103,7 @@ Canva veya Figma'da 1200x630 boyutunda, ürünün ekran görüntüsü ve slogan�
 
 ### 2. [ ] "Lansman Tweeti" Taslağı
 Sadece link atma. Hikaye anlat.
-* *"Başladığımda X sorunum vardı. 2 aydır Y üzerinde çalışıyorum. Bugün canlıya alıyorum. İşte SilentCut..."*
+* *"Başladığımda X sorunum vardı. 2 aydır Y üzerinde çalışıyorum. Bugün canlıya alıyorum. İşte SilentCut.io..."*
 
 ### 3. [ ] 10 Kişiye DM At
 Potansiyel müşterin olabilecek 10 kişiyi belirle ve onlara spam olmayan, samimi bir mesaj at.

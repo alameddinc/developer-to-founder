@@ -92,7 +92,7 @@ Founder olarak en zor kararı verme vakti.
 
 ---
 
-# 6️⃣ Case Study: SilentCut'ın Kaderi
+# 6️⃣ Case Study: SilentCut.io'ın Kaderi
 
 **Durum:**
 * YouTube API kotası sürekli doluyor (Teknik Borç).
@@ -105,7 +105,7 @@ Founder olarak en zor kararı verme vakti.
 * **Karar:** **Sustain (Lifestyle).**
     * Sistem optimize edildi.
     * Destek talepleri otomatize edildi.
-    * Founder yeni projeye başladı, SilentCut arkada "harçlık" üretmeye devam etti.
+    * Founder yeni projeye başladı, SilentCut.io arkada "harçlık" üretmeye devam etti.
 
 ---
 
@@ -119,7 +119,7 @@ Sadece 1 gün ayır ve seni en çok gıcık eden o "Zehirli Borcu" temizle. Kod 
 
 ### 3. [ ] "Post-Mortem" veya "Roadmap" Yazısı
 * Ürünü kapatıyorsan: "Neden başaramadım ve ne öğrendim?" (Blog yazısı).
-* Devam ediyorsan: "SilentCut 2.0 Yol Haritası".
+* Devam ediyorsan: "SilentCut.io 2.0 Yol Haritası".
 
 ### 4. [ ] Mezuniyet Kutlaması
 Kendine bir kahve ısmarla. 20 hafta boyunca disiplinle buraya kadar geldin. Sen artık sadece kod yazan biri değilsin. **Sen bir kurucusun.**

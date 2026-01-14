@@ -64,9 +64,9 @@ Aşağıdaki maddelerden en az 3'ü senin için "Evet" ise, Go (veya benzeri rob
 
 ---
 
-## 🧪 Case Study: SilentCut Mimari Kararı
+## 🧪 Case Study: SilentCut.io Mimari Kararı
 
-SilentCut'ta ekip (yani sen) şunu analiz etti:
+SilentCut.io'ta ekip (yani sen) şunu analiz etti:
 
 * **Sorun:** Tarayıcıda ffmpeg çalıştırmak güvenilmez. Sunucuda video işlemek CPU/RAM canavarı.
 * **Node.js Riski:** Büyük bir videoyu işlerken Event Loop bloklanabilir, diğer kullanıcılar hata alır.

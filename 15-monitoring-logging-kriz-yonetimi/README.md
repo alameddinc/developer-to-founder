@@ -118,9 +118,9 @@ Telefonun günde 50 kere "Hata var" diye ötüyorsa, bir süre sonra bakmazsın.
 
 ----------
 
-# 7️⃣ Case Study: SilentCut FFMPEG Faciası
+# 7️⃣ Case Study: SilentCut.io FFMPEG Faciası
 
-**Olay:** SilentCut'ta bir kullanıcı bozuk bir video dosyası yükledi. **Sonuç:** FFMPEG işlemi sunucunun tüm RAM'ini yedi. Sunucu kilitlendi (OOM Kill).
+**Olay:** SilentCut.io'ta bir kullanıcı bozuk bir video dosyası yükledi. **Sonuç:** FFMPEG işlemi sunucunun tüm RAM'ini yedi. Sunucu kilitlendi (OOM Kill).
 
 **Eksik Olan Ne İdi?**
 

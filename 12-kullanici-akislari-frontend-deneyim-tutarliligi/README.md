@@ -76,7 +76,7 @@ Bu, solo founder'ların en büyük silahıdır. Backend yavaş olsa bile Fronten
 2. **Kalp ANINDA kırmızı olur.** (API isteği arkada gider).
 3. Eğer API hata verirse, kalp geri söner ve hata mesajı çıkar.
 
-> **SilentCut Örneği:** Kullanıcı "Dosya Adını Değiştir" dediğinde, sunucudan cevap bekleme. UI'da hemen değiştir. Arkada hata olursa eski haline alırsın. Bu, uygulamayı "Native" gibi hissettirir.
+> **SilentCut.io Örneği:** Kullanıcı "Dosya Adını Değiştir" dediğinde, sunucudan cevap bekleme. UI'da hemen değiştir. Arkada hata olursa eski haline alırsın. Bu, uygulamayı "Native" gibi hissettirir.
 
 ---
 
@@ -91,7 +91,7 @@ Masaüstünde fare imleci 1 pikseldir. Mobilde parmak ucu 40 pikseldir.
 
 ---
 
-# 5️⃣ Case Study: SilentCut Akış Analizi
+# 5️⃣ Case Study: SilentCut.io Akış Analizi
 
 **Kritik Hata:**
 İlk versiyonda kullanıcı videoyu yüklüyordu. İşlem 5 dakika sürüyordu. Ekranda sadece "İşleniyor..." yazan bir spinner vardı.

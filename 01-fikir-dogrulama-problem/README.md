@@ -46,9 +46,9 @@ Gerçek bir problem tanımı şu şablona uymalıdır:
 
 ---
 
-## 🛠 Case Study: SilentCut (Gerçek Dünya Örneği)
+## 🛠 Case Study: SilentCut.io (Gerçek Dünya Örneği)
 
-SilentCut yola çıkarken hipotez şuydu: *"Videolardaki sessizlikleri kesmek zor iş, bunu otomatize edelim."*
+SilentCut.io yola çıkarken hipotez şuydu: *"Videolardaki sessizlikleri kesmek zor iş, bunu otomatize edelim."*
 
 Ancak "problem" analiz edildiğinde detaylar ortaya çıktı:
 
@@ -129,7 +129,7 @@ Bu hafta şunları yaparsan, kendini kandırmış olursun:
 Haftaya şunları konuşacağız:
 * "Herkes benim müşterim" yalanından kurtulmak.
 * Rakipleri doğru analiz etmek (Rakip varsa korkmalı mısın, sevinmeli misin?).
-* SilentCut örneğinde rakip paniği neden gereksizdi?
+* SilentCut.io örneğinde rakip paniği neden gereksizdi?
 
 ---
 *Developer to Founder - Week 01*

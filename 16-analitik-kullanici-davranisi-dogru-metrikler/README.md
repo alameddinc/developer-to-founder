@@ -61,7 +61,7 @@ Dave McClure'un meşhur modeli. MVP için en sade hali:
 
 1.  **Acquisition (Edinim):** İnsanlar seni nasıl buluyor? (Google, Twitter, Reklam).
 2.  **Activation (Aktivasyon):** **EN ÖNEMLİSİ.** Kullanıcı "Aha!" anını yaşadı mı?
-    -   _SilentCut.io için:_ İlk videonun başarıyla indirilmesi.
+    -   _SilentCut.io.io için:_ İlk videonun başarıyla indirilmesi.
 3.  **Retention (Elde Tutma):** Kullanıcı geri geliyor mu? (Yoksa tek atımlık mı?).
 4.  **Revenue (Gelir):** Para veriyor mu?
 5.  **Referral (Tavsiye):** Arkadaşına öneriyor mu?
@@ -86,9 +86,9 @@ Senin şunları ölçmen lazım (Custom Events):
 
 ----------
 
-# 5️⃣ Case Study: SilentCut Metrikleri
+# 5️⃣ Case Study: SilentCut.io Metrikleri
 
-SilentCut için "Başarı" nedir?
+SilentCut.io için "Başarı" nedir?
 
 -   **Vanity:** "Siteye kaç kişi girdi?" (Umrumuzda değil).
 -   **North Star Metric (Kuzey Yıldızı):** **"Haftalık İşlenen Video Dakikası".**

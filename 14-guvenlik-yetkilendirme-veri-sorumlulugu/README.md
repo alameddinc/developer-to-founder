@@ -79,7 +79,7 @@ Bir geliştirici olarak sorumlulukların:
 
 # 3️⃣ Dosya Güvenliği: "Public Bucket" Faciası
 
-SilentCut gibi dosya işleyen ürünlerde en büyük risk, S3/R2 bucket'larını **"Public"** (Herkese açık) bırakmaktır.
+SilentCut.io gibi dosya işleyen ürünlerde en büyük risk, S3/R2 bucket'larını **"Public"** (Herkese açık) bırakmaktır.
 
 **Senaryo:** Kullanıcı özel bir video yükledi. Linki tahmin edilebilir: `bucket.com/uploads/video_1.mp4`. Hacker, `video_2.mp4`'ü dener ve bulur.
 
@@ -103,9 +103,9 @@ GitHub'da arama yaparsan binlerce AWS Key ve Stripe Secret bulabilirsin.
 
 ----------
 
-# 5️⃣ Case Study: SilentCut Güvenlik Kontrolü
+# 5️⃣ Case Study: SilentCut.io Güvenlik Kontrolü
 
-SilentCut MVP'sinde nereler riskliydi?
+SilentCut.io MVP'sinde nereler riskliydi?
 
 1.  **Job Manipulation:** Kullanıcı bir işleme emri gönderirken `{ "priority": "high" }` parametresini elle ekleyip öne geçmeye çalışabilir. -> **Backend'de input validasyonu şart.**
     

@@ -46,9 +46,9 @@ Pazarlama kitaplarındaki "Persona"ları unut. Bize yaş, cinsiyet, şehir lazı
 
 ---
 
-## 🛠 Case Study: SilentCut'ta Hedef Kitle Netleşmesi
+## 🛠 Case Study: SilentCut.io'ta Hedef Kitle Netleşmesi
 
-**Başlangıçtaki Hata:** "Video çeken herkes SilentCut kullanır."
+**Başlangıçtaki Hata:** "Video çeken herkes SilentCut.io kullanır."
 
 Bu varsayımla yola çıkıldığında şu sorunlar oluştu:
 * **TikTokçu:** "Video zaten 15 saniye, elle keserim, gerek yok." dedi.
@@ -87,8 +87,8 @@ Müjde! Rakip varsa **pazar var demektir.** Rakipsiz bir fikirdeysen, muhtemelen
 2.  **Dolaylı Rakip:** Farklı bir yolla çözüyor. (Örn: Adobe Premiere, CapCut)
 3.  **"Hiçbir Şey Yapmama" (Status Quo):** En büyük rakibin bu. Kullanıcının tembelliği veya manuel yapma alışkanlığı.
 
-### 🧪 SilentCut – Rakip Panik Anı
-SilentCut geliştirilirken piyasada 10 tane benzer tool vardı.
+### 🧪 SilentCut.io – Rakip Panik Anı
+SilentCut.io geliştirilirken piyasada 10 tane benzer tool vardı.
 **Analiz Sonucu:** Çoğu çok karmaşık, "full editor" olmaya çalışıyor ya da çok pahalı.
 **Fırsat:** Biz sadece "sessizlik silmeye" odaklanacağız. Basit, hızlı ve "tek iş yapan" bir araç (Unix felsefesi gibi).
 
@@ -101,8 +101,8 @@ Konumlandırma, ürünün ne olduğu değil, müşterinin zihninde **hangi rafta
 **Formül:**
 > **[ÜRÜN ADI], [ŞU PROBLEMİ], [ŞU KİŞİLER İÇİN] çözer.**
 
-* **Kötü:** "SilentCut en iyi video editörüdür." (İnandırıcı değil, çok genel)
-* **İyi:** "SilentCut, solo YouTuber'ların kaba kurgu (rough cut) süresini %80 azaltan bir otomasyon aracıdır."
+* **Kötü:** "SilentCut.io en iyi video editörüdür." (İnandırıcı değil, çok genel)
+* **İyi:** "SilentCut.io, solo YouTuber'ların kaba kurgu (rough cut) süresini %80 azaltan bir otomasyon aracıdır."
 
 ---
 

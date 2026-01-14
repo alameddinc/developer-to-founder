@@ -93,8 +93,8 @@ Postgres'in `JSONB` özelliği harikadır ama tembel geliştiricinin tuzağıdı
 
 ----------
 
-# 5️⃣ Case Study: SilentCut Domain Tasarımı
-Hadi SilentCut'ın veritabanını tasarlayalım.
+# 5️⃣ Case Study: SilentCut.io Domain Tasarımı
+Hadi SilentCut.io'ın veritabanını tasarlayalım.
 
 **Yanlış Model (Excel Kafası):**
 -   `Table: Videos` -> {id, user_id, status, file_url, detected_silences_json}

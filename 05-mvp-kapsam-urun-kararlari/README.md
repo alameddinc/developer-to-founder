@@ -52,9 +52,9 @@ Her MVP şu 3 sorudan en az birini doğrulamak zorundadır:
 
 ---
 
-## 🛠 Case Study: SilentCut'ın "Çıplak" MVP'si
+## 🛠 Case Study: SilentCut.io'ın "Çıplak" MVP'si
 
-SilentCut ilk çıktığında şunlar **YOKTU**:
+SilentCut.io ilk çıktığında şunlar **YOKTU**:
 * ❌ Üyelik Sistemi (Login/Register).
 * ❌ Ödeme Sistemi (Stripe).
 * ❌ Dashboard / Geçmiş Videolar.

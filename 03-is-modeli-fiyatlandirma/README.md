@@ -56,7 +56,7 @@ Yazılımcı diliyle en yaygın modelleri inceleyelim:
 
 ---
 
-## 🛠 Case Study: SilentCut Fiyatlandırma Pivotu
+## 🛠 Case Study: SilentCut.io Fiyatlandırma Pivotu
 
 **Hipotez v1:** *"Aylık $29 Abonelik yapalım."*
 **Sonuç:** Çuvalladı.
@@ -79,7 +79,7 @@ Bakkal hesabı yapmadan kod yazarsan, büyüdükçe batarsın.
 **Basit Formül:**
 `Kar = (Müşteri Başına Gelir) - (Müşteri Başına Maliyet)`
 
-Örnek (SilentCut):
+Örnek (SilentCut.io):
 * **Sunucu Maliyeti (GPU):** 1 saatlik video işlemek $0.50
 * **Storage/Bandwidth:** $0.10
 * **Toplam Maliyet (COGS):** $0.60
@@ -142,7 +142,7 @@ Her birine bir fiyat etiketi yapıştır.
 Haftaya ürünü "güzelleştireceğiz" ama süs olsun diye değil, **güven** versin diye:
 * İnsanlar kredi kartını neden tanımadıkları bir siteye girsin?
 * "UI önemli değil, backend sağlam" yalanı.
-* SilentCut'ta güven sinyalleri (Trust Signals) nasıl kurgulandı?
+* SilentCut.io'ta güven sinyalleri (Trust Signals) nasıl kurgulandı?
 
 ---
 *Developer to Founder - Week 03*

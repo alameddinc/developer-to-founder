@@ -97,10 +97,10 @@ Patron yoksa, mesai de yoktur. Bu tehlikelidir çünkü ya hiç çalışmazsın 
 
 ---
 
-# 🧪 Case Study: SilentCut'ta Kaos Yönetimi
+# 🧪 Case Study: SilentCut.io'ta Kaos Yönetimi
 
 **Sorun:**
-SilentCut'ı geliştirirken bir yandan "Video işleme çok yavaş" şikayetleri geliyor, bir yandan "Logo mobilde kayık duruyor" deniyordu.
+SilentCut.io'ı geliştirirken bir yandan "Video işleme çok yavaş" şikayetleri geliyor, bir yandan "Logo mobilde kayık duruyor" deniyordu.
 Ben ne yaptım? Hepsine aynı anda saldırdım ve veritabanını bozdum.
 
 **Çözüm (Ders Alındı):**

@@ -47,7 +47,7 @@ Google Ads, problemini **zaten arayan** insanları bulur.
 Geliştiriciler blog yazmaktan sıkılır. Ama kod yazmayı severler.
 HubSpot veya Ahrefs gibi devler böyle büyüdü.
 
-**Taktik:** Ana ürünün "SilentCut" paralı. Ama "Video Bitrate Calculator" diye **ücretsiz** ve basit bir araç yap.
+**Taktik:** Ana ürünün "SilentCut.io" paralı. Ama "Video Bitrate Calculator" diye **ücretsiz** ve basit bir araç yap.
 1.  İnsanlar "Video bitrate hesaplama" diye aratır.
 2.  Senin ücretsiz aracını kullanır.
 3.  Sayfada "Bu arada, videondaki sessizlikleri de silmek ister misin?" banner'ını görür.
@@ -66,7 +66,7 @@ Reklam, tüfekle rastgele ateş etmektir. Cold Outreach (DM/Mail), sniper atış
 > "Selam [İsim],
 > Kanalındaki [X] videonu izledim, içerik süper.
 > Ancak videoda çok fazla sessiz duraklama var, bu izleyiciyi sıkabilir.
-> Geliştirdiğim SilentCut aracı ile senin videonun 5 dakikasını temizledim, farkı gör: [Link].
+> Geliştirdiğim SilentCut.io aracı ile senin videonun 5 dakikasını temizledim, farkı gör: [Link].
 > İşine yararsa sana 1 aylık ücretsiz kod: [KOD]."
 
 ---
@@ -103,7 +103,7 @@ Reklamın bir "kumar makinesi" (Slot Machine) gibi düşün. 1$ atınca kaç $ v
 
 ---
 
-# 6️⃣ Case Study: SilentCut Büyüme Deneyleri
+# 6️⃣ Case Study: SilentCut.io Büyüme Deneyleri
 
 **Hipotez:** "YouTuberlar montaj yaparken en çok zamanı sessizlikleri silmeye harcıyor."
 

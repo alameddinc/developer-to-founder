@@ -29,7 +29,7 @@ Founder dünyasında bu değişir. Çünkü senin UI'ın sürekli değişiyor.
 
 ### 2. Neye MUTLAKA Test Yaz? (The Money Zone)
 * **Para:** Fiyat hesaplama, fatura kesme, kredi düşme.
-* **Core Logic:** SilentCut için "Video süresi hesaplama" veya "Sessizlik algoritması".
+* **Core Logic:** SilentCut.io için "Video süresi hesaplama" veya "Sessizlik algoritması".
 * **Auth:** "User A, User B'nin verisini silebilir mi?" kontrolü.
 
 > **Kural:** Kırıldığında sana **para kaybettirecek** veya **dava açtıracak** her şey test edilmelidir. Gerisi "olsa güzel olur"dur.
@@ -94,9 +94,9 @@ Mükemmeli arama, **"Kabul Edilebilir"**i tanımla.
 
 ---
 
-# 6️⃣ Case Study: SilentCut Test Stratejisi
+# 6️⃣ Case Study: SilentCut.io Test Stratejisi
 
-SilentCut geliştirilirken:
+SilentCut.io geliştirilirken:
 
 * **FFmpeg Algoritması:** Karmaşık matematik. Buraya **Unit Test** yazıldı. Çünkü elle test etmek imkansızdı.
 * **Ödeme Akışı:** Stripe entegrasyonu. Buraya **Integration Test** yazıldı.

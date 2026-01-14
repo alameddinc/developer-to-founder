@@ -122,7 +122,7 @@ Normalde (Stripe/Iyzico kullanırsan):
 
 # 5️⃣ Unit Economics & Pricing (Fiyatlandırma)
 
-SilentCut örneği üzerinden gidelim.
+SilentCut.io örneği üzerinden gidelim.
 
 **Senaryo:** Aylık $9 sabit abonelik. Sınırsız video işleme.
 **Risk:** Bir kullanıcı geldi, 50 tane 4K video yükledi.

@@ -26,9 +26,9 @@ Bu repo; **"Sadece kod yazan"** bir geliştiriciyi, kısıtlı imkanlarla **"Ür
 
 ---
 
-## 🧪 Case Study: SilentCut
+## 🧪 Case Study: SilentCut.io
 
-Teorik bilgi karın doyurmaz. Bu repo boyunca tüm süreçleri **SilentCut** adlı hayali ama senaryoları %100 gerçek bir proje üzerinden anlatıyoruz.
+Teorik bilgi karın doyurmaz. Bu repo boyunca tüm süreçleri **SilentCut.io** adlı hayali ama senaryoları %100 gerçek bir proje üzerinden anlatıyoruz.
 
 * **Proje:** YouTuber'lar için videolardaki sessizlikleri otomatik silen bir SaaS.
 * **Gerçekler:**
@@ -110,3 +110,4 @@ Eksik gördüğünüz, "şunu da ekle" dediğiniz yerler için Pull Request gön
 
 ---
 *Created by Alameddin Çelik - Building in Public*
+https://silentcut.io
