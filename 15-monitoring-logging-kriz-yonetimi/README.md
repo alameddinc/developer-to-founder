@@ -1,277 +1,186 @@
-# 15 – Monitoring, Logging & Kriz Yönetimi  
-## “Sorun Olmaması Değil, Sorunu Fark Etmek Önemlidir”
+# 15 – Sleeping Soundly: Monitoring, Logging & Kriz Yönetimi
 
-Bu haftanın amacı:
-> **Ürünün gerçekten çalışıp çalışmadığını anlayabilmek,  
-> sorunları kullanıcıdan önce fark etmek  
-> ve ilk prod krizinde panik yapmadan hareket edebilmek.**
+> **Haftanın Mottosu:** "Kullanıcılar senin QA (Test) ekibin değildir. Bir sorun olduğunda Twitter'dan değil, telefonundaki bildirimden öğrenmelisin."
 
-Bu hafta:
-- Vendor spesifik monitoring anlatmıyoruz
-- Dashboard fetişi yapmıyoruz
-- “Her şeyi ölçelim” demiyoruz
-
-Ama:
-> Gerçek hayatta işe yarayan  
-> **minimal ve etkili gözlem kültürü** kuruyoruz.
+Bu haftanın amacı; NASA komuta merkezi kurmak değil.
+Amacımız; **"Sistem çalışıyor mu?"** sorusunun cevabını 3 saniye içinde verebilmek ve gece rahat uyumaktır.
 
 ---
 
-## 🎯 Haftanın hedefi
+## 🎯 Haftanın Hedefleri (Learning Outcomes)
 
-Bu hafta sonunda katılımcı:
-
-- Monitoring ile logging farkını net ayıracak
-- MVP için neyin ölçülmesi gerektiğini bilecek
-- Alarm yorgunluğundan kaçınacak
-- Log’ları debug için kullanabilecek
-- İlk prod krizini nasıl yöneteceğini bilecek
-- “Her şey çalışıyordu” cümlesini daha az kuracak
+Bu modülü tamamladığında:
+* [ ] **Monitoring** (İzleme) ile **Logging** (Kayıt) arasındaki farkı doktor/hasta analojisiyle anlayacaksın.
+* [ ] **"Structured Logging"** (JSON) kullanarak logları okunabilir hale getireceksin.
+* [ ] **"Alert Fatigue"** (Alarm Yorgunluğu) tuzağına düşmeden, sadece *gerçek* yangınlarda bildirim alacaksın.
+* [ ] Bir kriz anında (Downtime) panik yapmadan uygulayacağın bir **Runbook** (Acil Durum Planı) hazırlayacaksın.
 
 ---
 
-## 🧠 Büyük yanılgı
+# 1️⃣ Monitoring vs. Logging: Doktor Analojisi
 
-> “Kullanıcı şikâyet ederse bakarız.”
+Bu ikisi karıştırılır ama amaçları farklıdır.
 
-Gerçek:
-> Kullanıcı şikâyet ettiğinde  
-> **çoktan geç kalmışsındır**.
+| Kavram | Analoji | Soru | Araç Örneği |
+| :--- | :--- | :--- | :--- |
+| **Monitoring** | Kalp Atış Monitörü | "Hasta yaşıyor mu? Nabız kaç?" | UptimeRobot, BetterStack, CloudWatch |
+| **Logging** | Röntgen / MRI | "Hastanın karnı neden ağrıyor?" | Sentry, Datadog, CloudWatch Logs |
 
-İyi ürün:
-- Sorunu kullanıcıdan önce fark eder.
-
----
-
-# 1️⃣ Monitoring nedir, Logging nedir?
-
-Bu ikisi sık karıştırılır ama farklıdır.
-
-- **Monitoring:** Sistem şu an sağlıklı mı?
-- **Logging:** Bir şey bozulduysa neden bozuldu?
-
-> Monitoring “bir şey yanlış” der  
-> Logging “neden yanlış” der
+> **Kural:** Monitoring sana "Bozuldu" der. Logging sana "Şundan dolayı bozuldu" der.
 
 ---
 
-# 2️⃣ MVP için monitoring yaklaşımı (sade ama etkili)
+# 2️⃣ The "Sentry" Stack: MVP İçin Tek Araç
 
-MVP’de:
-- Her metriği ölçmeye çalışma
-- En kritik 3–5 metriği seç
+Solo founder için en büyük lüks **Sentry** (veya benzeri LogRocket, BugSnag) kullanmaktır.
 
-## MVP için olmazsa olmaz metrikler
-- Sistem ayakta mı? (uptime)
-- Error rate arttı mı?
-- Kritik işlem süreleri
-- Background job başarısı
-- Ödeme / işlem başarısı
+* **Neden?**
+    * Sen loglara bakmazsın, Sentry sana mail atar.
+    * Kullanıcının tarayıcısında, senin backend'inde, veritabanında ne hata olduysa hepsini yakalar.
+    * *"Hata oldu"* demez; *"Ahmet, Chrome'da, 'Öde' butonuna basınca 500 hatası aldı"* der.
 
-> Ölçemediğin şeyi yönetemezsin  
-> ama ölçtüğün her şey de önemli değildir.
+**MVP Kurulumu:**
+1.  **Frontend:** Sentry React/Vue SDK (JS hatalarını yakalar).
+2.  **Backend:** Sentry Node/Go/Python SDK (Sunucu hatalarını yakalar).
+3.  **Uptime:** Sadece `/health` endpoint'ini kontrol eden ücretsiz bir "Ping" servisi (UptimeRobot).
 
 ---
 
-# 3️⃣ Sağlık endpoint’leri (küçük ama çok güçlü)
+# 3️⃣ Structured Logging: `console.log`'u Bırak
 
-Her MVP’de:
-- `/health`
-- `/healthz`
+Geliştiricilerin en kötü alışkanlığı:
+`console.log("Hata oldu:", error)`
 
-gibi basit endpoint’ler olmalı.
+Bu log production'da çöp olur. Çünkü aranamaz, filtrelenemez.
 
-Ne yapmalı?
-- DB bağlantısı var mı?
-- Kritik servisler ayakta mı?
+**Doğru Yöntem (JSON Logging):**
 
-Bu endpoint:
-- Monitoring’in temelidir
-- Deploy sonrası kontrol aracıdır
+```javascript
+// Kötü
+console.log("Kullanıcı video yükleyemedi", user.id);
 
----
+// İyi (Structured)
+logger.error({
+  event: "upload_failed",
+  user_id: 123,
+  file_size: "500mb",
+  error_message: error.message,
+  stack_trace: error.stack
+});
+```
 
-# 4️⃣ Logging: Debug için yazılır, arşiv için değil
 
-En yaygın hata:
-> “Her şeyi loglayalım.”
+_Neden?_ Çünkü yarın log sistemine girip `event="upload_failed" AND file_size > "100mb"` diye sorgu atabilirsin. Düz metinde bunu yapamazsın.
 
-Bu yanlıştır.
+----------
 
-### Log’lar ne için yazılır?
-- Hata anını anlamak
-- Akışı takip etmek
-- Kriz sonrası analiz
+# 4️⃣ Sağlık Kontrolü: `/healthz` Endpoint'i
 
-### Log’larda OLMAMASI gerekenler
-- Kişisel veri
-- Token
-- Şifre
-- Dosya içeriği
+Uygulamanın hayatta olduğunu kanıtlayan basit bir API ucu yap.
+```
+app.get('/healthz', async (req, res) => {
+  // 1. Veritabanına ping at
+  // 2. Redis'e ping at
+  
+  if (dbIsAlive && redisIsAlive) {
+    res.status(200).send("OK");
+  } else {
+    res.status(500).send("Sistem Hasta");
+  }
+})
+```
 
-> Log = kanıt,  
-> ama suç unsuru da olabilir.
+Bu endpoint'i bir Uptime servisine (BetterStack / UptimeRobot) bağla. Eğer 200 dönmezse sana SMS atsın.
 
----
+----------
 
-# 5️⃣ İyi log nasıl olur?
+# 5️⃣ Kriz Yönetimi: "Sistem Çöktü" Runbook'u
 
-İyi log:
-- Anlamlıdır
-- Kısa ama açıklayıcıdır
-- Context içerir
+Bir gün siten çökecek. O an elin ayağın titreyecek. O yüzden şimdiden bir "Acil Durum Reçetesi" yaz.
 
-Örnek:
-- user_id
-- request_id
-- job_id
-- işlem aşaması
+**Sistem Çöktüğünde Yapılacaklar (Örnek):**
 
-❌ “Bir hata oluştu”  
-✅ “upload_failed: size_limit_exceeded, user_id=123”
+1.  **Nefes Al:** Panik yapma. Hata zaten oldu.
+2.  **Etki Analizi:** Herkes mi giremiyor, sadece login olanlar mı? (Monitoring'e bak).
+3.  **Kanama Durdurma:** Son deploy'u geri al (**Rollback**). Çoğu sorun son kod değişikliğinden kaynaklanır.
+4.  **İletişim:** Eğer kesinti 5 dakikayı geçerse, Twitter'dan veya Status Page'den "Sorunun farkındayız, çözüyoruz" yaz. Sessizlik güveni öldürür.
+5.  **Analiz:** Sistem ayağa kalkınca loglara bak ve kök nedeni (Root Cause) bul.
 
----
+----------
 
-# 6️⃣ Alarm yorgunluğu (çok tehlikeli)
+# 6️⃣ Alarm Yorgunluğu (Alert Fatigue)
 
-Her alarm:
-- Dikkat böler
-- Stres yaratır
+Telefonun günde 50 kere "Hata var" diye ötüyorsa, bir süre sonra bakmazsın. Ve o bakmadığın bildirim, gerçek yangın olur.
 
-Yanlış yaklaşım:
-- Her error için alarm
+**Alarm Kuralları:**
+-   **Warning (Uyarı):** Disk %80 dolu. -> _E-mail at. (Sabah bakarım)._
+-   **Critical (Kritik):** Ödeme sistemi yanıt vermiyor. -> _SMS at / Ara. (Gece 3 olsa bile uyanmalıyım)._
 
-Doğru yaklaşım:
-- Kullanıcıyı etkileyen durumlar için alarm
-- Trend bazlı alarm
-- Sessiz ama anlamlı alarm
+----------
 
-> Alarm varsa,  
-> gerçekten bakmalısın.
+# 7️⃣ Case Study: SilentCut FFMPEG Faciası
 
----
+**Olay:** SilentCut'ta bir kullanıcı bozuk bir video dosyası yükledi. **Sonuç:** FFMPEG işlemi sunucunun tüm RAM'ini yedi. Sunucu kilitlendi (OOM Kill).
 
-# 7️⃣ İlk prod krizi: Ne olur, ne yapılır?
+**Eksik Olan Ne İdi?**
 
-İlk kriz genelde:
-- Upload çalışmaz
-- Job’lar takılır
-- Ödeme patlar
-- Sistem yavaşlar
+-   **Monitoring:** RAM kullanımı %99'a geldiğinde uyarı yoktu.
+-   **Logging:** Neden çöktüğü loglanmamıştı, sadece "Process killed" yazıyordu.
 
-### Yanlış refleks
-- Panik
-- Rastgele deploy
-- “Bir şeyler deneyeyim”
+**Ders:**
 
-### Doğru refleks
-1. Etki alanını belirle
-2. Geri alabiliyor musun bak
-3. Kullanıcıyı bilgilendir
-4. Sonra analiz yap
+-   Loglara `resource_usage` eklendi.
+-   RAM %80 olunca "Autoscale" veya "Reject Job" mekanizması kuruldu.
 
-> Krizde hız değil,  
-> **soğukkanlılık** kazandırır.
+----------
 
----
+# 🛠️ Haftalık Görevler (Commitment Checklist)
 
-# 8️⃣ Kriz sonrası yapılması gerekenler
+### 1. [ ] Sentry (veya benzeri) Kur
 
-Kriz bittikten sonra:
-- “Bir daha olmasın” demek yetmez
+Frontend ve Backend'e bağla. Bilerek bir hata fırlat (`throw new Error("Test")`) ve panele düştüğünü gör.
 
-Yapılacaklar:
-- Kısa post-mortem yaz
-- Kök neden analizi yap
-- Gerekirse alarm ekle
-- Gerekirse test ekle
+### 2. [ ] `/healthz` Endpoint Yaz
 
-Ama:
-> Suçlu arama.  
-> Sistem düzelt.
+Veritabanı bağlantısını kontrol eden basit bir route ekle.
 
----
+### 3. [ ] Uptime Monitor Ayarla
 
-# 9️⃣ SilentCut bağlamında düşünürsek
+UptimeRobot (ücretsiz) hesabı aç, `/healthz` adresini izlemeye al. Siteni durdur ve mail gelip gelmediğini dene.
 
-Bu tarz ürünlerde:
-- Job queue tıkanması
-- Uzun süren işlemler
-- Upload timeout’ları
+### 4. [ ] Basit Runbook Yaz
 
-İyi monitoring:
-- Job sayısını
-- Ortalama işlem süresini
-- Başarısız job oranını gösterir
+Bir kağıda "Site çökerse ilk kimi arayacağım? (Kendimi), İlk nereye bakacağım?" adımlarını yaz.
 
-> Krizi kullanıcıdan değil,  
-> panelden öğren.
+----------
 
----
+# ⛔️ Yasaklı Davranışlar (Anti-Patterns)
 
-# 🛠️ Bu haftanın görevleri
+-   **"Kullanıcı yazar nasıl olsa."** -> Kullanıcı yazmaz, rakibe gider.
+-   **"Logları sunucuda dosyaya yazmak."** -> Sunucu ölürse, dosya da ölür. Logları dışarı (SaaS) gönder.
+-   **"Her 404 hatasında bana SMS at."** -> 1 günde delirirsin. Sadece 500 hatalarında SMS at. 
 
-## 1️⃣ Ölçülecek 5 kritik metriği yaz
-- Gerçekten önemli olanlar
+----------
 
----
+## 🔚 3. Faz Tamamlandı!
 
-## 2️⃣ Bir health check tanımla
-- Ne kontrol edecek?
+Tebrikler! Artık;
 
----
+1.  Fikri doğruladın (Faz 1).
+2.  MVP'yi kodladın (Faz 2).
+3.  Altyapıyı, güvenliği ve operasyonu kurdun (Faz 3).
 
-## 3️⃣ Log formatını belirle
-- Hangi alanlar olacak?
+Şimdi sırada en heyecanlı (ve en zor) kısım var: **Büyüme & Analitik.** Ürün çalışıyor ama **"İşe yarıyor mu?"**
 
----
-
-## 4️⃣ 1 alarm senaryosu yaz
-- Ne olursa alarm çalar?
-
----
-
-## 5️⃣ “Prod krizi olursa ne yaparım?” planı yaz
-- 5 adım
-
----
-
-## ✅ Haftanın çıktıları
-
-Bu hafta sonunda elinde:
-
-- Minimal monitoring stratejisi
-- Anlamlı logging alışkanlığı
-- Kriz anında panik yapmayan refleks
-- Daha az sürpriz
-
-olmalı.
-
----
-
-## ⚠️ Son söz
-
-> Sorun çıkmayan sistem yoktur.  
-> Sorunu fark edemeyen sistem vardır.
-
----
-
-## 🔚 3. Faz Sonu
-
-Bu hafta ile:
-- Üretim kalitesi
-- Operasyonel farkındalık
-- Kriz yönetimi
-
-tamamlandı.
-
----
+----------
 
 ## 🔜 4. Faz – Ölçüm, Büyüme & Sürdürülebilirlik (Hafta 16–20)
 
-Bir sonraki hafta:
-> **16 – Analitik, Kullanıcı Davranışı & Doğru Metrikler**
+-   **16. Hafta:** **Product Analytics & Metrics.**
+-   Google Analytics yeterli mi? (Hayır).
+-   "Retention" (Elde tutma) neden "Acquisition" (Müşteri bulma) dan daha önemlidir?
+-   Funnel (Huni) analizi nasıl yapılır?
 
-Artık:
-- Sadece “çalışıyor mu?” değil  
-- **“işe yarıyor mu?”** diyeceğiz.
+----------
+
+_Developer to Founder - Week 15_
