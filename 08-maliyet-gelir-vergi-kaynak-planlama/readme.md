@@ -1,364 +1,152 @@
-# 08 – Maliyet, Gelir, Vergi & Kaynak Planlama  
-## “Kazandım” Sanmak ile “Gerçekten Kazanmak” Arasındaki Fark
+# 08 – Unit Economics & Finance: "100 TL Kazandım" Yanılgısı
 
-Bu haftanın amacı:
-> **Ürünün sadece çalışıp çalışmadığını değil,  
-> para kazandırıp kazandırmadığını anlamak.**
+> **Haftanın Mottosu:** "Ciro (Revenue) egodur, Kâr (Profit) gerçektir. Cebine girmeyen para, senin paran değildir."
 
-Birçok SaaS:
-- Satış yapar
-- Kullanıcı bulur
-- Para alır  
-
-ama:
-> Vergi, komisyon, altyapı ve operasyon sonrası  
-> **negatif kârla** çalışır.
-
-Bu hafta:
-- “100 TL sattım” ≠ “100 TL kazandım” gerçeğini netleştiriyoruz.
+Bu haftanın amacı muhasebeci olmak değil; muhasebecin seni uyarmadan önce batıp batmadığını anlamaktır.
+Çoğu indie hacker şu hatayı yapar: Sunucu maliyetini hesaplar, üzerine %20 ekler ve "Kâr ettim" sanır. Oysa vergi, komisyon, iade ve kur farkı o %20'yi çoktan yemiştir.
 
 ---
 
-## 🎯 Haftanın hedefi
+## 🎯 Haftanın Hedefleri (Learning Outcomes)
 
-Bu hafta sonunda katılımcı:
-
-- Bir satıştan **eline gerçekten ne kaldığını** hesaplayabilecek
-- Gelirden düşen maliyetleri bilecek
-- Vergi öncesi / vergi sonrası kâr farkını anlayacak
-- Şirket kurmadan önce & sonra tabloyu görebilecek
-- Türkiye vs yurt dışı şirket farklarını kavrayacak
-- “Ne zaman şirket kurmalıyım?” sorusuna net cevap verecek
+Bu modülü tamamladığında:
+* [ ] **"Net Profit"** ile **"Gross Revenue"** arasındaki uçurumu hesaplayabileceksin.
+* [ ] Türkiye'de şirket kurmak vs. Yurt dışı (Stripe Atlas/Estonya) arasındaki farkı gerçekçi bir gözle göreceksin.
+* [ ] **Merchant of Record (MoR)** kavramını (Paddle/Lemon Squeezy) ve neden solo founder için kritik olduğunu anlayacaksın.
+* [ ] Bir kullanıcının sana maliyetini (COGS) kuruşu kuruşuna çıkarabileceksin.
 
 ---
 
-# 1️⃣ Maliyet türleri (kısa hatırlatma)
+# 1️⃣ The "100 TL Illusion": Para Nereye Gidiyor?
 
-## 1. Saf (pure) ürün maliyetleri
-- Compute (CPU / GPU)
-- Storage
-- Bandwidth
-- Queue / background job
-- API maliyetleri
+Bir kullanıcı sana 100 TL ödediğinde, zengin olduğunu sanabilirsin. Gel bu parayı "Waterfall" (Şelale) yöntemiyle eritelim.
 
-## 2. Operasyonel maliyetler
-- Monitoring / logging
-- Email / SMS
-- Destek süresi
-- Domain / sertifika
-- SaaS tool’ları
+*Senaryo: Türkiye'de yaşayan bir müşteriye 100 TL'lik satış yaptın.*
 
-## 3. Gelirden düşen maliyetler (EN ÇOK ATLANAN)
-- Ödeme sağlayıcı komisyonu
-- Platform fee (marketplace)
-- Chargeback / iade
-- Döviz dönüşüm farkları
+| Adım | İşlem | Kalan Tutar | Açıklama |
+| :--- | :--- | :--- | :--- |
+| **1. Satış** | + 100.00 TL | **100.00 TL** | Müşterinin kredi kartından çekilen tutar. |
+| **2. KDV (VAT)** | - 16.67 TL | **83.33 TL** | Devletin payı (%20). Bu para senin hiç olmadı. |
+| **3. Komisyon** | - 19.00 TL | **64.33 TL** | Ödeme altyapısı (Paddle/Stripe) + İşlem ücreti + Kur makası. |
+| **4. Maliyet (COGS)** | - 12.00 TL | **52.33 TL** | Sunucu, API, Storage. (Ürünü çalıştırma maliyeti). |
+| **5. Gelir Vergisi** | - 15.70 TL | **36.63 TL** | Şirket kârı üzerinden devlete ödenen vergi (Ort. %30 bandı). |
+| **SONUÇ** | **NET KÂR** | **36.63 TL** | **Cebine giren gerçek para.** |
+
+> **Acı Gerçek:** 100 TL ciro yaptığında aslında sadece **36 TL** kazandın. Eğer fiyatını buna göre belirlemezsen, ölçeklendikçe batarsın.
 
 ---
 
-# 2️⃣ “100 TL sattım” gerçeği – adım adım hesap
+# 2️⃣ Maliyet Türleri: Neyi Hesaba Katmalısın?
 
-Şimdi senin verdiğin örneği **doğru ve gerçekçi** şekilde yapalım.
+Maliyet sadece AWS faturası değildir.
 
-> Varsayım:  
-> Türkiye’de yaşayan bir kullanıcıdan **100 TL’lik SaaS token satışı**
+### 1. COGS (Cost of Goods Sold) - Ürünün Maliyeti
+Her yeni kullanıcı geldiğinde artan maliyetlerdir.
+* Sunucu (CPU/RAM).
+* Storage (S3/R2).
+* API Kullanımı (OpenAI, Replicate vb.).
+* *Bu maliyet, satış fiyatının %20-30'unu geçmemelidir.*
 
----
-
-## 1️⃣ KDV (Türkiye – %20)
-
-- Brüt fiyat: **100 TL**
-- KDV (%20): **16,67 TL**
-- Net gelir (KDV hariç): **83,33 TL**
-
-> KDV senin gelirin değildir.  
-> Devlet adına tahsil edilir.
-
----
-
-## 2️⃣ Ödeme sağlayıcı (Paddle örneği)
-
-Paddle (ortalama):
-- %5 komisyon
-- + 0.5 USD işlem başı
-
-Varsayım:
-- Kur: 30 TL
-- 0.5 USD ≈ 15 TL
-
-Hesap:
-- %5 → 4,17 TL
-- Sabit ücret → 15 TL
-
-**Toplam kesinti:** ~19 TL
-
-Kalan:
-- **83,33 – 19 ≈ 64 TL**
+### 2. OpEx (Operational Expenses) - Dükkanın Maliyeti
+Hiç satış yapmasan bile ödediğin paralar.
+* Domain, Email servisi.
+* Şirket muhasebe ücreti.
+* Kendi maaşın (Evet, bunu da maliyet yazmalısın).
 
 ---
 
-## 3️⃣ Ürün maliyeti (örnek)
+# 3️⃣ Şirketleşme: Ne Zaman ve Nerede?
 
-Diyelim ki bu kullanıcı:
-- Compute + storage + bandwidth = **12 TL**
+Kod yazmak kolay, şirket kurmak karmaşıktır. İşte yazılımcı diliyle seçenekler:
 
-Kalan:
-- **64 – 12 = 52 TL**
+## 🇹🇷 Seçenek A: Şahıs Şirketi (Solo Dev Başlangıç Paketi)
+* **Kurulum:** 1 günde, e-devlet üzerinden. Çok ucuz.
+* **Vergi:** Artan oranlı (%15 - %40). Çok kazanırsan devlet ortağın olur.
+* **Kime Uygun?** MVP aşamasında, aylık geliri asgari ücretin 2-3 katını geçmeyenler için.
 
----
+## 🇹🇷 Seçenek B: Limited / A.Ş. (Scale-Up Paketi)
+* **Kurulum:** Pahalı ve bürokratik. Kapatmak çok zor.
+* **Vergi:** Sabit Kurumlar Vergisi (%25). Gider gösterme imkanı geniş.
+* **Kime Uygun?** Yatırım alacaklar veya düzenli yüksek gelir (aylık 100k+ TL) elde edenler için.
 
-## 4️⃣ Vergi (şirket YOK, bireysel gelir gibi düşünürsek)
+## 🇺🇸/🇪🇪 Seçenek C: Yurt Dışı (Stripe Atlas / Estonya)
+* **Avantaj:** Stripe/PayPal kullanabilmek. Global prestij.
+* **Risk:** Türkiye'de yaşıyorsan "Vergi Mukimliği" sorunu. Türkiye, "Burada yaşıyorsan vergini buraya ver" der. Çifte vergilendirme riski vardır.
+* **Kime Uygun?** Gelirin %99'u yurt dışından geliyorsa ve iyi bir mali müşavirin varsa.
 
-Eğer şirket yoksa:
-- Bu gelir **ticari gelir** sayılır
-- %15–40 arası gelir vergisine girer (kademeli)
-
-Basit ve muhafazakâr düşünelim:
-- %30 efektif vergi
-
-Vergi:
-- **~16 TL**
-
-Kalan:
-- **~36 TL**
+> **Altın Kural:** İlk satışı yapmadan şirket kurma. Fatura kesmek zorunda kaldığın gün, şirket kurmak için en doğru gündür.
 
 ---
 
-## 📌 Özet tablo
+# 4️⃣ Merchant of Record (MoR) Nedir?
 
-| Aşama | Tutar (TL) |
-|----|-----------|
-| Kullanıcı ödedi | 100 |
-| KDV çıktı | -16,7 |
-| Paddle | -19 |
-| Ürün maliyeti | -12 |
-| Vergi | -16 |
-| **Gerçek kazanç** | **~36 TL** |
+Solo founder için en büyük kurtarıcı: **Paddle** veya **Lemon Squeezy**.
 
-> 100 TL satış → **36 TL gerçek kazanç**
+Normalde (Stripe/Iyzico kullanırsan):
+* Almanya'ya satarsan Almanya KDV'sini hesapla.
+* ABD'ye satarsan eyalet vergisini hesapla.
+* Bunları topla ve ilgili devletlere öde. (İMKANSIZ).
 
-Bu oranı bilmiyorsan:
-> Fiyatlandırma da, büyüme de **kör** olur.
-
----
-
-# 3️⃣ Şirket kurulursa ne değişir?
-
-İşte oyunu değiştiren nokta burası 👇
-
-## ✅ Şirket varken avantajlar
-
-### 1️⃣ Gider yazabilirsin
-- Server
-- Tool’lar
-- Domain
-- Ofis / internet (kısmen)
-- Danışmanlık
-- Reklam
-
-Bu giderler:
-> **Vergi matrahını düşürür**
+**MoR (Paddle/Lemon Squeezy) kullanırsan:**
+* Onlar senin adına satar.
+* Tüm vergileri onlar toplar ve öder.
+* Sana ay sonunda tek bir "Hizmet Bedeli" faturası keser ve paranı yatar.
+* **Komisyon:** Biraz yüksektir (%5 + 50¢) ama seni hapse girmekten veya muhasebe cehenneminden kurtarır.
 
 ---
 
-### 2️⃣ Kurumlar vergisi (Türkiye)
-- %25 (2025 itibarıyla)
+# 5️⃣ Unit Economics & Pricing (Fiyatlandırma)
 
-Ama:
-- Giderler düştükten sonra
+SilentCut örneği üzerinden gidelim.
 
-Örnek:
-- 52 TL kâr vardı
-- 20 TL gider yazdın
+**Senaryo:** Aylık $9 sabit abonelik. Sınırsız video işleme.
+**Risk:** Bir kullanıcı geldi, 50 tane 4K video yükledi.
+* Sunucu maliyeti: $15
+* Gelir: $9
+* **Zarar:** -$6
 
-Vergi:
-- (52–20) × %25 = **8 TL**
+**Çözüm:** Kullanım Bazlı Fiyatlandırma (Usage-Based) veya Kredi Sistemi.
+* Kullanıcı 1 saatlik kredi alır ($10).
+* Maliyetin bellidir ($2).
+* Karın garantidir ($8).
 
-Net:
-- **~44 TL**
-
-> Şirket → bireyden **daha avantajlı** hale gelir
-
----
-
-### 3️⃣ KDV dengeleme
-- Giderlerde ödediğin KDV
-- Aldığın KDV’den düşülür
-
-Bu da ciddi avantajdır.
+> **Ders:** Maliyetin "Variable" (değişken) ise, fiyatın "Fixed" (sabit) olamaz. Batarsın.
 
 ---
 
-# 4️⃣ Türkiye’de şirket türleri (kısa ama net)
+# ⚡️ Haftalık Görevler (Commitment Checklist)
 
-## 1️⃣ Şahıs Şirketi
-**Avantaj**
-- Hızlı kurulur
-- Ucuz
-- Muhasebe kolay
+### 1. [ ] "Gerçek 100 TL" Tablonu Yap
+Yukarıdaki tabloyu kendi ürünün için doldur.
+* Komisyon oranın ne?
+* Ortalama sunucu maliyetin ne?
+* Eline net ne kalıyor?
 
-**Dezavantaj**
-- Gelir vergisi kademeli (%15–40)
-- Büyüdükçe pahalılaşır
-- Algısal olarak “küçük”
+### 2. [ ] Başabaş Noktası (Break-even) Hesabı
+* Aylık sabit giderin (muhasebe + araçlar) ne kadar? (Örn: 5.000 TL)
+* Ürün başı net kârın ne kadar? (Örn: 36 TL)
+* 5000 / 36 = **138 Müşteri.**
+* *Soru: İlk ay 138 müşteri bulabilir misin? Bulamazsan cepten yiyeceksin.*
 
-**Ne zaman uygun?**
-- MVP
-- Düşük gelir
-- Hızlı başlamak
-
----
-
-## 2️⃣ Limited Şirket
-**Avantaj**
-- Kurumlar vergisi (%25)
-- Gider yazma geniş
-- B2B için güvenilir
-
-**Dezavantaj**
-- Kuruluş & muhasebe maliyeti
-- Kapanışı zor
-
-**Ne zaman uygun?**
-- Düzenli gelir başladıysa
-- Aylık anlamlı ciro varsa
+### 3. [ ] "MoR" Araştırması
+Paddle ve Lemon Squeezy'yi incele. Türkiye'den kabul ediyorlar mı? Komisyonları ne? Senin iş modeline (Abonelik vs Tek Seferlik) uygun mu?
 
 ---
 
-## 3️⃣ Anonim Şirket
-**Avantaj**
-- Yatırım alma
-- Hisse devri kolay
-- Prestij
+# ⛔️ Yasaklı Düşünceler (Anti-Patterns)
 
-**Dezavantaj**
-- En pahalı yapı
-- MVP için ağır
-
-**Ne zaman?**
-- Yatırım hedefi varsa
+* **"Vergi vermesem olur mu?"** -> Olmaz. Devlet her zaman kazanır.
+* **"Fiyatı düşük tutayım, sürümden kazanırım."** -> Sürümden kazanmak için Walmart olman lazım. Sen butiksin, kâr odaklı olmalısın.
+* **"Şirketi kurayım, ürün sonra biter."** -> Her ay boş beyanname damga vergisi öderken motivasyonun biter. Önce satış, sonra şirket.
 
 ---
 
-# 5️⃣ Yurt dışında şirket (Stripe Atlas, Estonya vb.)
+## 🔜 Gelecek Hafta: Proje Yönetimi & Disiplin
 
-## Avantajlar
-- Global ödeme kolay
-- Vergi planlaması
-- Uluslararası algı
-
-## Dezavantajlar
-- Hukuk / muhasebe karmaşıklığı
-- Türkiye’de yaşıyorsan **vergi mukimliği riski**
-- Çifte vergilendirme ihtimali
-
-> Yurt dışı şirket:
-> - Ürün global
-> - Gelir ciddi
-> - Hukuki danışmanlık varsa  
-> **mantıklı**
-
-“Sadece vergi az” diye erken girilirse:
-> baş ağrıtır.
+Para işlerini hallettik. Peki bu işleri nasıl takip edeceğiz?
+* Jira mı, Trello mu, Notion mı?
+* Git branch stratejisi.
+* "Founder Mode"da kendi kendini yönetmek.
 
 ---
-
-# 6️⃣ Ne zaman şirket kurmalıyım? (altın soru)
-
-## ❌ Çok erken şirket kurma
-- Ürün yokken
-- Satış yokken
-- Fikir aşamasında
-
-→ Gereksiz masraf
-
----
-
-## ✅ Doğru zaman sinyalleri
-- Düzenli ödeme almaya başladıysan
-- Fiyatlandırma oturuyorsa
-- Giderleri yazma ihtiyacı oluştuysa
-- Hukuki risk oluşuyorsa
-
-> Çoğu SaaS için:
-> **ilk satış → 1–3 ay içinde şirket**
-
-makul bir çizgidir.
-
----
-
-# 7️⃣ MVP için zorunlu finans tablosu
-
-Her katılımcı şunu doldurmalı:
-
-### A) Bir satıştan kalan
-- Brüt fiyat
-- KDV
-- Platform kesintisi
-- Ürün maliyeti
-- Vergi (şirketli / şirketsiz)
-
-### B) Aylık senaryolar
-- 10 kullanıcı
-- 100 kullanıcı
-- 1000 kullanıcı
-
-Her biri için:
-> **Net kâr / zarar**
-
----
-
-# 🛠️ Bu haftanın görevleri (güncellenmiş)
-
-## 1️⃣ 1 satıştan eline kalan tutarı hesapla
-- Varsayım bile olsa yaz
-
----
-
-## 2️⃣ Şirketli vs şirketsiz karşılaştır
-- Hangisi daha mantıklı?
-
----
-
-## 3️⃣ Fiyatlandırma bu tabloya göre mantıklı mı?
-- Gerekirse fiyatı revize et
-
----
-
-## 4️⃣ “Bu ürün büyürse” finansal stres testi yap
-- Nerede patlar?
-- Nerede kazanır?
-
----
-
-## ✅ Haftanın çıktıları
-
-Bu hafta sonunda elinde:
-
-- Gerçek kâr hesabı
-- Vergi farkındalığı
-- Şirket kurma kararı için zemin
-- Fiyatlandırma gerçekliği
-
-olmalı.
-
----
-
-## ⚠️ Son söz
-
-> Para kazandığını sanan  
-> ama hesap yapmayan founder  
-> **en geç fark edendir**.
-
----
-
-## 🔜 Sonraki hafta (9. Hafta)
-
-**09 – Versiyon Kontrolü & Proje Yönetimi**
-
-- Git stratejileri
-- Branch modelleri
-- Kendi kendini yöneten founder
-- Teknik işlerin yarım kalmasını engelleme
-
----
+*Developer to Founder - Week 08*
