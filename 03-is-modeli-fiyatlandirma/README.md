@@ -1,278 +1,148 @@
-# 03 – İş Modeli & Fiyatlandırma
+# 03 – Show Me The Money: İş Modeli & Fiyatlandırma
 
-Bu haftanın amacı:
-> **Ürünün nasıl para kazanacağını ve bu paranın sürdürülebilir olup olmadığını netleştirmek.**
+> **Haftanın Mottosu:** "İş modeli olmayan bir ürün, sadece sunucu faturası ödediğin pahalı bir hobidir."
 
-Bir ürün:
-- Çok kullanılıyor olabilir  
-- Çok beğeniliyor olabilir  
+Geçen hafta "Kime satacağız?" sorusunu çözdük. Bu hafta **"Nasıl para kazanacağız?"** sorusunu (Monetization Strategy) çözeceğiz.
 
-Ama:
-> **Para kazanmıyorsa, hobi olmaktan öteye geçmez.**
+Bir ürünün GitHub'da 10.000 star alması veya Product Hunt'ta günün birincisi olması harikadır. Ancak kasa eksi yazıyorsa, o proje ölü doğmuştur.
 
 ---
 
-## 🎯 Haftanın hedefi
+## 🎯 Haftanın Hedefleri (Learning Outcomes)
 
-Bu hafta sonunda katılımcı:
-
-- Ürünün **nasıl para kazanacağını** net olarak bilecek
-- “Fiyat koymak ayıp” psikolojisini aşacak
-- Yanlış fiyatlandırmanın ürünü nasıl öldürdüğünü anlayacak
-- Basit bir **unit economics** hesabı yapabilecek
-- “Ucuz mu pahalı mı?” yerine **doğru mu yanlış mı?** diye bakacak
+Bu modülü tamamladığında:
+* [ ] "Fiyatı sonra belirleriz" yalanından kurtulacaksın.
+* [ ] Ürününün doğasına en uygun **Gelir Modelini (Revenue Model)** seçeceksin.
+* [ ] Basit bir **Unit Economics** (Birim Ekonomisi) hesabı yaparak batıp batmayacağını ön göreceksin.
+* [ ] Fiyatlandırmayı bir pazarlama kararı değil, **stratejik bir mühendislik kararı** olarak göreceksin.
 
 ---
 
-## 🧠 En yaygın founder yanılgısı
+## 🧠 En Büyük Founder Yanılgısı: "Önce Kullanıcı, Sonra Para"
 
-> “Önce kullanıcı gelsin, para sonra.”
+Twitter/X'te gördüğün o viral olan ama batan startup'ların mezar taşına şöyle yazılır:
+> *"Çok kullanıcımız vardı ama faturaları ödeyemedik."*
 
-Gerçek:
-- Para **en erken** test edilmesi gereken şeydir
-- Ücretsiz kullanıcı:
-  - Yalan söyleyebilir
-  - Kaçabilir
-  - Geri dönmeyebilir
-
-Ama:
-> **Para veren kullanıcı yalan söylemez.**
+**Gerçekler:**
+1.  **Ücretsiz Kullanıcı Yalan Söyler:** "Harika olmuş eline sağlık" der ama kullanmaz.
+2.  **Ücretli Kullanıcı Dürüsttür:** Para veren kişi, cüzdanıyla oy kullanır. En iyi feedback, faturadır.
+3.  **Para, Doğrulamadır:** Birisi henüz bitmemiş ürününe (MVP) para veriyorsa, PMF (Product-Market Fit) yolundasın demektir.
 
 ---
 
-## 💰 İş modeli nedir? (net tanım)
+## 💰 İş Modeli: Paranın API Dokümantasyonu
 
-İş modeli:
-> **Kimin, ne için, ne zaman, nasıl ve neden para ödediğidir.**
+İş modeli karmaşık bir MBA terimi değildir. Basitçe şudur:
+> **KİM, NE İÇİN, NE ZAMAN ve NASIL ödüyor?**
 
-Bu sorulardan biri boşsa:
-- Model eksiktir
-- Gelir rastlantısaldır
+Yazılımcı diliyle en yaygın modelleri inceleyelim:
 
----
+### 1. Abonelik (SaaS / Subscription)
+* **Mantık:** `cron job` gibi. Her ay düzenli ödeme.
+* **Kullanım:** Slack, Netflix, Spotify.
+* **Bug:** Kullanıcı o ay ürünü kullanmazsa "boşuna ödüyorum" der ve iptal eder (Churn).
+* **Patch:** Sürekli değer üretmek zorundasın.
 
-## 🔄 Yaygın iş modeli türleri
+### 2. Kullanım Bazlı (Usage-Based / Pay-as-you-go)
+* **Mantık:** AWS Lambda veya OpenAI API gibi. Kullandığın kadar öde.
+* **Kullanım:** API servisleri, SMS gönderim toolları.
+* **Bug:** Gelir tahminlemesi zordur (MRR dalgalanır).
+* **Patch:** "Credits" (Kredi) sistemi ile ön ödeme almak.
 
-### 1️⃣ Abonelik (Subscription)
-- Aylık / yıllık ödeme
-- SaaS’larda yaygın
-
-**Avantaj**
-- Öngörülebilir gelir
-
-**Risk**
-- Değer her ay hissedilmezse churn olur
-
----
-
-### 2️⃣ Kullanım Bazlı (Usage-based)
-- Dakika, kredi, token, işlem sayısı
-
-**Avantaj**
-- “Az kullanana az öde” adil algısı
-
-**Risk**
-- Maliyet hesabı iyi yapılmazsa zarar ettirir
+### 3. Tek Seferlik (LTD - Lifetime Deal)
+* **Mantık:** Eski usül lisans satışı. `npm install` ve bitiş.
+* **Kullanım:** Desktop uygulamaları, pluginler.
+* **Bug:** Para bir kere gelir, ama destek yükü sonsuza kadar sürer. Nakit akışını öldürür.
 
 ---
 
-### 3️⃣ Freemium
-- Sınırlı ücretsiz + ücretli plan
+## 🛠 Case Study: SilentCut Fiyatlandırma Pivotu
 
-**Avantaj**
-- Deneme eşiğini düşürür
+**Hipotez v1:** *"Aylık $29 Abonelik yapalım."*
+**Sonuç:** Çuvalladı.
+**Neden:** Hedef kitlemiz olan YouTuber'lar her gün video atmıyor. Ayda 2 video atan adam, aboneliği "gereksiz masraf" gördü.
 
-**Risk**
-- Bedava kullanıcı çok, gelir yok
+**Hipotez v2 (Pivot):** *"Kredi (Token) Sistemi."*
+**Mantık:**
+* 1 Video = 1 Kredi.
+* Kullanıcı 10 kredi alır, isterse 1 ayda harcar, isterse 1 yılda.
+**Sonuç:** Satışlar arttı. Kullanıcı "kontrol bende" hissini sevdi.
 
----
-
-### 4️⃣ Tek Seferlik Satış
-- Lisans, lifetime access
-
-**Avantaj**
-- Basit
-
-**Risk**
-- Sürekli gelir yok
-- Destek yükü kalıcı
+> **Ders:** İş modelini, kullanıcının **tüketim alışkanlığına** (Frequency of Use) göre seçmelisin.
 
 ---
 
-## 🧪 SilentCut Case Study – Model Seçimi
+## 🧮 Unit Economics: Batışın Matematiği
 
-İlk düşünce:
-> “Aylık abonelik yapalım.”
+Bakkal hesabı yapmadan kod yazarsan, büyüdükçe batarsın.
 
-Sorun:
-- Kullanım **düzensiz**
-- Ayda 1–2 video kırpan kullanıcı var
-- “Boşuna para ödüyormuşum” hissi
+**Basit Formül:**
+`Kar = (Müşteri Başına Gelir) - (Müşteri Başına Maliyet)`
 
-Sonra:
-> **Kullanım bazlı (token / dakika) modele geçiş**
+Örnek (SilentCut):
+* **Sunucu Maliyeti (GPU):** 1 saatlik video işlemek $0.50
+* **Storage/Bandwidth:** $0.10
+* **Toplam Maliyet (COGS):** $0.60
 
-Neden?
-- Kullanıcı:
-  - Ne kullandığını görüyor
-  - Kontrol hissi yaşıyor
-- Founder:
-  - Maliyeti ölçebiliyor
-  - Marjı ayarlayabiliyor
+Eğer sen bu işlemi kullanıcıya **$0.50'ye satarsan**, her satışta **$0.10 zarar edersin.**
+*"Sürümden kazanırız"* dersen, çok satarsan çok batarsın.
 
-Ama burada da yeni soru çıktı:
-> “1 token = ne?”
-
-İşte fiyatlandırma burada başlıyor.
+> **Kural:** Maliyetini bilmeyen, fiyatını belirleyemez.
 
 ---
 
-## 🧮 Unit Economics (korkulacak bir şey değil)
+## 🧠 Fiyatlandırma Psikolojisi: "Kaç Para?" vs "Değer Mi?"
 
-Unit economics şu sorudur:
-> “Bir kullanıcı bana kaça mal oluyor, ben ondan ne kazanıyorum?”
+Fiyatlandırma teknik bir hesaplama değil, **algı yönetimidir.**
 
-### Basit örnek:
+**Yanlış Bakış:**
+"Ben bu kodu yazmak için 100 saat harcadım, o yüzden pahalı olmalı." (Kullanıcının umurunda değil.)
 
-- 1 video işleme maliyeti:
-  - CPU / GPU: X
-  - Storage: Y
-  - Bandwidth: Z
+**Doğru Bakış (Value-Based Pricing):**
+"Bu yazılım senin 5 saatini kurtarıyor. Senin saatin $50 ise, ben sana $250 kazandırıyorum. O zaman bu ürün $30 eder."
 
-Toplam maliyet = **X + Y + Z**
+### Fiyat Merdiveni (The Ladder)
+Tek bir fiyat koyma. İnsanlara seçenek sunarak yönlendir.
 
-Eğer:
-- Kullanıcıdan aldığın < maliyet  
-→ Ürün büyüdükçe **batarsın**
-
----
-
-## ⚠️ En tehlikeli fiyatlandırma hataları
-
-❌ Rakibe bakıp aynısını koymak  
-❌ “Ucuz olalım, gelir sonra”  
-❌ Herkese aynı fiyat  
-❌ Maliyeti bilmeden fiyat koymak  
-
-Fiyat:
-> Pazarlama değil, **stratejik bir karardır**
+1.  **Anchor (Çapa):** Pahalı Paket ($99). (Diğerlerinin ucuz görünmesini sağlar.)
+2.  **Target (Hedef):** Satmak istediğin Paket ($29). "En Popüler" etiketi buradadır.
+3.  **Entry (Giriş):** Deneme Paketi ($9).
 
 ---
 
-## 🧠 Fiyatlandırma psikolojisi
+## ⚡️ Haftalık Görevler (Commitment Checklist)
 
-Kullanıcı şunu sormaz:
-> “Bu kaç TL?”
+### 1. [ ] İş Modelini Seç
+Abonelik mi? Kredi sistemi mi? Tek seferlik mi? Karar ver ve nedenini bir cümleye yaz.
+* *Örnek: "Benim ürünüm Usage-Based olacak çünkü kullanıcılar sadece proje bazlı ihtiyaç duyuyor."*
 
-Şunu sorar:
-> “Buna değer mi?”
+### 2. [ ] Bakkal Hesabı (Napkin Math)
+* 1 Kullanıcı sana kaça mal oluyor? (Sunucu, API, vb.)
+* Başabaş noktası (Break-even) için fiyat en az kaç olmalı?
 
-SilentCut’ta:
-- “30 dk montajdan 5 dk’ya düşürüyorsa”
-- Zaman kazancı:
-  - Paraya çevrilebilir
-  - Duygusal olarak hissedilir
-
-Yani fiyat:
-> Teknik değil, **algısal** bir konudur
-
----
-
-## 🪜 Fiyat merdiveni (Pricing Ladder)
-
-İyi bir ürün:
-- Tek fiyat sunmaz
-- Kullanıcıyı yukarı taşır
-
-Örnek yapı:
-- Ücretsiz deneme
-- Düşük paket
-- Orta paket (en çok satılan)
-- Pro / Power user paketi
-
-Ama:
-> Paket sayısı arttıkça kafa karışır
+### 3. [ ] "Pricing Table" Taslağı
+Kağıt kalemi al, 3 kolon çiz:
+* **Plan A:** (Giriş seviyesi - kısıtlı özellik)
+* **Plan B:** (Ana hedef - full özellik)
+* **Plan C:** (Ajans/Pro - toplu alım vs.)
+Her birine bir fiyat etiketi yapıştır.
 
 ---
 
-## 🧪 SilentCut – Yanlış ve Doğru Paketleme
+## ⛔️ Yasaklı Düşünceler (Anti-Patterns)
 
-Yanlış:
-- Çok fazla plan
-- Küçük farklar
-- Kararsızlık
-
-Doğruya evrilen:
-- 3 plan
-- Net fark
-- Bir “default” öneri
+* **"Rakipten ucuz olayım yeter."** -> Kendini "kalitesiz" olarak konumlandırırsın. Fiyat rekabeti, dibe doğru bir yarıştır.
+* **"Bedava vereyim, sonra reklam alırım."** -> Facebook değilsen bunu unut.
+* **"Herkes için tek fiyat."** -> Kurumsal firmadan alacağın $500 ile öğrencinin vereceği $5 aynı kasaya girmez. Segmentlere ayır.
 
 ---
 
-## 🛠️ Bu haftanın görevleri
+## 🔜 Gelecek Hafta: Marka, UX & Güven İnşası
 
-### 1️⃣ İş modeli seç
-
-Şu soruya cevap ver:
-> “Kullanıcı bana **ne zaman** ve **ne için** para veriyor?”
-
-Tek cümleyle yaz.
+Haftaya ürünü "güzelleştireceğiz" ama süs olsun diye değil, **güven** versin diye:
+* İnsanlar kredi kartını neden tanımadıkları bir siteye girsin?
+* "UI önemli değil, backend sağlam" yalanı.
+* SilentCut'ta güven sinyalleri (Trust Signals) nasıl kurgulandı?
 
 ---
-
-### 2️⃣ Basit maliyet hesabı yap
-
-En azından:
-- 1 işlem / 1 kullanıcı maliyeti
-- Aylık sabit giderler
-
-Mükemmel olmasına gerek yok, **gerçekçi** olsun.
-
----
-
-### 3️⃣ İlk fiyat hipotezini yaz
-
-> “Bu ürünü X kişisi, Y problemi için, Z fiyata alır çünkü…”
-
-Satış yapmak zorunda değilsin, ama **inanmak zorundasın**.
-
----
-
-## ✅ Haftanın çıktıları
-
-Bu hafta sonunda elinde:
-
-- Net iş modeli
-- İlk fiyat hipotezi
-- Basit unit economics
-- “Bu iş para kazanabilir mi?” sorusuna dürüst cevap
-
-olmalı.
-
----
-
-## ⚠️ Önemli uyarı
-
-Bu hafta sonrası:
-- “Fiyatı sonra koyarız” yok
-- “Ucuz olsun” refleksi yok
-
-Çünkü:
-> Yanlış fiyatlandırma,  
-> iyi ürünü bile öldürür.
-
----
-
-## 🔜 Sonraki hafta
-
-**04 – Marka, UX & Güven İnşası**
-
-- İnsanlar neden sana güvensin?
-- “UI önemli değil” yanılgısı
-- SilentCut’ta güven sinyalleri neydi?
-
----
-
-> **Not:**  
-> Fiyat koyarken rahatsız hissediyorsan,  
-> doğru sorularla uğraşıyorsun demektir.
+*Developer to Founder - Week 03*
