@@ -1,120 +1,112 @@
-**From Code to Cash:** A 12-Week Roadmap for Engineering Leaders building scalable, secure, and marketable SaaS products.
+# Developer to Founder 🚀
+### Kod Yazmaktan Ürün Çıkarmaya: 2026 SaaS Yol Haritası
 
-![License](https://img.shields.io/badge/license-MIT-blue.svg) ![Status](https://img.shields.io/badge/status-active-success.svg) ![Focus](https://img.shields.io/badge/focus-Engineering%20%2B%20Product-orange)
+![License](https://img.shields.io/badge/license-MIT-blue.svg) ![Status](https://img.shields.io/badge/status-active-success.svg) ![Focus](https://img.shields.io/badge/focus-Engineering%20%2B%20Business-orange)
 
-# Developer → Founder 🚀  
-### Tek Başına (veya Küçük Ekiplerle) Ürün Çıkarma Rehberi
+> **"2026'da kod yazmak artık bariyer değil. Asıl bariyer; bitirmek, yayınlamak ve satmaktır."**
 
-Bu repo, **yazılım geliştirmede teknik problemi olmayan** fakat  
-bir fikri **ürüne**, ürünü **gelire**, geliri **sürdürülebilir bir yapıya** dönüştürmekte zorlanan geliştiriciler için hazırlanmıştır.
+## 📢 Neden Bu Repo? (Manifesto)
 
-> Amaç:
-> **Kod yazabilen bir geliştiriciyi, ürün çıkaran ve para kazanabilen bir founder’a dönüştürmek.**
+2026 yılına girerken şunu net görüyoruz: **Muazzam bir "canlıya çıkış" (shipping) dönemi başlıyor.** Yapay zeka, gelişmiş framework'ler ve bulut araçları sayesinde artık herkes kod yazabiliyor.
 
----
+Bizler (Solofounder'lar, küçük ekipler, indie hacker'lar) kısıtlı bütçelerle kendi hayallerimizi inşa etmek istiyoruz. **Ancak çoğu zaman IDE'nin dışına çıkamıyoruz.**
 
-## 🎯 Kimler için?
+Mükemmel mimariler kuruyoruz, harika refactor'lar yapıyoruz ama günün sonunda elimizde **kimsenin kullanmadığı, sadece bizim makinemizde çalışan** projeler kalıyor. "Kod yazmaktan ileri gidememek" sendromunu kırmak zorundayız.
 
-- Bireysel geliştiriciler
-- Tek kişilik veya 2–5 kişilik küçük ekipler
-- Side-project yapanlar
-- Indie hacker’lar
-- Şunları yaşayanlar:
-  - “Ürünü yaptım ama kimse almıyor”
-  - “Rakip çok, nereden gireceğimi bilmiyorum”
-  - “Fiyatı nasıl koyacağım?”
-  - “Teknik borç mu alıyorum, doğru mu yapıyorum?”
-  - “Bulut, maliyet, vendor-lock beni korkutuyor”
-  - “Vergi, ödeme, fatura konularına hiç girmek istemiyorum ama mecburum”
+Bu repo; **"Sadece kod yazan"** bir geliştiriciyi, kısıtlı imkanlarla **"Ürün çıkaran ve yöneten"** bir kurucuya dönüştürmek için hazırlanmış, 20 haftalık yaşanmış bir yol haritasıdır.
 
 ---
 
-## 🧠 Bu repo ne? Ne değil?
+## 🎯 Kimler İçin?
 
-❌ Motivasyon konuşması değil  
-❌ Genel girişimcilik teorisi değil  
-❌ Sadece SaaS anlatan bir eğitim değil  
-❌ Belirli bir teknolojiye yönlendiren bir rehber değil  
-
-✅ Gerçek hayatta ürün çıkarma rehberi  
-✅ Teknik + iş + operasyon + psikoloji birlikte  
-✅ Web, mobil, B2B, B2C, SaaS fark etmeksizin geçerli  
-✅ Türkiye gerçeklerini gözeten ama global düşünen  
-✅ Template, checklist ve görevlerle ilerleyen interaktif yapı  
+* 🛠 **"Localhost" Hapsindeki Geliştiriciler:** Projeyi %90'a getirip yayınlamaya cesaret edemeyenler.
+* 💰 **Kısıtlı Bütçeliler:** Binlerce dolar reklam bütçesi olmayan, aklını ve emeğini sermaye yapanlar.
+* 👥 **Solo ve Küçük Ekipler:** CTO, CMO ve CEO şapkalarını aynı anda takmak zorunda olanlar.
+* 📉 **Teknikte Boğulanlar:** "Hangi veritabanı?" diye düşünmekten "Hangi müşteri?" diye düşünmeye fırsat bulamayanlar.
 
 ---
 
-## 🧩 Temel felsefe
+## 🧪 Case Study: SilentCut
 
-- **Problem > Kod**
-- **MVP = küçük ürün değil, risk azaltma aracı**
-- **Gelir bir özelliktir**
-- **Teknik borç alınabilir, ama bilinçsiz alınmaz**
-- **Vendor lock-in kader değildir**
-- **Founder olmak sadece teknik bir yolculuk değildir**
+Teorik bilgi karın doyurmaz. Bu repo boyunca tüm süreçleri **SilentCut** adlı hayali ama senaryoları %100 gerçek bir proje üzerinden anlatıyoruz.
+
+* **Proje:** YouTuber'lar için videolardaki sessizlikleri otomatik silen bir SaaS.
+* **Gerçekler:**
+    * "Herkes kullanır" sanırken ilk ay neden kimse gelmedi?
+    * AWS faturası nasıl $5'dan $200'a fırladı?
+    * Kod mükemmelken ürün neden satmadı?
+
+Tüm bu sancılı süreçleri, başarıları ve **daha önemlisi başarısızlıkları** adım adım analiz ediyoruz.
+
+---
+
+## 🗺️ Müfredat: 20 Haftalık Dönüşüm
+
+Bu repo 4 ana faz ve 1 final bölümünden oluşur. Sırayla takip edebilir veya ihtiyacın olan haftaya atlayabilirsin.
+
+### 🧠 Faz 1: Mindset & Validation (Kodu Bırak, Problemi Çöz)
+*En pahalı kod, kimsenin kullanmadığı koddur.*
+
+| Hafta | Konu | Odak |
+| :--- | :--- | :--- |
+| **01** | [**Fikir Doğrulama & Problem Keşfi**](./01-fikir-dogrulama-problem) | "Kendi ihtiyacım" tuzağı ve gerçek problem tanımı. |
+| **02** | [**Hedef Kitle, Pazar & Rakip Analizi**](./02-hedef-kitle-pazar-rakip) | Nişleşme stratejisi ve rakip korkusunu yenmek. |
+| **03** | [**İş Modeli & Fiyatlandırma**](./03-is-modeli-fiyatlandirma) | Abonelik mi, kredi mi? Unit Economics hesabı. |
+| **04** | [**Marka, UX & Güven İnşası**](./04-marka-ux-guven) | Developerlar için tasarım ve kullanıcı alışkanlıkları. |
+
+### 🛠️ Faz 2: Building the MVP (Sadece Gerekeni İnşa Et)
+*Mükemmel, iyinin düşmanıdır. Hele ki bütçe kısıtlıysa.*
+
+| Hafta | Konu | Odak |
+| :--- | :--- | :--- |
+| **05** | [**MVP Kapsamı & Ürün Kararları**](./05-mvp-kapsam-urun-kararlari) | MoSCoW yöntemi ve özellik budama sanatı. |
+| **06** | [**Teknik Mimari & Teknoloji Seçimi**](./06-teknik-mimari-teknoloji-secim) | Next.js vs Go? Monolit vs Mikroservis? Hız odaklı seçimler. |
+| **07** | [**Altyapı, Hosting & CI/CD**](./07-altyapi-hosting-cicd) | VPS, PaaS ve Vendor Lock-in yönetimi. |
+| **08** | [**Maliyet, Vergi & Kaynak Planlama**](./08-maliyet-gelir-vergi-kaynak-planlama) | "100 TL kazandım" yanılgısı ve şirketleşme. |
+| **09** | [**Versiyon & Proje Yönetimi**](./09-versiyon-proje-disiplin) | Solo founder için Git stratejisi ve disiplin. |
+| **10** | [**Release Yönetimi & Prod Kültürü**](./10-release-yonetimi-yayin-disiplini-prod-kulturu) | Deploy vs Release, Feature Flags ve Cuma kuralı. |
+
+### ⚙️ Faz 3: Üretim Kalitesi & Operasyon
+*Ürün canlıda. Şimdi onu hayatta tutma vakti.*
+
+| Hafta | Konu | Odak |
+| :--- | :--- | :--- |
+| **11** | [**Domain, Veri Modeli & İş Kuralları**](./11-domain-veri-modeli-is-kurallari) | Geleceği kurtaran veritabanı tasarımı. |
+| **12** | [**Frontend Akışları & UX Tutarlılığı**](./12-kullanici-akislari-frontend-deneyim-tutarliligi) | Happy path, loading states ve optimistic UI. |
+| **13** | [**Test Stratejisi & Teknik Borç**](./13-test-stratejisi-kalite-esigi-teknik-borc) | Nereye test yazmalı? Borç ne zaman ödenmeli? |
+| **14** | [**Güvenlik, Auth & Veri Sorumluluğu**](./14-guvenlik-yetkilendirme-veri-sorumlulugu) | IDOR, KVKK ve güvenlik açıkları. |
+| **15** | [**Monitoring, Logging & Kriz Yönetimi**](./15-monitoring-logging-kriz-yonetimi) | Sentry, alarm yorgunluğu ve runbook hazırlama. |
+
+### 📈 Faz 4: Büyüme, Ölçüm & Gelecek
+*Kod çalışıyor. Peki işe yarıyor mu?*
+
+| Hafta | Konu | Odak |
+| :--- | :--- | :--- |
+| **16** | [**Analitik & Doğru Metrikler**](./16-analitik-kullanici-davranisi-dogru-metrikler) | Vanity metrics vs Actionable metrics. |
+| **17** | [**Lansman, Dağıtım & İlk Kullanıcılar**](./17-lansman-dagitim-ilk-kullanicilar) | Soft launch, Product Hunt ve cold outreach. |
+| **18** | [**Kullanıcı Edinimi & Büyüme**](./18-kullanici-edinimi-buyume-denemeleri) | Paid vs Organic, Engineering as Marketing, ROAS & CPA. |
+| **19** | [**Ölçeklendirme & Maliyet Dengesi**](./19-olceklendirme-performans-maliyet-dengesi) | Vertical scaling, spot instances ve performans. |
+| **20** | [**Yol Haritası & Exit Stratejisi**](./20-teknik-borc-urun-olgunlugu-uzun-vadeli-yol-haritasi) | Ürünü büyütmek, dondurmak veya öldürmek. |
 
 ---
 
-## 🧪 Ana Case Study: SilentCut
+## 🎁 Bonus Bölüm
 
-Bu repo boyunca ana örnek olarak **SilentCut** kullanılacaktır.
+Bu işin sadece "teknik" ve "ticari" boyutu yoktur. Bir de vicdani boyutu vardır.
 
-> SilentCut, uzun videolardaki sessizlikleri otomatik tespit edip kırpan bir araçtır.
-> Kendi ihtiyacından doğmuş, hızlıca MVP’ye çıkmış ve gerçek dünyada şu sınavlardan geçmiştir:
->
-> - Fikir doğrulama ve pazar sinyalleri
-> - “Çok rakip var” paniği
-> - MVP kapsamı ve feature eleme
-> - Fiyatlandırma denemeleri
-> - Maliyet hesaplama
-> - Teknik borç ve altyapı kararları
-> - Vendor bağımlılığı riskleri
-> - Kullanıcı edinme ve retention
-> - Ödeme alma ve operasyonel gerçekler
-
-Her bölümde:
-- Ne yapıldı?
-- Nerede hata yapıldı?
-- Ne işe yaradı?
-- Baştan ne farklı yapılmalıydı?
-
-açık ve dürüst şekilde ele alınır.
+👉 **[Final: Ticaretin Rajonu & Etik Kodlar](./final-ticaretin-rajonu)**
+* Dark Patterns ve Kul Hakkı.
+* Bereket Metriği vs Growth Metriği.
+* Müslüman bir founder'ın ahlaki pusulası.
 
 ---
-## 🗺️ Eğitim Yapısı (Esnek – Derin – Modüler)
 
-Bu repo **zorunlu bir 10 hafta** dayatmaz.  
-Gerektiğinde **20 haftaya kadar genişleyen**, modüler bir yapıya sahiptir.
+## 🤝 Katkı & İletişim
 
-### 🔹 1. Faz – Fikir & Pazar (Hafta 1–4)
-1. Fikir Doğrulama & Problem Keşfi
-2. Hedef Kitle, Pazar & Rakip Analizi
-3. İş Modeli & Fiyatlandırma
-4. Marka, UX & Güven İnşası
+Bu repo yaşayan bir belgedir. Sadece kod değil, tecrübe paylaşımıdır.
+Eksik gördüğünüz, "şunu da ekle" dediğiniz yerler için Pull Request göndermekten çekinmeyin.
+
+> *"Mükemmel kod, hiç yazılmamış koddur. Lakin En iyi ürün, insanların hayatına dokunan üründür."*
 
 ---
-### 🔹 2. Faz – Ürün & Teknik Kararlar (Hafta 5–10)
-5. MVP Kapsamı & Ürün Kararları
-6. Teknik Mimari & Teknoloji Seçimi
-7. Altyapı, Hosting, CI/CD ve Vendor Lock-in
-8. Maliyet Hesaplama & Kaynak Planlama
-9.  Versiyon Kontrolü, Proje Yönetimi & Founder Disiplini
-10. Release & Prod Disiplini
-
----
-### 🔹 3. Faz – Üretim Kalitesi & Operasyon (Hafta 11–15)
-11. Domain, Veri Modeli & İş Kuralları
-12. Kullanıcı Akışları, Frontend & Deneyim Tutarlılığı
-13. Test Stratejisi, Kalite Eşiği & Teknik Borç
-14. Güvenlik, Yetkilendirme & Veri Sorumluluğu
-15. Monitoring, Logging & Kriz Yönetimi
-
----
-### 🔹 4. Faz – Ölçüm, Büyüme & Sürdürülebilirlik (Hafta 16–20)
-16. Analitik, Kullanıcı Davranışı & GA
-17. Lansman, Dağıtım & İlk Kullanıcılar
-18. Kullanıcı Edinimi & Büyüme Denemeleri
-19. Ölçeklendirme, Performans & Maliyet Dengesi
-20. Teknik Borç, Ürün Olgunluğu & Uzun Vadeli Yol Haritası
-
-
+*Created by Alameddin Çelik - Building in Public*
