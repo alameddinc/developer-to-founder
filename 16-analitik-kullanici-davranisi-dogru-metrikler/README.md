@@ -1,267 +1,146 @@
-# 16 – Analitik, Kullanıcı Davranışı & Doğru Metrikler  
-## “Ölçmeden Büyüme Olmaz, Yanlış Ölçerek de Yanlış Büyürsün”
+# 16 – Measure What Matters: Analitik & Doğru Metrikler
 
-Bu haftanın amacı:
-> **Ürünün gerçekten değer üretip üretmediğini anlamak,  
-> vanity metric’lerden kaçınmak  
-> ve founder olarak doğru metriklere bakma refleksi kazanmak.**
+> **Haftanın Mottosu:** "Ölçmediğin şeyi yönetemezsin. Ama yanlış şeyi ölçersen, uçuruma doğru yönetirsin."
 
-Bu hafta:
-- GA kurulumu adım adım anlatmıyoruz
-- Dashboard fetişi yapmıyoruz
-- “Her şeyi ölçelim” demiyoruz
+Bu haftanın amacı, Google Analytics grafiğine bakıp "Ooo trafik artmış" diyerek kendini kandırmak değil; kullanıcının **nerede takıldığını** ve **neden para ödemediğini** bulmaktır.
 
-Ama:
-> Ürün kararlarını **veriye dayalı** almanın  
-> temel zihniyetini kuruyoruz.
+Bir geliştirici için loglar "Sistem Hatalarını" gösterir. Analitik ise "Ürün Hatalarını" gösterir.
 
 ---
 
-## 🎯 Haftanın hedefi
+## 🎯 Haftanın Hedefleri (Learning Outcomes)
 
-Bu hafta sonunda katılımcı:
-
-- Analitik neden gereklidir net anlayacak
-- Kullanıcı davranışı ile sayı arasındaki farkı görecek
-- Vanity metric ile anlamlı metric’i ayırt edebilecek
-- MVP için “az ama doğru” metrikleri seçecek
-- GA ve benzeri araçlara **amaçla** yaklaşacak
-- “Veri var ama karar yok” tuzağından kaçınacak
+Bu modülü tamamladığında:
+* [ ] **Vanity Metric** (Ego Metriği) ile **Actionable Metric** (Karar Metriği) arasındaki farkı ayırt edebileceksin.
+* [ ] **"The Funnel"** (Huni) mantığını anlayıp, sızıntı yapan yerleri tespit edeceksin.
+* [ ] **AARRR** (Pirate Metrics) çerçevesini MVP'ne uygulayacaksın.
+* [ ] Sayfa görüntüleme (Pageview) yerine **Olay (Event)** takibi yapmayı öğreneceksin.
 
 ---
 
-## 🧠 Büyük yanılgı
+# 1️⃣ Vanity vs. Actionable: Kendini Kandırma
 
-> “Ziyaretçi arttıysa ürün iyi gidiyor.”
+Yatırımcı sunumlarında Vanity Metric kullanılır. Ama ürünü geliştirirken Actionable Metric kullanılır.
 
-Gerçek:
-> Ziyaretçi artışı  
-> **ürünün işe yaradığını göstermez**.
+| Metrik Tipi | Örnek (Vanity) | Örnek (Actionable) | Neden Farklı? |
+| :--- | :--- | :--- | :--- |
+| **Kullanıcı** | "Toplam 10.000 Kayıtlı Kullanıcı" | "Günlük 50 Aktif Kullanıcı (DAU)" | 10k kişi kaydolup gitmiş olabilir. Önemli olan kaçı şu an burada. |
+| **Trafik** | "Ayda 1 Milyon Sayfa Görüntüleme" | "Ziyaretçi Başına Dönüşüm Oranı %2" | Herkes gelip bakıp çıkıyorsa, trafik çöp demektir. |
+| **Sosyal** | "Twitter'da 50k Takipçi" | "Twitter'dan gelenlerin %10'u üye oluyor" | Takipçi karın doyurmaz, dönüşüm doyurur. |
 
-Önemli olan:
-- Gelen kullanıcı ne yapıyor?
-- Nerede takılıyor?
-- Nerede bırakıyor?
-
----
-
-# 1️⃣ Analitik ne için var?
-
-Analitik:
-- Rapor süslemek için değil
-- Yatırımcı etkilemek için değil
-
-Analitik:
-> **Karar almak için vardır.**
-
-Eğer bir metrik:
-- Kararını değiştirmiyorsa  
-> o metrik gereksizdir.
+> **Kural:** Bir metriğe baktığında **"Eee, şimdi ne yapayım?"** sorusuna cevap veremiyorsan, o bir Vanity Metric'tir.
 
 ---
 
-# 2️⃣ Kullanıcı davranışı ≠ tıklama sayısı
+# 2️⃣ The Funnel (Huni): Kullanıcı Nerede Dökülüyor?
 
-En yaygın hata:
-> Kullanıcıyı sayılarla temsil etmek.
+Kullanıcıların hepsi müşteriye dönüşmez. Bir huniden geçerler ve her adımda bir kısmı kaybolur.
 
-Ama kullanıcı:
-- Bir yol izler
-- Bir hedefe ulaşmaya çalışır
-- Bir noktada vazgeçer
+```mermaid
+graph TD
+    A[Gelen Ziyaretçi] -->|%40| B[Üye Olanlar]
+    B -->|%20| C[Dosya Yükleyenler - Activation]
+    C -->|%5| D[Para Ödeyenler - Revenue]
+    
+    style A fill:#eee,stroke:#333
+    style B fill:#ddd,stroke:#333
+    style C fill:#bbb,stroke:#333
+    style D fill:#9f9,stroke:#333,stroke-width:2px
+```
 
-Analitik şunu sormalı:
-> “Kullanıcı ne yapmaya çalışıyordu?”
+**Senin Görevin:**
+-   Ziyaretçiyi artırmak değil (O pazarlamanın işi).
+-   **B -> C** ve **C -> D** arasındaki kaçışları azaltmaktır (Bu ürünün işi).
+-   _Örnek: Üye olanların sadece %20'si dosya yüklüyorsa, "Upload" butonu mu görünmüyor? Yoksa sistem mi karışık?_
 
----
+----------
 
-# 3️⃣ Funnel (akış) düşüncesi
+# 3️⃣ AARRR Çerçevesi (Pirate Metrics)
 
-Her üründe en az bir ana funnel vardır.
+Dave McClure'un meşhur modeli. MVP için en sade hali:
 
-Örnek (SaaS / araç ürünü):
-1. Siteye geldi
-2. Kayıt oldu
-3. İlk aksiyonu yaptı
-4. Sonuç aldı
-5. Geri geldi
+1.  **Acquisition (Edinim):** İnsanlar seni nasıl buluyor? (Google, Twitter, Reklam).
+2.  **Activation (Aktivasyon):** **EN ÖNEMLİSİ.** Kullanıcı "Aha!" anını yaşadı mı?
+    -   _SilentCut.io için:_ İlk videonun başarıyla indirilmesi.
+3.  **Retention (Elde Tutma):** Kullanıcı geri geliyor mu? (Yoksa tek atımlık mı?).
+4.  **Revenue (Gelir):** Para veriyor mu?
+5.  **Referral (Tavsiye):** Arkadaşına öneriyor mu?
 
-Bu zincirin her halkası:
-- Ölçülebilir
-- İyileştirilebilir
+> **Founder Tavsiyesi:** MVP aşamasında sadece **Activation** ve **Retention**'a odaklan. Sepeti delik kovaya su doldurma (Acquisition yapma).
 
-> Funnel bozuksa,  
-> ürün bozuk demektir.
+----------
 
----
+# 4️⃣ Event Tracking: "Sayfa" Değil "Olay"
 
-# 4️⃣ MVP için doğru metrik seti
+Google Analytics varsayılan olarak "Hangi sayfaya girdi?" sorusunu cevaplar. Ama modern web uygulamaları (SPA) tek sayfadır.
 
-MVP’de:
-- Çok metrik = çok gürültü
+Senin şunları ölçmen lazım (Custom Events):
 
-### MVP için genelde yeterli metrikler
-- Aktif kullanıcı (günlük / haftalık)
-- İlk aksiyon oranı
-- Funnel drop-off noktaları
-- İşlem başarı oranı
-- Geri dönüş (retention) sinyali
+-   `button_clicked { name: "upload_video" }`
+-   `process_failed { reason: "timeout" }`
+-   `payment_success { plan: "pro_monthly" }`  
 
-> “Kaç kişi geldi?” değil  
-> “Kaçı değer aldı?” sorusu önemli.
+**Araç Önerisi:**
+-   **Google Analytics 4 (GA4):** Standart ama kurulumu ve raporlaması zordur.
+-   **PostHog / Mixpanel:** Ürün analitiği için çok daha iyidir. "Funnel" çizmek tek tıkla yapılır. Solo founderlar için ücretsiz planları yeterlidir.
 
----
+----------
 
-# 5️⃣ Vanity metric’ler (uzak dur)
+# 5️⃣ Case Study: SilentCut Metrikleri
 
-Vanity metric:
-- İyi hissettirir
-- Ama karar aldırmaz
+SilentCut için "Başarı" nedir?
 
-Örnekler:
-- Toplam kullanıcı sayısı
-- Toplam sayfa görüntüleme
-- Twitter takipçi sayısı
-- Mail listesi (kullanılmıyorsa)
+-   **Vanity:** "Siteye kaç kişi girdi?" (Umrumuzda değil).
+-   **North Star Metric (Kuzey Yıldızı):** **"Haftalık İşlenen Video Dakikası".**
+    -   Eğer bu sayı artıyorsa, insanlar ürünü kullanıyor ve fayda sağlıyor demektir.
+    -   Eğer kullanıcı artıyor ama dakika artmıyorsa, insanlar üye olup çıkıyor demektir.  
 
-> Vanity metric = ego besini.
+**Ölçülen Kritik Eventler:**
 
----
+1.  `upload_start`: Niyet var mı?
+2.  `upload_complete`: Teknik sorun var mı?
+3.  `export_download`: Mutlu son.
 
-# 6️⃣ GA (ve benzeri araçlar) ne zaman, nasıl?
 
-GA:
-- Erken kurulur
-- Geç ciddiye alınır
+----------
 
-Ama:
-> Olay (event) tanımı olmadan  
-> GA çöplüktür.
+# 🛠️ Haftalık Görevler (Commitment Checklist)
 
-### Sağlıklı yaklaşım
-- Önce neyi ölçmek istediğini yaz
-- Sonra event’leri tanımla
-- Sonra aracı kur
+### 1. [ ] Funnel'ını Çiz
 
-> Araç, sorudan sonra gelir.
+Kağıda 4 kutu çiz: `Ziyaret` -> `Kayıt` -> `İlk İşlem` -> `Ödeme`. Şu anki tahmini oranlarını yaz.
 
----
+### 2. [ ] "Kuzey Yıldızı"nı Belirle
 
-# 7️⃣ Event bazlı düşünme (çok kritik)
+Senin ürününün gerçekten değer ürettiğini gösteren TEK metrik ne?
+-   _Airbnb için: Rezerve edilen gece sayısı._
+-   _Senin için: ...?_
 
-Sayfa değil, **olay** ölç.
+### 3. [ ] Event Listesi Oluştur
 
-Örnek event’ler:
-- `signup_completed`
-- `first_upload`
-- `job_started`
-- `job_finished`
-- `download_clicked`
+Kodun içine gömeceğin 5 kritik olayı yaz.
+-   Örn: `signup`, `activation_action`, `payment`.
 
-Her event için sor:
-- Bu event hangi kararı destekliyor?
+### 4. [ ] Bir Analitik Aracı Kur
+PostHog (önerilir) veya GA4. Sadece kodu ekle ve "Sign Up" butonuna tıklayınca event düştüğünü gör.
 
----
+----------
 
-# 8️⃣ Analitik ile UX arasındaki ilişki
+# ⛔️ Yasaklı Davranışlar (Anti-Patterns)
+-   **"Dashboard Bağımlılığı":** Günde 50 kere F5 yapıp sayılara bakmak. (Haftada 1 detaylı bak yeter).
+-   **"Analiz Felci (Analysis Paralysis):** Veri yetersiz diye karar almamak. Bazen sezgi veriden hızlıdır.
+-   **"Her Şeyi Ölçmek":** Mouse hareketlerini bile loglamak. Çöplük yaratır. Sadece karar aldıracak veriyi ölç.
 
-Analitik şunu söyler:
-- Nerede sorun var
+----------
 
-Ama şunu söylemez:
-- Neden sorun var
+## 🔜 Gelecek Hafta: Lansman & Go-to-Market
 
-Bu yüzden:
-- Analitik + kullanıcı gözlemi birlikte yürür
+Ölçmeyi öğrendik. Artık ölçülecek insanları içeri alma vakti.
 
-> Sayı yön gösterir,  
-> gözlem sebebi açıklar.
+-   **17. Hafta:** Lansman Stratejisi.
+-   Product Hunt, Twitter/X, Reddit... Nereden başlamalı?
+-   "Soft Launch" ile "Hard Launch" farkı.
 
----
+----------
 
-# 9️⃣ SilentCut bağlamında düşünürsek
-
-Bu tip ürünlerde anlamlı metrikler:
-- Upload başlatan / bitiren oranı
-- Job tamamlanma süresi
-- Sonuç indirilen job oranı
-- Tekrar gelen kullanıcı sinyali
-
-Anlamsız metrik:
-- Landing page ziyaret sayısı (tek başına)
-
-> İş değeri üreten aksiyonlar ölçülür.
-
----
-
-# 10️⃣ Founder için metrik bakma disiplini
-
-Önerilen ritim:
-- Haftada 1 gün metriklere bak
-- Her metrik için:
-  - “Bu bana ne söylüyor?”
-  - “Buna göre ne yapacağım?”
-
-Eğer cevap yoksa:
-> O metriği sil.
-
----
-
-# 🛠️ Bu haftanın görevleri
-
-## 1️⃣ Ürünün ana funnel’ını çiz
-- 4–6 adım
-
----
-
-## 2️⃣ 5 anlamlı metrik seç
-- Vanity olmayan
-
----
-
-## 3️⃣ 5 event tanımı yaz
-- İsim + anlam
-
----
-
-## 4️⃣ “Bu metriğe bakınca ne yaparım?” sorusunu cevapla
-- Her metrik için
-
----
-
-## 5️⃣ Ölçmeyeceğin 3 şeyi yaz
-- Bilinçli olarak
-
----
-
-## ✅ Haftanın çıktıları
-
-Bu hafta sonunda elinde:
-
-- Net bir funnel modeli
-- Az ama anlamlı metrik seti
-- Analitiği karar aracı olarak kullanma refleksi
-- Daha az gürültü, daha çok sinyal
-
-olmalı.
-
----
-
-## ⚠️ Son söz
-
-> Ölçmeden büyüyemezsin.  
-> Ama yanlış ölçerek de  
-> **yanlış büyürsün**.
-
----
-
-## 🔜 Sonraki hafta (17. Hafta)
-
-**17 – Lansman, Dağıtım & İlk Kullanıcılar**
-
-- Launch nedir, nedir değildir?
-- Sessiz lansman
-- İlk 100 kullanıcı
-- Beklenti yönetimi
-
----
+_Developer to Founder - Week 16_
