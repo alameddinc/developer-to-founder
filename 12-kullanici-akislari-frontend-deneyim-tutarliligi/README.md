@@ -1,272 +1,143 @@
-# 12 – Kullanıcı Akışları, Frontend & Deneyim Tutarlılığı  
-## “Ekran Değil, Akış Tasarla”
+# 12 – Frontend Architecture: States, Flows & The "Loading" Trap
 
-Bu haftanın amacı:
-> **Kullanıcının ürünü nasıl kullandığını anlamak ve  
-> onu hata yapmaya zorlamayan bir deneyim oluşturmak.**
+> **Haftanın Mottosu:** "Kullanıcılar backend'inin ne kadar temiz olduğuyla ilgilenmez. Onlar sadece butona bastıklarında bir şeylerin olmasını isterler."
 
-Bu hafta:
-- “Hangi framework?” konuşmuyoruz
-- Pixel-perfect tasarım yapmıyoruz
-- UI kit kurmuyoruz
+Bu haftanın amacı CSS yazmak veya React vs Vue tartışması yapmak değildir.
+Amacımız; **API yanıt verene kadar geçen o 200 milisaniyede (veya 5 saniyede) kullanıcının ne hissettiğini yönetmektir.**
 
-Ama:
-> **Yanlış akışın, doğru backend’i bile öldürdüğünü** netleştiriyoruz.
+Çoğu geliştirici "Happy Path"i (Her şeyin yolunda gittiği senaryo) kodlar. Ama gerçek dünya "Unhappy Path"lerle (Yavaş internet, boş veri, hata mesajları) doludur.
 
 ---
 
-## 🎯 Haftanın hedefi
+## 🎯 Haftanın Hedefleri (Learning Outcomes)
 
-Bu hafta sonunda katılımcı:
-
-- Kullanıcı akışı ile ekran arasındaki farkı anlayacak
-- “Mutlu yol” (happy path) tasarlamayı öğrenecek
-- Kullanıcıyı hataya sürükleyen UI kalıplarını fark edecek
-- Empty / loading / error state’leri bilinçli ele alacak
-- Mobil ve masaüstü farklarını doğru yönetecek
-- “Çalışıyor ama kullanılmıyor” tuzağından kaçınacak
+Bu modülü tamamladığında:
+* [ ] **Ekran (Screen)** değil, **Akış (Flow)** tasarlamayı öğreneceksin.
+* [ ] Frontend'in Kutsal Üçlüsünü (**Loading, Error, Empty**) her bileşende refleks haline getireceksin.
+* [ ] **Optimistic UI** (İyimser Arayüz) kavramıyla uygulamanı olduğundan 10 kat hızlı hissettireceksin.
+* [ ] "Zombi Tıklama" (Rage Click) sorununu önleyecek geri bildirim mekanizmaları kuracaksın.
 
 ---
 
-## 🧠 En yaygın ama yıkıcı hata
+# 1️⃣ Akış vs. Ekran: Kullanıcı Bir Film İzler, Fotoğraf Değil
 
-> “Backend hazır, frontend’i hızlıca bağlayalım.”
+Geliştiriciler genelde sayfaları izole düşünür: *"Login sayfası bitti, Dashboard sayfası bitti."*
+Kullanıcı ise bir yolculuk yapar: *"Login ol -> Dashboard'a düş -> Upload butonuna bas."*
 
-Gerçek:
-> Kullanıcı backend’i görmez.  
-> **Akışı görür.**
+**Sorun:** Sayfalar arası geçişlerdeki o "beyaz ekran" veya "titreme", deneyimi öldürür.
 
-Yanlış akış:
-- Yanlış geri bildirim üretir
-- Yanlış geri bildirim:
-  - Yanlış ürün kararlarına yol açar
-
----
-
-# 1️⃣ Akış nedir, ekran nedir?
-
-- **Ekran:** UI’daki tek bir sayfa
-- **Akış:** Kullanıcının bir hedefe ulaşmak için geçtiği adımlar zinciri
-
-Örnek:
-- “Upload ekranı” bir ekrandır
-- “Upload → işlem → sonuç alma” bir **akıştır**
-
-> Ürünler ekranlarla değil,  
-> **akışlarla** kullanılır.
+### 🛠 Egzersiz: The "In-Between" Moments
+İki ekran arasını nasıl dolduruyorsun?
+1.  **Skeleton Screen:** İçerik gelmeden şablonu göster (LinkedIn/Facebook gibi gri kutucuklar).
+2.  **Spinner:** Sadece küçük işlemler için. Tüm sayfayı dondurma.
+3.  **Progress Bar:** 1 saniyeden uzun sürecek her şey için şart.
 
 ---
 
-# 2️⃣ Mutlu yol (Happy Path) tasarımı
+# 2️⃣ The Holy Trinity: Empty, Loading, Error
 
-Her özellik için önce şu soruyu sor:
-> “Her şey yolunda giderse kullanıcı ne yapar?”
+Bir Frontend bileşeni yazarken (örneğin `VideoList`), geliştirici genelde sadece `data` varsa ne olacağını yazar.
 
-Örnek (video işleme ürünü):
-1. Siteye gelir
-2. Dosya yükler
-3. İşlem başlar
-4. Sonucu görür
-5. İndirir
+Oysa her bileşenin 4 hali vardır:
 
-Bu zincir:
-- Kısa
-- Açık
-- Kesintisiz olmalıdır
+### 1. Loading State (Yükleniyor)
+* **Yanlış:** Boş beyaz sayfa.
+* **Doğru:** "Videoların getiriliyor..." yazısı veya Skeleton.
+* *Neden?* Kullanıcı "Acaba bozuk mu?" diye düşünmesin.
 
-> Önce mutlu yolu mükemmelleştir,  
-> sonra edge case’lere bak.
+### 2. Empty State (Boş Veri)
+* **Yanlış:** Boş bir tablo veya "Veri bulunamadı" yazısı.
+* **Doğru:** (Call to Action). "Henüz video yüklemedin. [İlk Videonu Yükle]" butonu.
+* *Neden?* En çok churn (kullanıcı kaybı) buradadır. Kullanıcı ne yapacağını bilemez.
 
----
+### 3. Error State (Hata)
+* **Yanlış:** `console.log(error)` veya ekranda `Error: 500`.
+* **Doğru:** "Videolar yüklenirken bir sorun oluştu. [Tekrar Dene]" butonu.
+* *Neden?* Kullanıcıya bir çıkış yolu (Retry) vermezsen siteyi kapatır.
 
-# 3️⃣ Kullanıcıyı hata yapmaya iten UI kalıpları
+### 4. Success State (Veri Var)
+* Zaten yaptığın kısım.
 
-## ❌ Yaygın hatalar
-- Belirsiz buton metinleri (“Devam”, “Tamam”)
-- Geri dönüşü olmayan aksiyonlar
-- Ne olduğunu söylemeyen loading’ler
-- Hata mesajı yerine sessizlik
-
-## ✅ Sağlıklı yaklaşım
-- Butonlar **aksiyon söyler**
-  - “Videoyu Yükle”
-  - “İşlemi Başlat”
-- Geri dönüşü olan aksiyonlar
-- Süreç boyunca kullanıcıya bilgi
-
-> Kullanıcı hata yapıyorsa,  
-> sorun çoğu zaman kullanıcı değil, UI’dır.
+> **Kural:** Backend endpoint'i yazarken bu 4 durumu test etmeden Frontend'e geçme.
 
 ---
 
-# 4️⃣ Empty, Loading ve Error state’ler (MVP’de bile şart)
+# 3️⃣ Optimistic UI: Hız İllüzyonu
 
-### 1️⃣ Empty state
-- “Henüz video yok”
-- “İlk işlemini başlat”
+Bu, solo founder'ların en büyük silahıdır. Backend yavaş olsa bile Frontend hızlı hissettirebilir.
 
-Amaç:
-> Kullanıcıyı boşlukta bırakmamak.
+**Normal UI:**
+1. Kullanıcı "Beğen"e basar.
+2. Spinner döner... (API isteği gider).
+3. 1 saniye sonra kalp kırmızı olur.
 
----
+**Optimistic UI:**
+1. Kullanıcı "Beğen"e basar.
+2. **Kalp ANINDA kırmızı olur.** (API isteği arkada gider).
+3. Eğer API hata verirse, kalp geri söner ve hata mesajı çıkar.
 
-### 2️⃣ Loading state
-- Ne oluyor?
-- Ne kadar sürebilir?
-- İptal edilebilir mi?
-
-“Loading…” yeterli değildir.
+> **SilentCut Örneği:** Kullanıcı "Dosya Adını Değiştir" dediğinde, sunucudan cevap bekleme. UI'da hemen değiştir. Arkada hata olursa eski haline alırsın. Bu, uygulamayı "Native" gibi hissettirir.
 
 ---
 
-### 3️⃣ Error state
-- Ne oldu?
-- Kullanıcı ne yapabilir?
-- Tekrar denemeli mi?
+# 4️⃣ Mobil Gerçekleri: "Fat Finger" Sendromu
 
-❌ “Bir hata oluştu”  
-✅ “Dosya çok büyük. Max: 500 MB”
+Masaüstünde fare imleci 1 pikseldir. Mobilde parmak ucu 40 pikseldir.
 
----
-
-# 5️⃣ Mobil vs Desktop: Aynı ürün, farklı kullanım
-
-Mobilde kullanıcı:
-- Daha sabırsız
-- Daha az dikkatli
-- Tek elle kullanıyor
-
-### MVP için minimum farkındalık
-- Mobilde upload daha zor
-- Küçük ekran = daha az bilgi
-- Büyük tablolar mobilde felaket
-
-> “Responsive” olmak yetmez,  
-> **mobil düşünmek** gerekir.
+**Mobil UX Kontrol Listesi:**
+* [ ] **Tıklama Alanı:** Butonlar en az 44x44 piksel mi? Linkler birbirine çok mu yakın?
+* [ ] **Inputlar:** Telefondan yazı yazmak işkencedir. Kullanıcıdan minimum bilgi iste.
+* [ ] **Hover Yok:** Mobilde "Mouse üzerine gelince ipucu göster" diye bir şey yoktur. Kritik bilgiyi hover'a saklama.
 
 ---
 
-# 6️⃣ Kullanıcıya güven vermek (UX + psikoloji)
+# 5️⃣ Case Study: SilentCut Akış Analizi
 
-Kullanıcı şunları görmek ister:
-- Ne olacak?
-- Ne kadar sürecek?
-- Kontrol bende mi?
+**Kritik Hata:**
+İlk versiyonda kullanıcı videoyu yüklüyordu. İşlem 5 dakika sürüyordu. Ekranda sadece "İşleniyor..." yazan bir spinner vardı.
+*Kullanıcı:* "Dondu galiba" diyip sayfayı yeniliyordu. (İşlem iptal oluyor, para yanıyordu).
 
-Basit güven unsurları:
-- Adım göstergesi
-- Geri al / iptal
-- Net metinler
-- Tutarlı renkler
-
-> Güven yoksa, kullanım da yoktur.
+**Düzeltme:**
+1.  **Determinate Progress Bar:** "%12... %15..." (İlerlemeyi görsün).
+2.  **Eğlenceli Metinler:** "Sessizlikler taranıyor...", "Gereksiz kısımlar atılıyor..." (Sıkılmasın).
+3.  **Arka Plan İşlemi:** "Sayfayı kapatsanız da işlem devam eder, size mail atacağız." (Özgürlük).
 
 ---
 
-# 7️⃣ MVP’de yapılmaması gereken UX hataları
+# 🛠️ Haftalık Görevler (Commitment Checklist)
 
-❌ Her şeyi tek ekrana sıkıştırmak  
-❌ Kullanıcıdan gereksiz bilgi istemek  
-❌ Hataları gizlemek  
-❌ “Ben anladım” varsayımı  
-❌ Desktop’ta çalışan şeyi mobile aynen koymak  
+### 1. [ ] Happy Path Harici Test
+Uygulamanı aç. İnternetini kes (Chrome Network Tab -> Offline). Sayfayı yenile.
+* Beyaz sayfa mı görüyorsun, yoksa "İnternet bağlantısı yok" uyarısı mı?
 
----
+### 2. [ ] Empty State Tasarımı
+Veritabanını sıfırla (veya yeni kullanıcı aç). Dashboard bomboşken ne görüyorsun?
+* Oraya kocaman bir "Başla" butonu ve motive edici bir görsel/ikon koy.
 
-# 8️⃣ SilentCut bağlamında düşünürsek
+### 3. [ ] "Loading" Denetimi
+Yavaş internet simülasyonu yap (Network Tab -> Slow 3G).
+* Butona bastığında UI donuyor mu? Butonu `disabled` yapıp "Yükleniyor" ikonunu koy. (Çoklu tıklamayı engelle).
 
-Bu tarz ürünlerde kritik akış:
-- Upload
-- İşlem
-- Sonuç
-
-UX hatası:
-- İşlem sırasında belirsizlik
-- Sonuç hazır mı, değil mi anlaşılmaması
-- Mobilde indirme sorunları
-
-İyi UX:
-> Kullanıcıyı bekletirken bile  
-> ne olduğunu anlatır.
+### 4. [ ] Mobil Testi (Gerçek Cihaz)
+Uygulamayı telefonundan aç.
+* Form doldururken klavye butonun üstünü kapatıyor mu?
+* Upload butonu parmağının erişemeyeceği kadar tepede mi?
 
 ---
 
-# 9️⃣ Frontend teknolojisi bu haftanın konusu değil
+# ⛔️ Yasaklı UI Hataları (Anti-Patterns)
 
-Bu hafta:
-- React mı, Vue mu?
-- Web mi, mobil mi?
-
-tartışmıyoruz.
-
-Çünkü:
-> Yanlış akış,  
-> doğru teknolojiyle de yanlıştır.
+* **"Sessiz Hata":** Butona basıyorum, hiçbir şey olmuyor. (Aslında arkada 500 hatası var).
+* **"Blocking UI":** Bir resim yüklenirken tüm sayfanın donması.
+* **"Lorem Ipsum":** Prod ortamında unutulan anlamsız metinler.
 
 ---
 
-# 🛠️ Bu haftanın görevleri
+## 🔜 Gelecek Hafta: Test Stratejisi & Kalite
 
-## 1️⃣ 1 ana kullanıcı akışını çiz
-- Ekran değil
-- Adım adım
-
----
-
-## 2️⃣ Bu akış için:
-- Empty state
-- Loading state
-- Error state
-
-yazılı olarak tanımla.
+Arayüz ve akış tamam. Peki kodun sağlamlığını nasıl garantileyeceğiz?
+* 13. Hafta: "Her şeye test yazma deliliği" vs "Akıllı Test Stratejisi".
+* Unit Test, Integration Test ve E2E Test dengesi.
 
 ---
-
-## 3️⃣ Mobilde en riskli adımı belirle
-- Neden riskli?
-
----
-
-## 4️⃣ UI’da kullanıcıyı zorlayan 3 nokta yaz
-- “Burada hata yapabilir”
-
----
-
-## 5️⃣ Bir kişiye ürünü kullandır
-- Sessiz kal
-- Not al
-
-> En değerli UX testi budur.
-
----
-
-## ✅ Haftanın çıktıları
-
-Bu hafta sonunda elinde:
-
-- Net bir kullanıcı akışı
-- Daha az kafa karıştıran UI
-- Bilinçli state yönetimi
-- Mobil farkındalığı
-
-olmalı.
-
----
-
-## ⚠️ Son söz
-
-> Kullanıcıyı suçlayan ürün,  
-> **kullanıcısız kalır**.
-
----
-
-## 🔜 Sonraki hafta (13. Hafta)
-
-**13 – Test Stratejisi, Kalite Eşiği & Teknik Borç**
-
-- Nerede test yazılır?
-- Nerede yazılmaz?
-- Manuel test refleksi
-- Teknik borç alma kararı
-
----
+*Developer to Founder - Week 12*
