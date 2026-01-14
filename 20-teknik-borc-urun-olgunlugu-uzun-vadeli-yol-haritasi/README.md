@@ -1,260 +1,149 @@
-# 20 – Teknik Borç, Ürün Olgunluğu & Uzun Vadeli Yol Haritası  
-## “Her Ürün Büyümez, Ama Her Founder Öğrenir”
+# 20 – The Crossroads: Teknik Borç, Olgunluk & Karar Anı
 
-Bu haftanın amacı:
-> **MVP’den ürüne geçiş kararlarını bilinçli almak,  
-> teknik borcu yönetilebilir hale getirmek  
-> ve founder olarak devam / durma kararlarını sağlıklı verebilmek.**
+> **Haftanın Mottosu:** "Kod bir yüktür (Liability). Sadece insanların kullandığı kod bir varlıktır (Asset). Bir şeyi yeniden yazmaya karar verdiğinde, aslında 'Ben şu anki işimden sıkıldım' diyorsun."
 
-Bu hafta:
-- “Her şeyi yeniden yazalım” demiyoruz
-- “Borç kötüdür” demiyoruz
-- “Asla vazgeçme” romantizmi yapmıyoruz
-
-Ama:
-> Gerçek hayatta ürün geliştiren founder’ların  
-> **en zor kararlarını** masaya yatırıyoruz.
+Bu haftanın amacı; klavyenin başından kalkıp, pencereden dışarı bakmaktır.
+20 haftadır koşuyoruz. Şimdi durup haritaya bakma zamanı: **Nereye geldik ve buradan nereye gideceğiz?**
 
 ---
 
-## 🎯 Haftanın hedefi
+## 🎯 Haftanın Hedefleri (Learning Outcomes)
 
-Bu hafta sonunda katılımcı:
-
-- Teknik borcu tanıyıp sınıflandırabilecek
-- MVP → ürün geçişi için net kriterler koyabilecek
-- “Ne zaman yeniden yazılır?” sorusuna bilinçli cevap verebilecek
-- Uzun vadeli yol haritası hazırlayabilecek
-- Ürünü büyütme, dondurma veya kapatma kararlarını olgunlukla verebilecek
-- Founder olarak **bırakabilmenin** de bir başarı olduğunu anlayacak
+Bu modülü tamamladığında:
+* [ ] **Teknik Borç Envanteri** çıkararak, hangi borcun "Faiz ödediğini", hangisinin "Hibe olduğunu" ayırt edeceksin.
+* [ ] **"Rewrite" (Yeniden Yazma)** tuzağına düşmeden, gemiyi yüzdürürken tamir etmeyi (Refactoring) öğreneceksin.
+* [ ] **Product-Market Fit (PMF)** sinyallerini okuyup, projeyi Büyütme, Dondurma veya Öldürme kararını **verilerle** vereceksin.
+* [ ] **Sunk Cost Fallacy (Batık Maliyet Yanılgısı)** ile yüzleşeceksin.
 
 ---
 
-## 🧠 En tehlikeli yanılgı
+# 1️⃣ Teknik Borç: Kredi Kartı Ekstresi
 
-> “Bu kadar emek verdik, bırakamayız.”
+20 haftadır "Hızlı ol, sonra düzeltiriz" dedik. O gün geldi.
+Borçlarını bir Excel'e dök ve sınıflandır:
 
-Gerçek:
-> Emek,  
-> yanlış yönde ilerlemeyi **haklı çıkarmaz**.
+| Borç Tipi | Örnek | Karar |
+| :--- | :--- | :--- |
+| **Yönetilebilir (Konut Kredisi)** | "UI bileşenleri biraz karışık ama çalışıyor." | **DOKUNMA.** Kullanıcı görmüyor, zararı yok. |
+| **Zehirli (Tefeci Borcu)** | "Ödeme sistemi bazen çift çekim yapıyor." | **HEMEN ÖDE.** Bu seni batırır. |
+| **Görsel (Makyaj)** | "Kodun indentasyonu bozuk." | **YOK SAY.** (Prettier kur geç). |
 
-Bir ürünü kapatmak:
-- Başarısızlık değildir
-- Deneyimdir
-- Bazen en doğru karardır
-
----
-
-# 1️⃣ Teknik borç: Artık kaçınılmaz
-
-Bu noktada:
-- Borç vardır
-- Olacaktır
-
-Soru şu değil:
-> “Borç var mı?”
-
-Soru şu:
-> “Bu borç bizi ne zaman ve nasıl öldürür?”
+> **Kural:** Eğer bir teknik borç, **geliştirme hızını %50 düşürmüyorsa** veya **güvenlik açığı yaratmıyorsa**, o borçla yaşamayı öğren.
 
 ---
 
-## Teknik borç türleri
+# 2️⃣ The Rewrite Trap: "Baştan Yazsak Düzelir" Yalanı
 
-### 1️⃣ Yönetilebilir borç
-- Bilinçli alınmış
-- Yazılı
-- Geri ödeme planı olan
+Geliştiricilerin en büyük fantezisi: *"Bu proje spagetti oldu. Next.js 18 çıktı, hadi her şeyi sıfırdan, tertemiz yazalım!"*
 
-### 2️⃣ Zehirli borç
-- Kimse hatırlamıyor
-- Kritik yerde
-- Testi yok
-- Üzerine iş yapmayı zorlaştırıyor
+**Neden Yapmamalısın?**
+1.  **Netscape Dersi:** Netscape tarayıcısı "kodu temizlemek" için 2 yıl rewrite yaptı. O sırada Internet Explorer piyasayı sildi süpürdü. Netscape battı.
+2.  **Zaman Kaybı:** Yeniden yazarken yeni özellik ekleyemezsin. Rakip ilerler, sen yerinde sayarsın.
+3.  **Bilinmeyen Buglar:** Eski "çirkin" kodda, yılların tecrübesi ve düzeltilmiş bug'lar saklıdır. Yeni kod "temiz" ama "tecrübesiz"dir.
 
-> Founder’ın görevi:  
-> zehirli borcu erken fark etmek.
+> **Strateji:** Rewrite yapma, **Refactor** yap. (Bkz: Week 6 - Strangler Fig Pattern).
 
 ---
 
-# 2️⃣ MVP → Ürün geçişi ne zaman olur?
+# 3️⃣ MVP'den Çıktık mı? (PMF Sinyalleri)
 
-MVP’den ürüne geçiş:
-- Takvimle olmaz
-- Hissiyatla olmaz
+Artık "MVP" etiketini kaldırmalı mısın?
 
-## Sağlıklı sinyaller
-- Tekrar gelen kullanıcılar
-- Gerçek kullanım senaryoları
-- Net bir değer önerisi
-- “Bu olmazsa olmaz” geri bildirimi
-
-Eğer bunlar yoksa:
-> Hâlâ MVP’desin.
+**Sen bir "Ürün"sün eğer:**
+* [ ] **Retention:** Kullanıcılar sen hatırlatmadan geri geliyorsa.
+* [ ] **Revenue:** Tanımadığın insanlar cüzdanını çıkarıyorsa.
+* **Ve En Önemlisi:**
+* [ ] **Anger:** Sunucular çöktüğünde insanlar sinirlenip mail atıyorsa. (Kimse umursamıyorsa, ürün olmamışsın demektir).
 
 ---
 
-# 3️⃣ Ne zaman yeniden yazılır?
+# 4️⃣ Karar Matrisi: Scale, Sustain, Kill
 
-Yeniden yazma:
-> **Son çaredir.**
+Founder olarak en zor kararı verme vakti.
 
-### Yeniden yazmak MANTIKLIYSA:
-- Domain yanlış kurulmuşsa
-- Veri modeli geri dönülmez hatalıysa
-- Her yeni özellik acı veriyorsa
+### A) Scale (Büyüt)
+* **Durum:** PMF sinyalleri yeşil. Para geliyor.
+* **Aksiyon:** Şirketleş (Week 8). Reklam bütçesini artır (Week 18). Ekip kurmayı düşün.
 
-### Yeniden yazmak YANLIŞSA:
-- Kod çirkin diye
-- Yeni teknoloji çıktı diye
-- “Daha temiz olur” diye
+### B) Sustain (Lifestyle Business / Yan Proje)
+* **Durum:** Az ama düzenli gelir var. Büyümüyor ama masrafını çıkarıp sana harçlık bırakıyor.
+* **Aksiyon:** "Bakım Modu"na al. Otomasyonu artır. Haftada sadece 2 saat ayır. Bu senin pasif gelir kapın olsun.
 
-> Yeniden yazmak,  
-> problemi çözmez;  
-> **doğruysa hızlandırır, yanlışsa öldürür.**
+### C) Kill (Öldür / Pivot)
+* **Durum:** 20 haftadır uğraşıyorsun, kimse para vermedi. Trafik yok. Heyecan bitti.
+* **Aksiyon:** **Fişi Çek.**
+    * Bu bir başarısızlık değildir.
+    * 20 haftalık bir "Founder MBA" eğitimidir.
+    * Kodlarını açık kaynak yap (Portfolyona koy).
+    * Domain'in süresi dolmadan "Goodbye" maili at.
 
----
-
-# 4️⃣ Ne zaman yeniden yazILMAZ?
-
-Şu durumlarda yazma:
-- Ürün hâlâ öğrenme aşamasındaysa
-- Kullanıcı sayısı çok azsa
-- Ana problem net değilse
-
-Bu durumda:
-> Kod değil, **ürün kararı** yanlıştır.
+> **Batık Maliyet Yanılgısı:** "Ama çok emek verdim" diyerek ölü atı kamçılama. Attan in, yeni ata bin.
 
 ---
 
-# 5️⃣ Uzun vadeli yol haritası (roadmap) nasıl yapılır?
+# 5️⃣ Roadmap: Feature Listesi Değil, Problem Listesi
 
-Roadmap:
-- “Şu feature’ı yapacağız” listesi değildir
+Önümüzdeki 6 ay için "Şu buton, bu ekran" diye plan yapma.
 
-Roadmap:
-> **Riskleri ve belirsizlikleri yöneten plandır.**
-
-## Sağlıklı roadmap şunları içerir:
-- Öğrenme hedefleri
-- Teknik riskler
-- Ürün riskleri
-- Operasyonel riskler
-
-Zaman çizelgesi:
-- Esnek olmalı
-- Taşa kazınmamalı
+**Now / Next / Later Formatı:**
+* **Now (Bu Ay):** "Kullanıcıların %40'ı ödeme adımında takılıyor. Bunu çöz." (Problem odaklı).
+* **Next (Gelecek Çeyrek):** "Kurumsal firmalar fatura istiyor. B2B altyapısına bak."
+* **Later (Yıl Sonu):** "Mobil uygulama ihtiyacını değerlendir."
 
 ---
 
-# 6️⃣ Ürünü büyütmek, dondurmak veya kapatmak
+# 6️⃣ Case Study: SilentCut'ın Kaderi
 
-Founder olarak 3 seçeneğin vardır:
+**Durum:**
+* YouTube API kotası sürekli doluyor (Teknik Borç).
+* Gelir: Ayda $300 (Sunucu kirası $150). Kâr: $150.
+* Büyüme: Duragan.
 
-### 1️⃣ Büyütmek
-- Net değer var
-- Kullanıcı geri geliyor
-- Maliyet kontrol altında
-
-### 2️⃣ Dondurmak
-- İlgi var ama zaman yok
-- Yan proje olarak yaşatılabilir
-
-### 3️⃣ Kapatmak
-- Öğrenme tamamlandı
-- İlgi yok
-- Enerji tükenmiş
-
-> Kapatmak =  
-> **akıllı karar olabilir.**
+**Karar:**
+* **Rewrite?** Hayır. Değmez.
+* **Scale?** Hayır. Reklam maliyetini kurtarmıyor.
+* **Karar:** **Sustain (Lifestyle).**
+    * Sistem optimize edildi.
+    * Destek talepleri otomatize edildi.
+    * Founder yeni projeye başladı, SilentCut arkada "harçlık" üretmeye devam etti.
 
 ---
 
-# 7️⃣ Founder psikolojisi: Bırakabilmek
+# 🛠️ Haftalık Görevler (Final Checklist)
 
-Eğitim boyunca öğrendiklerin:
-- Sadece bu ürün için değil
-- Bir sonraki ürün için de geçerli
+### 1. [ ] Dürüstlük Aynası
+Ürününün karşısına geç ve sor: *"Bu ürün dünyayı değiştiriyor mu, bana para kazandırıyor mu, yoksa sadece egomu mu tatmin ediyor?"*
 
-Founder olgunluğu:
-> Aynı hatayı  
-> ikinci kez yapmamaktır.
+### 2. [ ] Teknik Borç Temizliği (Hafta Sonu)
+Sadece 1 gün ayır ve seni en çok gıcık eden o "Zehirli Borcu" temizle. Kod tabanın nefes alsın.
 
----
+### 3. [ ] "Post-Mortem" veya "Roadmap" Yazısı
+* Ürünü kapatıyorsan: "Neden başaramadım ve ne öğrendim?" (Blog yazısı).
+* Devam ediyorsan: "SilentCut 2.0 Yol Haritası".
 
-# 8️⃣ SilentCut bağlamında düşünürsek
-
-Bu tip ürünlerde:
-- Teknik borç genelde job pipeline’da birikir
-- Erken yeniden yazma büyük risktir
-- Asıl karar:
-  - “Buna daha fazla enerji koymalı mıyım?”
-
-Doğru soru:
-> “Bu ürün bana ne öğretti  
-> ve beni nereye taşıdı?”
+### 4. [ ] Mezuniyet Kutlaması
+Kendine bir kahve ısmarla. 20 hafta boyunca disiplinle buraya kadar geldin. Sen artık sadece kod yazan biri değilsin. **Sen bir kurucusun.**
 
 ---
 
-# 🛠️ Bu haftanın görevleri (en önemliler)
+## ⚠️ Son Söz
 
-## 1️⃣ Teknik borç envanteri çıkar
-- Yönetilebilir
-- Zehirli
-
----
-
-## 2️⃣ MVP mi, ürün mü olduğuna karar ver
-- Neye göre?
+> Başarı, Exit yapmak değildir.
+> Başarı, milyon dolar değildir.
+> Başarı; bir fikri alıp, kaostan geçirip, çalışan bir gerçekliğe dönüştürme iradesidir.
+> Sen bunu başardın.
 
 ---
 
-## 3️⃣ Yeniden yazma kriterlerini yaz
-- Hangi durumda Evet?
-- Hangi durumda Hayır?
+## 🎁 BONUS: Final Bölümü
+
+Bu yolculuk teknik ve ticari olarak bitti.
+Ama bir de işin **"Ruhu"** var.
+* Kazandığımız para helal mi?
+* Ticarette " Bereket" (Barakah) metriği nedir?
+* İslam ve Etik açısından bir Founder nasıl durmalı?
+
+**Sırada: Developer to Founder - The Ethical Code.**
 
 ---
-
-## 4️⃣ 6–12 aylık yol haritası çiz
-- Öğrenme odaklı
-
----
-
-## 5️⃣ Ürünle ilgili dürüst kararını yaz
-- Devam / dondur / kapat
-
-Bu sadece sana ait bir doküman.
-
----
-
-## ✅ Eğitimin çıktıları
-
-Bu eğitim sonunda katılımcı:
-
-- Ürün çıkarabilen
-- Prod’a çıkabilen
-- Kriz gören ve yöneten
-- Büyümeyi ölçebilen
-- Reklamı bilinçli kullanan
-- Teknik borcu tanıyan
-- Ve gerektiğinde bırakabilen
-
-bir **founder** olur.
-
----
-
-## ⚠️ Son söz
-
-> Her ürün başarıya ulaşmaz.  
-> Ama bu yolculuktan  
-> **boş dönen founder yoktur.**
-
----
-
-## 🎓 Eğitim Bitti  
-### “Developer → Founder” tamamlandı.
-
-Ama:
-> Bu bir son değil,  
-> **başlangıç**.
-
+*Developer to Founder - Week 20*
