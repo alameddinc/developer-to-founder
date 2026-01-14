@@ -1,277 +1,152 @@
-# 14 – Güvenlik, Yetkilendirme & Veri Sorumluluğu  
-## “Hacklenmekten Değil, Rezil Olmaktan Kork”
+# 14 – Minimum Viable Security: Güvenlik, KVKK & Veri Namusu
 
-Bu haftanın amacı:
-> **MVP seviyesinde gerçekçi bir güvenlik anlayışı kurmak,  
-> kullanıcı verisine karşı sorumluluğu kavramak  
-> ve en sık yapılan ölümcül güvenlik hatalarından kaçınmak.**
+> **Haftanın Mottosu:** "Güven yıllar içinde inşa edilir, saniyeler içinde yıkılır. Hacklenmekten değil, kullanıcıya 'Pardon, verilerini çaldırdık' maili atmaktan kork."
 
-Bu hafta:
-- “Askerî seviye güvenlik” anlatmıyoruz
-- Pentest eğitimi vermiyoruz
-- Zero-trust mimari çizmiyoruz
+Bu haftanın amacı, Pentagon'u koruyacak bir sistem kurmak değildir. (Zaten kuramazsın).
+Amacımız; **"Kapıyı açık bırakmamaktır."**
 
-Ama:
-> MVP’yi batıran **basit ama ölümcül** güvenlik açıklarını  
-> net bir şekilde konuşuyoruz.
+Botlar ve script kiddie'ler (acemi hackerlar), özellikle yeni çıkan SaaS ürünlerini tarar. "Benim sitemi kim ne yapsın?" deme. Senin sunucunu Bitcoin madenciliği için, veritabanını ise dark web'de satmak için kullanırlar.
 
 ---
 
-## 🎯 Haftanın hedefi
+## 🎯 Haftanın Hedefleri (Learning Outcomes)
 
-Bu hafta sonunda katılımcı:
-
-- MVP için “yeterince güvenli”nin ne olduğunu anlayacak
-- Auth, yetkilendirme ve veri ayrımını doğru yapacak
-- Upload, ödeme ve job tabanlı sistemlerde riskleri tanıyacak
-- Kişisel veri sorumluluğunun teknik + hukuki boyutunu kavrayacak
-- “Sonra bakarız” denmemesi gereken güvenlik noktalarını ayırt edecek
-- Güvenliği ürünü yavaşlatmadan ele almayı öğrenecek
+Bu modülü tamamladığında:
+* [ ] **AuthN** (Kimlik) ile **AuthZ** (Yetki) arasındaki farkı kod seviyesinde uygulayacaksın.
+* [ ] **IDOR** (Insecure Direct Object References) açığını anlayıp, kullanıcıların birbirinin verisini görmesini engelleyeceksin.
+* [ ] **KVKK / GDPR** uyumluluğunu bir "Avukat işi" olarak değil, "Veri Mimarisi" kararı olarak göreceksin.
+* [ ] **Signed URLs** kullanarak dosya güvenliğini (S3/R2) sağlayacaksın.
 
 ---
 
-## 🧠 Büyük yanılgı
+# 1️⃣ AuthN vs AuthZ: En Büyük Kafa Karışıklığı
 
-> “Biz küçük bir ürünüz, kim bize saldıracak?”
+Geliştiricilerin %80'i burada hata yapar.
 
-Gerçek:
-> Saldırılar **kişisel değildir**.  
-> Otomatiktir.
+* **Authentication (AuthN):** "Sen kimsin?" (Cevap: Ben Ahmet'im, şifrem bu.)
+* **Authorization (AuthZ):** "Bunu yapmaya yetkin var mı?" (Cevap: Ahmet olabilirsin ama bu faturayı silemezsin.)
 
-Bot:
-- Küçük ürün ayırt etmez
-- Açık bulursa girer
+### 🚨 En Yaygın Açık: IDOR
+Kullanıcı giriş yapmıştır (AuthN tamamdır).
+URL şöyledir: `app.com/invoice/123`
+Kullanıcı URL'i `app.com/invoice/124` yapar.
+**Eğer kodu şöyle yazdıysan Hacklendin:**
 
-> Küçük olmak,  
-> daha az hedef olmak demek değildir.
+```javascript
+// ❌ YANLIŞ (Sadece giriş yapmış mı diye bakıyor)
+app.get('/invoice/:id', requireLogin, (req, res) => {
+  const invoice = db.find(req.params.id);
+  res.json(invoice);
+});
+```
 
----
+**Olması Gereken:**
+```javascript
+// ✅ DOĞRU (Bu fatura bu adama mı ait diye bakıyor)
+app.get('/invoice/:id', requireLogin, (req, res) => {
+  const invoice = db.find(req.params.id);
+  
+  if (invoice.owner_id !== req.user.id) { // <-- KRİTİK KONTROL
+     return res.status(403).send("Hadi oradan!");
+  }
+  
+  res.json(invoice);
+});
+```
 
-# 1️⃣ MVP’de güvenlikten ne anlıyoruz?
 
-MVP’de güvenlik:
-- Her şeyi kilitlemek değildir
-- Her riski sıfırlamak değildir
+> **Ders:** Her veritabanı sorgusuna `WHERE owner_id = current_user` eklemezsen, verilerin halka açıktır.
 
-MVP’de güvenlik:
-> **Kritik alanları açık bırakmamaktır.**
+----------
 
----
+# 2️⃣ KVKK & GDPR: Hukuk Değil, Veri Diyeti
 
-## MVP için asgari güvenlik hedefleri
-- Yetkisiz erişim yok
-- Veri sızıntısı yok
-- Para yanlış işlemiyor
-- Kullanıcı başkasının verisini göremiyor
+KVKK (TR) ve GDPR (EU), teknik olarak şunu der: **"Kullanmayacağın veriyi saklama."**
 
-Bunun üstü:
-> nice to have.
+Bir geliştirici olarak sorumlulukların:
 
----
+1.  **Data Minimization (Veri Diyeti):**
+    -   Kullanıcının TC kimlik numarasına gerçekten ihtiyacın var mı? Yoksa sil.
+    -   Doğum tarihi lazım mı? Değilse formdan çıkar.
+    -   _Veri = Sorumluluktur. Ne kadar az veri, o kadar az risk._  
+2.  **Right to be Forgotten (Unutulma Hakkı):**
+    -   Kullanıcı "Hesabımı Sil" dediğinde, veritabanında `is_deleted = true` yapmak yetmez.  
+    -   Kişisel verilerini (Email, Ad, Tel) ya **silmeli** ya da **anonimleştirmelisin** (Örn: `deleted_user_123@silindi.com`).  
+3.  **Aydınlatma Metni & Çerezler:**
+    -   Basit bir "Kabul Et" butonu koymak yetmez. Hangi çerezleri neden kullandığını bilen bir metin linki ekle. (Hazır generator'lar kullan).
 
-# 2️⃣ Kimlik doğrulama (Authentication) ≠ Yetkilendirme (Authorization)
+----------
 
-Bu ikisi en çok karıştırılan kavramlardır.
+# 3️⃣ Dosya Güvenliği: "Public Bucket" Faciası
 
-- **Authentication:** Sen kimsin?
-- **Authorization:** Ne yapabilirsin?
+SilentCut gibi dosya işleyen ürünlerde en büyük risk, S3/R2 bucket'larını **"Public"** (Herkese açık) bırakmaktır.
 
-### ❌ Yaygın hata
-- Giriş yaptı → her şeyi yapabilir
+**Senaryo:** Kullanıcı özel bir video yükledi. Linki tahmin edilebilir: `bucket.com/uploads/video_1.mp4`. Hacker, `video_2.mp4`'ü dener ve bulur.
 
-### ✅ Doğru yaklaşım
-- Giriş yaptı
-- Rolü ne?
-- Kaynağın sahibi mi?
+**Çözüm: Signed URLs (İmzalı Linkler)**
 
-> Auth doğru değilse,  
-> ürün çöker.
+1.  Bucket'ı tamamen **Private** yap.
+2.  Kullanıcı dosyayı görmek istediğinde, Backend'den geçici (örn: 15 dakika geçerli) ve şifreli bir link üret.
+    -   `bucket.com/video_1.mp4?token=xyz...&expires=170000`
+3.  Bu linki sadece o kullanıcıya ver.
 
----
+----------
 
-# 3️⃣ Yetkilendirme hataları (en tehlikeliler)
+# 4️⃣ Sır Saklama: Environment Variables
 
-En sık görülen açık:
-> “Bu kaynağa gerçekten bu kullanıcı mı erişmeli?”
+GitHub'da arama yaparsan binlerce AWS Key ve Stripe Secret bulabilirsin.
 
-Örnek hatalar:
-- `/api/jobs/{id}` → id’yi bilen herkes erişiyor
-- Başkasının dosyasını indirebilme
-- Tenant ayrımının olmaması
+-   **Kural 1:** `.env` dosyası ASLA git'e atılmaz (`.gitignore`'a ekle).
+-   **Kural 2:** Frontend kodunda (React/Vue) asla `SECRET_KEY` kullanılmaz. Tarayıcıya giden her kod, kullanıcı tarafından okunabilir. 
+-   **Kural 3:** API Key'lerini kodun içine `const API_KEY = "123"` diye gömme.
+ 
 
-> Yetkilendirme bug’ı =  
-> veri sızıntısı.
+----------
 
----
+# 5️⃣ Case Study: SilentCut Güvenlik Kontrolü
 
-# 4️⃣ Upload, job ve async sistemlerde güvenlik
+SilentCut MVP'sinde nereler riskliydi?
 
-Bu tarz ürünlerde risk büyüktür.
+1.  **Job Manipulation:** Kullanıcı bir işleme emri gönderirken `{ "priority": "high" }` parametresini elle ekleyip öne geçmeye çalışabilir. -> **Backend'de input validasyonu şart.**
+    
+2.  **Download Linkleri:** İşlenmiş videoların linkleri tahmin edilebilir mi? -> **UUID kullanıldı ve Signed URL yapıldı.**
+    
+3.  **Ödeme Bypass:** Ödeme başarılı olmadan işlem başlatılabilir mi? -> **Webhook doğrulaması (Stripe Signature Check) eklendi.**
 
-## Riskli alanlar
-- Dosya upload
-- Arka plan job’ları
-- İşlem sonuçları
+----------
 
-### Asgari önlemler
-- Dosya tipi kontrolü
-- Boyut limiti
-- Job sahibi kontrolü
-- Output erişimi kontrolü
+# 🛠️ Haftalık Görevler (Commitment Checklist)
 
-> “Dosya geldi” demek  
-> “güvenli” demek değildir.
+### 1. [ ] IDOR Testi Yap
+Kendi uygulamana iki farklı kullanıcı ile üye ol.
+-   Kullanıcı A'nın bir verisinin ID'sini al (URL'den veya Network tab'dan).
+-   Kullanıcı B olarak giriş yap ve o ID'ye istek at.
+-   Veriyi görebiliyor musun? Evet ise, **acil düzelt.**
 
----
+### 2. [ ] Hassas Veri Taraması
+Veritabanına bak. Şifreler `hash`lenmiş mi (bcrypt/argon2)? (Asla düz metin tutma). Gereksiz kişisel veri var mı?
 
-# 5️⃣ Ödeme & kota sistemlerinde güvenlik
+### 3. [ ] Git Guardian Kontrolü
+Repo'nda yanlışlıkla commit edilmiş bir API Key var mı? (GitHub'da geçmiş commitleri tarayan araçlar var, veya `gitgreps` ile kendin ara).
 
-Para olan yerde:
-> Hata pahalıdır.
+### 4. [ ] Basit KVKK Sayfası
+Footer'a "Gizlilik Sözleşmesi" ve "Kullanıcı Sözleşmesi" linklerini ekle. İnternetten "SaaS Privacy Policy Generator" bulup taslak oluştur.
 
-### Dikkat edilmesi gerekenler
-- Client’tan gelen fiyatlara güvenme
-- Token / kota server-side hesaplanır
-- Idempotency (aynı işlem 2 kere olmasın)
-- Log’lanabilir işlem akışı
+----------
 
-> “Bir kere hata oldu”  
-> finansal güveni bitirir.
+# ⛔️ Yasaklı Davranışlar (Anti-Patterns)
+-   **"Security through Obscurity":** "URL'i çok karmaşık yapayım, kimse bulamaz" demek güvenlik değildir.
+-   **"Kendi Kriptonu Yazmak":** Şifreleme algoritması icat etme. Standartları (JWT, AES, HTTPS) kullan.
+-   **"Frontend'de Validasyon Yettirmek":** Frontend validasyonu kullanıcı deneyimi içindir, Backend validasyonu güvenlik içindir. İkisi de şarttır.
 
----
+----------
 
-# 6️⃣ Kişisel veri sorumluluğu (hafife alma)
+## 🔜 Gelecek Hafta: BÜYÜK FİNAL (Lansman & Operasyon)
+Güvenliği sağladık, testleri yaptık, altyapıyı kurduk.
+-   **15. Hafta:** **"Go Live!"**
+-   Monitoring (İzleme), Logging, Kriz Yönetimi ve ilk kullanıcıları karşılama.
+-   Ve bu yolculuğun (Developer to Founder) kapanışı.
 
-Kişisel veri:
-- E-posta
-- IP
-- Dosya içeriği
-- Ödeme bilgileri
+----------
 
-Şu soruyu sor:
-> “Bu veri bana gerçekten lazım mı?”
-
-### MVP için altın kural
-- Gereksiz veri toplama
-- Tutma süresini bil
-- Silme yolu olsun
-
-> Veri, sorumluluktur.  
-> Yük gibidir.
-
----
-
-# 7️⃣ Log’lar da kişisel veri olabilir
-
-En sık yapılan hata:
-- Log’a her şeyi basmak
-
-❌ Yanlış
-- Token
-- Email
-- Dosya path’leri
-
-✅ Doğru
-- Masking
-- ID bazlı log
-- Gerektiği kadar
-
-> Log sızıntısı da  
-> veri sızıntısıdır.
-
----
-
-# 8️⃣ Güvenlikte “sonra yaparız” denmeyen yerler
-
-Buralar **ilk günden doğru yapılmalı**:
-
-- Auth & yetkilendirme
-- Tenant ayrımı
-- Ödeme hesaplama
-- Upload sınırları
-- Gizli anahtar yönetimi
-
-Buralar ertelenebilir:
-- Rate limiting tuning
-- Advanced monitoring
-- Detaylı audit log
-
----
-
-# 9️⃣ SilentCut bağlamında düşünürsek
-
-Bu tip ürünlerde:
-- Dosya kime ait?
-- Job kimin?
-- Output’a kim erişebilir?
-
-Yanlış olursa:
-- Başkasının videosu indirilebilir
-- Kota suistimali olur
-- Hukuki risk doğar
-
-> Güvenlik burada sadece teknik değil,  
-> **etik** bir konudur.
-
----
-
-# 🛠️ Bu haftanın görevleri
-
-## 1️⃣ Ürünün kritik güvenlik alanlarını listele
-- Auth
-- Ödeme
-- Upload
-- Job
-
----
-
-## 2️⃣ 3 olası güvenlik açığını yaz
-- “Burada ne patlayabilir?”
-
----
-
-## 3️⃣ Asgari güvenlik kurallarını tanımla
-- MVP için
-
----
-
-## 4️⃣ Topladığın verileri listele
-- Hangisi gerçekten gerekli?
-
----
-
-## 5️⃣ “Bunu ilk günden doğru yapmalıyım” dediğin 3 şeyi yaz
-
----
-
-## ✅ Haftanın çıktıları
-
-Bu hafta sonunda elinde:
-
-- MVP seviyesinde sağlam güvenlik çerçevesi
-- Yetkilendirme farkındalığı
-- Veri sorumluluğu bilinci
-- Daha az hukuki ve teknik risk
-
-olmalı.
-
----
-
-## ⚠️ Son söz
-
-> Güvenlik,  
-> seni yavaşlatmak için değil  
-> **seni ayakta tutmak için vardır.**
-
----
-
-## 🔜 Sonraki hafta (15. Hafta)
-
-**15 – Monitoring, Logging & Kriz Yönetimi**
-
-- Ne ölçülür, ne ölçülmez?
-- Alarm yorgunluğu
-- İlk prod krizi
-- “Her şey çalışıyordu” anı
-
----
+_Developer to Founder - Week 14_
