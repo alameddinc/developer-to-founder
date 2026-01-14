@@ -96,10 +96,10 @@ Gerektiğinde **20 haftaya kadar genişleyen**, modüler bir yapıya sahiptir.
 ### 🔹 2. Faz – Ürün & Teknik Kararlar (Hafta 5–10)
 5. MVP Kapsamı & Ürün Kararları
 6. Teknik Mimari & Teknoloji Seçimi
-7. Altyapı, Hosting & Vendor Lock-in
+7. Altyapı, Hosting, CI/CD ve Vendor Lock-in
 8. Maliyet Hesaplama & Kaynak Planlama
-9. Versiyon Kontrolü & Proje Yönetimi
-10. CI/CD & Yayına Alma
+9.  Versiyon Kontrolü, Proje Yönetimi & Founder Disiplini
+10. Release & Prod Disiplini
 
 ---
 ### 🔹 3. Faz – Üretim Kalitesi & Operasyon (Hafta 11–15)
