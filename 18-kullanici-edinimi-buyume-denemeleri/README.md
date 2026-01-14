@@ -11,7 +11,7 @@ Reklam vermek "para yakmak" değildir; reklam vermek **"veri satın almaktır".*
 
 Bu modülü tamamladığında:
 * [ ] **Paid (Paralı)** ve **Organic (Organik)** kanalları, AWS Lambda ve Dedicated Server farkı gibi teknik bir gözle ayıracaksın.
-* [ ] **CAC (Müşteri Edinme Maliyeti)** hesabını yaparak, reklam verince batıp batmayacağını göreceksin.
+* [ ] **CPA, ROAS, CAC** gibi korkutucu kısaltmaların aslında basit birer "Verimlilik Denklemi" olduğunu anlayacaksın.
 * [ ] Blog yazmak yerine **"Engineering as Marketing"** (Yan Araçlar) ile trafik çekmeyi öğreneceksin.
 * [ ] **Cold Outreach** (Soğuk Temas) ile spam yapmadan potansiyel müşteriye ulaşacaksın.
 
@@ -39,8 +39,6 @@ Google Ads, problemini **zaten arayan** insanları bulur.
 1.  **Keyword:** Rakiplerinin adını veya problemini hedefle (`remove silence mp4`).
 2.  **Negatif Keyword:** `free`, `crack`, `indir` kelimelerini engelle. (Para vermeyecek adamı tıklatma).
 3.  **Hedef:** Ana sayfaya değil, o sorunu anlatan özel bir Landing Page'e yönlendir.
-
-> **Amaç:** 50$ harcadım, 50 kişi geldi, 5'i kayıt oldu. -> **CAC = 10$.** (Bu rakamı öğrenmek için reklam veriyorsun).
 
 ---
 
@@ -71,21 +69,37 @@ Reklam, tüfekle rastgele ateş etmektir. Cold Outreach (DM/Mail), sniper atış
 > Geliştirdiğim SilentCut aracı ile senin videonun 5 dakikasını temizledim, farkı gör: [Link].
 > İşine yararsa sana 1 aylık ücretsiz kod: [KOD]."
 
-**Püf Nokta:** Asla "Toplu Mail" atma. Kişiye özel olsun. Videoyu gerçekten işle. Emek ver.
-
 ---
 
-# 5️⃣ The Death Formula: CAC > LTV
+# 5️⃣ The Growth Math: CPA, ROAS & CAC
 
-Büyümenin matematiği şudur:
+Pazarlama bir sanat değil, matematiktir. İşte formüller:
 
-* **CAC (Customer Acquisition Cost):** Bir müşteriyi ikna etmek için harcadığın para (Reklam / Gelen Müşteri). Örn: $20.
-* **LTV (Lifetime Value):** O müşterinin sana ömrü boyunca ödeyeceği para. Örn: $15.
+### A) CPA (Cost Per Action) - Aksiyon Başına Maliyet
+Kullanıcının **müşteri olması gerekmez**, senin istediğin *herhangi* bir şeyi yapmasının maliyetidir.
+* *Formül:* Harcanan Para / Toplam "Sign-up" Sayısı.
+* *Örnek:* 100$ harcadın, 20 kişi **üye oldu**.
+* **CPA = $5.** (Her üye sana 5 dolara mal oldu).
 
-Eğer **CAC ($20) > LTV ($15)** ise:
-> **Tebrikler, her yeni müşteride $5 zarar ediyorsun.** Ne kadar büyürsen o kadar hızlı batarsın.
+### B) CAC (Customer Acquisition Cost) - Müşteri Edinme Maliyeti
+CPA'in abisidir. Sadece **para ödeyen** kullanıcıyı sayar.
+* *Formül:* Harcanan Para / Ödeme Yapan Sayısı.
+* *Örnek:* 100$ harcadın, o 20 üyeden sadece 2'si **satın aldı**.
+* **CAC = $50.** (Her müşteri sana 50 dolara mal oldu).
 
-**Çözüm:** Ya reklamı ucuzlat (Organic kanallara geç) ya da fiyatı artır (LTV'yi yükselt).
+### C) ROAS (Return on Ad Spend) - Reklam Harcamasının Getirisi
+Reklamın bir "kumar makinesi" (Slot Machine) gibi düşün. 1$ atınca kaç $ veriyor?
+* *Formül:* Reklamdan Gelen Ciro / Reklam Maliyeti.
+* *Örnek:* 100$ harcadın, o 2 müşteriden toplam 300$ kazandın.
+* **ROAS = 3x (veya %300).**
+
+> **Altın Kural:**
+> * **ROAS > 1** ise: Para kazanıyorsun, reklamı artır (Scale et).
+> * **ROAS < 1** ise: Para yakıyorsun, reklamı durdur ve ürünü/fiyatı düzelt.
+
+### D) Ölüm Formülü: CAC > LTV
+* **LTV (Lifetime Value):** Müşterinin ömrü boyunca sana ödeyeceği toplam para.
+* Eğer **CAC ($50) > LTV ($30)** ise, her satışta $20 zarar ediyorsun demektir. Büyüdükçe batarsın.
 
 ---
 
@@ -94,17 +108,14 @@ Eğer **CAC ($20) > LTV ($15)** ise:
 **Hipotez:** "YouTuberlar montaj yaparken en çok zamanı sessizlikleri silmeye harcıyor."
 
 **Deney 1 (Google Ads):**
-* Anahtar Kelime: "Premiere Pro silence remover plugin".
 * Bütçe: $50.
-* Sonuç: Tıklama başı maliyet (CPC) çok yüksek ($2). Pahalı geldi. Durduruldu.
+* Sonuç: 10 Kayıt (CPA: $5). 0 Satış (CAC: Sonsuz).
+* **Karar:** ROAS 0. Çok pahalı. Durduruldu.
 
 **Deney 2 (Twitter/X - Organic):**
 * İçerik: "Yapay zeka ile videomu nasıl %40 kısalttım?" (Video thread).
-* Sonuç: 100 Retweet. 500 Ziyaretçi. Bedava trafik. Başarılı.
-
-**Deney 3 (Free Tool):**
-* Araç: "Video Silence Detector" (Videonuzu yükleyin, ne kadarının sessiz olduğunu analiz etsin. İndirmek yok, sadece analiz).
-* Sonuç: İnsanlar merak edip yükledi. %20'si "Temizlemek için Tıkla" diyip ana ürüne geçti.
+* Sonuç: 100 Retweet. 500 Ziyaretçi. Bedava trafik.
+* **Karar:** ROAS Sonsuz (Maliyet 0). Başarılı. Buna yüklenilecek.
 
 ---
 
@@ -112,32 +123,33 @@ Eğer **CAC ($20) > LTV ($15)** ise:
 
 ### 1. [ ] 1 Adet "Paid" Deneyi Yap
 Bütçe: 500 TL (veya $20). Platform: Google veya Reddit.
-* Sadece 3 gün çalıştır. Kaç kişi tıkladı, kaçı üye oldu? Veriyi not al.
+* Sadece 3 gün çalıştır.
+* **CPA**'ini hesapla. (Kaç TL harcadım / Kaç kişi üye oldu?)
 
 ### 2. [ ] 1 Adet "Cold DM" At
-Hedef kitlenden 5 kişiye, yukarıdaki şablona benzer **kişiselleştirilmiş** bir mesaj at.
+Hedef kitlenden 5 kişiye, kişiselleştirilmiş bir mesaj at.
 * Cevap oranı %0 ise mesajın kötüdür. %20 ise harikadır.
 
 ### 3. [ ] "Side Project" Fikri Bul
 Ana ürününe trafik çekecek basit, ücretsiz bir araç fikri bul. (Hesap makinesi, Analiz aracı, Liste vb.).
 
-### 4. [ ] CAC Hesabı Yap
-Şu ana kadar (varsa) harcadığın para / Müşteri sayısı.
-* Bu rakam, ürün fiyatından düşük mü?
+### 4. [ ] Matematiğini Kontrol Et
+* Ürünün fiyatı (LTV tahmini), CPA hedefinden yüksek mi?
+* Eğer ürünün $10 ise ve CPA $15 çıkıyorsa, reklam vermeyi bırakman gerekir.
 
 ---
 
 # ⛔️ Yasaklı Davranışlar (Anti-Patterns)
 
-* **"Influencer'a Para Vermek":** MVP aşamasında büyük YouTuber'lara para verme. Onların kitlesi çok geniştir, senin nişine uymaz. Parana yazık olur.
-* **"Sürekli Platform Değiştirmek":** 2 gün Google dene, 2 gün Facebook dene... Algoritma öğrenemez. Bir kanala en az 1-2 hafta şans ver.
+* **"Influencer'a Para Vermek":** MVP aşamasında büyük YouTuber'lara para verme. Onların kitlesi çok geniştir, dönüşüm düşüktür.
+* **"ROAS Hesaplamadan Reklamı Açık Unutmak":** Kredi kartı ekstresi gelince ağlarsın. Günlük kontrol et.
 * **"Spam Yapmak":** İnsanların DM kutusuna "Linkime tıkla" yazıp kaçmak. Markanı öldürürsün.
 
 ---
 
 ## 🔜 Gelecek Hafta: Ölçeklendirme ve Performans
 
-Kullanıcıları bulduk (umarım). Şimdi trafik artınca sunucular ne yapacak?
+Kullanıcıları bulduk, reklam matematiğini çözdük. Şimdi trafik artınca sunucular ne yapacak?
 * **19. Hafta:** **Scaling & Cost Management.**
 * AWS faturası nasıl patlamaz?
 * Veritabanı şişerse ne yapılır?
