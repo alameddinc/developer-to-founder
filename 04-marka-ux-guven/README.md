@@ -1,17 +1,15 @@
-# 04 – Marka, UX & Güven İnşası
+# 04 – UI / UX Temelleri  
+## Kullanıcı İhtiyaçları, Alışkanlıklar ve Güven
 
 Bu haftanın amacı:
-> **Ürünün daha kullanılmadan önce güven vermesini sağlamak.**
+> **Ürünün nasıl göründüğünü değil, neden öyle göründüğünü anlamak.**
 
-İnsanlar bir ürünü:
-- Önce **görür**
-- Sonra **hisseder**
-- En son **kullanır**
+UI/UX:
+- Estetik yarışması değildir
+- Kişisel zevk meselesi değildir
+- “Bana güzel geldi” işi değildir
 
-Güven yoksa:
-- Fiyat pahalı görünür
-- Rakip daha mantıklı gelir
-- “Sonra bakarım” denir ve geri dönülmez
+> UI/UX = kullanıcıyı doğru davranışa yönlendirme sanatıdır.
 
 ---
 
@@ -19,195 +17,223 @@ Güven yoksa:
 
 Bu hafta sonunda katılımcı:
 
-- Marka = logo yanılgısından çıkacak
-- UX’in sadece “güzel görünmek” olmadığını anlayacak
-- Kullanıcının kafasındaki şu soruya cevap verecek:
-
-> “Ben bu ürüne neden güveneyim?”
-
-- Ürünü için **ilk güven mimarisini** kurmuş olacak
+- UI ve UX kararlarını **gerekçelendirebilecek**
+- “Bu buton neden mavi?” sorusuna cevap verebilecek
+- Renk, font ve düzenin **davranışı nasıl etkilediğini** anlayacak
+- Kullanıcı alışkanlıklarına göre tasarım yapmayı öğrenecek
+- Güvenin tasarımın **içinden** nasıl üretildiğini kavrayacak
 
 ---
 
-## 🧠 En yaygın yanılgı
+## 🧠 UX’in en basit tanımı
 
-> “UI önemli değil, ürün çalışıyor ya.”
+> UX = Kullanıcının **yanlış yapmasını zorlaştırmak**,  
+> doğru yapmasını **kolaylaştırmaktır**.
 
-Gerçek:
-- İnsanlar **önce gözleriyle karar verir**
-- Çalışan ama güven vermeyen ürün **kullanılmaz**
-- Kredi kartı girilen yerde “idare eder” UX olmaz
+Eğer kullanıcı:
+- Yanlış yere tıklıyorsa
+- Yanlış ayarı seçiyorsa
+- Ne yapacağını anlamıyorsa
 
----
-
-## 🏷️ Marka nedir? (gerçek tanım)
-
-Marka:
-> Kullanıcının seninle ilgili **hissettiği şeydir**
-
-Logo:
-- Sadece bir sonuç
-- Asla başlangıç noktası değil
-
-Marka şu sorulara cevap verir:
-- Bu ürün ciddi mi?
-- Bu ürün bana mı hitap ediyor?
-- Bu ürünü yapan biri var mı?
-- Sorun yaşarsam ulaşabilir miyim?
+sorun **kullanıcıda değil**, tasarımdadır.
 
 ---
 
-## 🧪 SilentCut Case Study – Güven Nerede Oluştu?
+## 🔘 Basit bir örnek: Tek bir buton
 
-SilentCut’ta güven şu yerlerde oluştu:
+Bir ekranda şunlar olsun:
 
-- Landing page’de **net problem tanımı**
-- “Ne yapar?” 5 saniyede anlaşılıyor
-- Örnek video / before-after gösterimi
-- “Her şeyi yaparız” iddiası yok
-- Basit, temiz, sakin tasarım
+- “İptal”
+- “Kaydet”
+- “Sil”
 
-Yani:
-> Güven, iddiadan değil  
-> **netlikten** geldi
+### ❌ Yanlış UI
 
----
+- Üçü de aynı renkte
+- Aynı boyutta
+- Yan yana
 
-## 🧭 UX = Kullanıcıyı Yormamak
+Kullanıcı:
+- Hangisi ana aksiyon?
+- Hangisi tehlikeli?
+- Yanlışlıkla “Sil”e basabilir
 
-UX:
-- Animasyon değildir
-- Renk paleti değildir
+### ✅ Doğru UI
 
-UX:
-> Kullanıcının kafasındaki soruları **sormasına gerek kalmadan** cevaplamaktır
+- “Kaydet” → **ana renk** (primary)
+- “İptal” → gri / secondary
+- “Sil” → kırmızı ve izole
 
-Örnek UX soruları:
-- Bu ne işe yarıyor?
-- Bana uygun mu?
-- Nasıl deneyeceğim?
-- Para ister mi?
-- Hata olursa ne olacak?
+UX mesajı:
+> “Bunu yapman normal,  
+> bunu dikkatli yap,  
+> bunu nadiren yap.”
 
 ---
 
-## 🔑 Güven oluşturan temel bileşenler
+## 🎨 Renk psikolojisi (abartmadan, işe yarayan kısım)
 
-### 1️⃣ Net değer önerisi (Value Proposition)
+Renkler **duygu taşır**, ama sihirli değildir.
 
-İlk ekranda şu net olmalı:
-- Ne yapıyorsun?
-- Kim için?
-- Hangi problemi çözüyorsun?
+### Yaygın ve güvenli eşleşmeler
 
-❌ “AI powered next-gen platform”  
-✅ “Uzun videolardaki sessizlikleri otomatik temizler”
+- **Mavi** → güven, stabilite  
+  (finans, B2B, dashboard)
+- **Yeşil** → olumlu aksiyon  
+  (onay, tamamlandı)
+- **Kırmızı** → tehlike, geri dönüşsüz  
+  (silme, iptal)
+- **Gri** → pasif / ikincil
 
----
+### SilentCut tarzı ürünlerde:
+- Ana aksiyon: **mavi / yeşil**
+- Tehlikeli işlem: **kırmızı**
+- Arka plan: **nötr**
 
-### 2️⃣ Görünür insan / ekip izi
-
-- “Hakkımızda” sayfası
-- İsim, mail, LinkedIn
-- Tek kişiysen bile gizleme
-
-> İnsanlar ürüne değil,  
-> **insana güvenir**
-
----
-
-### 3️⃣ Risk azaltıcı unsurlar
-
-- Ücretsiz deneme
-- Para iade politikası
-- “Kredi kartı gerekmez” gibi netlik
-
-Bunlar:
-- Geliri azaltmaz
-- **Satın alma eşiğini düşürür**
+> Renk seçimi “güzel” olduğu için değil,  
+> **yanlış tıklamayı önlemek** içindir.
 
 ---
 
-### 4️⃣ Teknik güven sinyalleri
+## 🔤 Font meselesi (küçük ama kritik)
 
-Teknik detay satmak için değil, güven için vardır:
+Font:
+- Marka karakteridir
+- Okunabilirliktir
+- Ciddiyet algısıdır
 
-- HTTPS
-- Açık hata mesajları
-- “Upload güvenli mi?” sorusuna cevap
-- Gizlilik politikası (basit bile olsa)
+### Basit kural
+
+- 1 font ailesi yeter
+- 2 ağırlık (normal / bold) yeter
+- Aşırı süslü font = güvensizlik
+
+### B2B vs B2C farkı
+
+- **B2B**:
+  - Düz
+  - Sade
+  - “İş yapıyoruz” hissi
+
+- **B2C**:
+  - Bir tık daha yumuşak
+  - Ama hâlâ okunabilir
+
+> “Farklı olayım” diye  
+> okunmayan font seçmek UX hatasıdır.
 
 ---
 
-## 🧱 Basit bir tasarım sistemi (overengineering yok)
+## 📐 Düzen (Layout): Kullanıcı ekranı nasıl okur?
 
-Amaç:
-- Her sayfa başka evrenden gelmesin
-- Ürün tutarlı görünsün
+Kullanıcı ekranı:
+- Yukarıdan aşağı
+- Soldan sağa
+- Z şeklinde okur
 
-Minimum yeterli set:
-- 1 ana renk
-- 1 vurgu rengi
-- 1 font ailesi
-- 2–3 buton stili
+### Bu yüzden:
 
-> Tutarlılık, estetikten daha önemlidir
+- En önemli bilgi **üstte**
+- Ana aksiyon **göz hizasında**
+- Detaylar **aşağıda**
+
+❌ Yanlış:
+- İlk ekranda uzun açıklama
+- Buton aşağıda kaybolmuş
+
+✅ Doğru:
+- Önce ne olduğu
+- Sonra ne yapacağı
+- Sonra detay
 
 ---
 
-## 🧪 SilentCut – UX’te Yapılan Hatalar
+## 🧠 Kullanıcı alışkanlıkları (çok kritik)
 
-- İlk versiyonda:
-  - Fazla seçenek
-  - Gereksiz ayarlar
-- Kullanıcı:
-  - “Ne yapacağım?” diye durdu
+UX evrensel değildir.  
+Kitleye göre değişir.
 
-Sonra:
-- Varsayılan ayarlar
-- Tek ana aksiyon
-- “Upload → Process → Download”
+### Örnek farklar
 
-UX dersi:
-> Kullanıcıyı güçlü hissettirme  
-> Kontrol vermekle değil,  
-> **karar yükünü azaltmakla olur**
+#### Teknik kullanıcı
+- Metin okumaya daha toleranslı
+- Ayar görmekten korkmaz
+- “Ne oluyor?”u merak eder
+
+#### Teknik olmayan kullanıcı
+- Hız ister
+- Varsayılan ister
+- “Beni uğraştırma” der
+
+SilentCut’ta:
+- Teknik ayarlar → geri planda
+- Varsayılanlar → önde
+
+> UX’in görevi kullanıcıyı eğitmek değil,  
+> **rahatlatmaktır**.
+
+---
+
+## 🔐 Güven UX’ten nasıl çıkar?
+
+Güven:
+- “Biz çok iyiyiz” yazısıyla oluşmaz
+- Kullanıcı davranışıyla oluşur
+
+### Güven veren UX örnekleri
+
+- Yüklemeden önce:
+  > “Dosyanız silinmeyecek”
+- İşlem sırasında:
+  > “%45 tamamlandı”
+- İşlem sonrası:
+  > “İstersen geri alabilirsin”
+
+Belirsizlik:
+- Güvensizliktir
+
+---
+
+## 🧪 Çok basit ama güçlü bir test
+
+Her ekran için kendine sor:
+
+1. Kullanıcı burada ne yapmak istiyor?
+2. Ben bunu kolaylaştırıyor muyum?
+3. Yanlış yapma ihtimali var mı?
+4. Yanlış yaparsa korkar mı?
+
+“Evet” dediğin her risk → UX borcu.
 
 ---
 
 ## 🛠️ Bu haftanın görevleri
 
-### 1️⃣ Değer önerini tek cümle yaz
+### 1️⃣ Ana ekranını parçalara ayır
 
-> “Bu ürün, [ŞU KİŞİLER] için [ŞU PROBLEMİ] çözer.”
-
-Bu cümle:
-- Landing page başlığı olacak
-- Pazarlama metni değil, **netlik metni**
-
----
-
-### 2️⃣ Güven checklist’i çıkar
-
-Şu sorulara “evet” diyebiliyor musun?
-
-- Ürünü kimin yaptığı belli mi?
-- Ne yaptığını 5 saniyede anlıyor muyum?
-- Riskim ne, azalıyor mu?
-- Sorun olursa kime ulaşırım?
-
-“Hayır” olan her şey bir aksiyon maddesi.
+Şunları yaz:
+- Ana mesaj ne?
+- Ana aksiyon ne?
+- İkincil aksiyonlar neler?
 
 ---
 
-### 3️⃣ UX akışını çiz (kod yok)
+### 2️⃣ Renk & font kararlarını gerekçelendir
 
-- Kullanıcı ilk kez geldi
-- Ne gördü?
-- Ne yaptı?
-- Nerede karar verdi?
+Her biri için:
+> “Bunu seçtim çünkü…”
 
-Kağıt, Miro, Notion fark etmez.
+“Güzel duruyor” **geçersiz cevap**.
+
+---
+
+### 3️⃣ Kullanıcı alışkanlığı varsayımını yaz
+
+> “Benim kullanıcılarım genelde şunu yapar / istemez…”
+
+Bu varsayım:
+- Yanlış olabilir
+- Ama **bilinçli** olmalı
 
 ---
 
@@ -215,10 +241,10 @@ Kağıt, Miro, Notion fark etmez.
 
 Bu hafta sonunda elinde:
 
-- Net değer önerisi
-- İlk marka tonu
-- Güven oluşturan bileşenler
-- Basit UX akışı
+- Bilinçli UI kararları
+- Basit ama mantıklı tasarım sistemi
+- Kullanıcı alışkanlıklarına dayalı UX
+- Güven üreten ekranlar
 
 olmalı.
 
@@ -227,13 +253,12 @@ olmalı.
 ## ⚠️ Önemli uyarı
 
 Bu hafta:
-- Pixel mükemmeliyetçiliği yok
-- Logo yarışması yok
-- “Sonra düzeltiriz” rehaveti yok
+- “Designer değilim” bahanesi yok
+- “Sonra düzeltiriz” yok
 
 Çünkü:
-> Güven vermeyen ürün,  
-> test bile edilemez.
+> Kötü UX,  
+> iyi ürünü bile yanlış gösterir.
 
 ---
 
@@ -241,13 +266,14 @@ Bu hafta:
 
 **05 – MVP Kapsamı & Ürün Kararları**
 
-- MVP gerçekten nedir?
-- Neleri **bilinçli olarak yapmayacağız**?
-- Teknik borç nerede alınır, nerede alınmaz?
-- SilentCut’ta MVP’de olmayan ama sonradan eklenenler
+- MVP nedir, ne değildir?
+- Neleri bilerek yapmıyoruz?
+- Teknik borç nerede alınır?
+- “Bu özellik neden YOK?” sorusu
 
 ---
 
-> **Not:**  
-> İnsanlar ürünü kullanmadan önce,  
-> senin ne kadar net olduğuna bakar.
+> **Son not:**  
+> İyi UI fark edilmez.  
+> İyi UX hatırlanmaz.  
+> Kötü olan ikisi de unutulmaz.
