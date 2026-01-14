@@ -1,272 +1,129 @@
-# 06 – Teknik Mimari & Teknoloji Seçimi  
-## Doğru Dil Değil, Doğru İnsan + Doğru Zaman
+# 06 – Tech Stack Strategy: Doğru Dil Değil, Doğru Zaman
 
-Bu haftanın amacı:
-> **Teknoloji seçimini trend, popülerlik veya “ileride lazım olur” korkusu ile değil,  
-> ekip (veya sen) gerçekliği üzerinden yapmak.**
+> **Haftanın Mottosu:** "Startuplar yanlış teknoloji seçtikleri için değil, kimse ürünlerini kullanmadığı için ölürler. Stack seçimi bir ego savaşı değil, bir hayatta kalma stratejisidir."
 
-Profesyonel gerçek:
-> Ürünler stack yüzünden değil,  
-> **yanlış hız ve yanlış karar yüzünden** ölür.
+Bu haftanın amacı; GitHub trendlerine, "Hype" trenlerine veya "Google böyle yapıyor" makalelerine bakarak değil; **kendi ekibinin (veya kendinin) kas hafızasına** bakarak karar vermektir.
 
 ---
 
-## 🎯 Haftanın hedefi
+## 🎯 Haftanın Hedefleri (Learning Outcomes)
 
-Bu hafta sonunda katılımcı:
-
-- “Go ile başlamak mantıksız mı?” sorusuna **net ve gerekçeli** cevap verebilecek
-- Takım/skill fit kavramını anlayacak
-- Mimariyi **insan kapasitesiyle** birlikte düşünecek
-- Erken “bir daha baştan yazmayalım” refleksinin risklerini fark edecek
-- Go, Node, Next.js gibi teknolojileri **amaç–zaman–risk** çerçevesinde konumlandıracak
-- Vendor lock-in ve geri dönülemez kararları ayırt edebilecek
+Bu modülü tamamladığında:
+* [ ] "Go ile başlarsam yavaşlar mıyım, Node ile başlarsam ileride pişman olur muyum?" paradoksundan kurtulacaksın.
+* [ ] **Skill/Market Fit** (Yetenek/Pazar Uyumu) kavramını anlayacaksın.
+* [ ] "Rewrite" (Yeniden Yazım) korkusunun yersiz olduğunu ve **Strangler Fig** yöntemiyle nasıl evrimleşebileceğini göreceksin.
+* [ ] Mimariyi "teknolojik mükemmellik" için değil, "mental huzur" için kurgulayacaksın.
 
 ---
 
-## 🧠 En yaygın ama anlaşılır refleks
+## 🧠 Skill Fit: En İyi Stack, Senin En Hızlı Olduğun Stack'tir
 
-> “Ben Go ile yazayım.  
-> Eğer tutarsa devam etmem kolay olur,  
-> tekrar sıfırdan başlamayayım.”
+Mühendisler teknolojiyi karşılaştırır (Go vs Node). Kurucular ise çıktıyı karşılaştırır (1 ay vs 3 ay).
 
-Bu refleks:
-- Mantıksız **değil**
-- Ama **tek başına yeterli gerekçe de değil**
+### Senaryo Analizi: Hız mı, Huzur mu?
 
-Asıl soru şu olmalı:
-> “Go ile başlamak, **bugün** bana hız mı kazandırıyor,  
-> yoksa sadece **ileride rahat edeyim** diye bugün yavaşlatıyor mu?”
+| Senaryo | Teknoloji | Avantaj (Pros) | Risk (Cons) | Psikoloji |
+| :--- | :--- | :--- | :--- | :--- |
+| **A (Hız Odaklı)** | **Next.js / Node** | UI ve Backend tek repo. Çok hızlı MVP, zengin kütüphane. | Spagetti kod riski, yüksek RAM tüketimi, Type güvenliği sorunları. | "Çok hızlı çıktım ama kod biraz kirli, sonra başım ağrıyacak." |
+| **B (Sağlamcı)** | **Go / Rust** | Type-safe, düşük RAM, yüksek performans, huzurlu backend. | UI ile entegrasyon eforu, daha fazla boilerplate, daha yavaş geliştirme. | "Kodum taş gibi ama arayüzü bitiremedim, pazar kaçıyor mu?" |
 
----
-
-# 1️⃣ Takım / Skill Fit Nedir? (En kritik ama en az konuşulan konu)
-
-### Skill fit = Şu an kim kod yazıyor?
-
-- Solo founder mısın?
-- 2–3 kişilik küçük ekip misin?
-- Herkes full-stack mi, yoksa roller ayrık mı?
-
-Teknik gerçek:
-> En iyi teknoloji,  
-> **ekibin en az zorlandığı teknolojidir.**
+> **Karar Anı:** Eğer Go ile yazmak seni Next.js ile yazmaktan sadece %10-20 yavaşlatıyorsa; **Go seç.** O farka değer. Ama Go seni %200 yavaşlatacaksa (yeni öğreniyorsan), **uzak dur.**
 
 ---
 
-## 🧠 Profesyonel bakış: İnsan > Teknoloji
+## ⚠️ "Rewrite Phobia" (Yeniden Yazma Korkusu)
 
-Şu iki senaryoyu karşılaştıralım:
+Çoğu geliştirici MVP'yi Go ile yazmak ister çünkü şu cümleyi kurar:
+> *"Şimdi hızlı olsun diye Node ile yazıp, 6 ay sonra her şeyi çöpe atıp Go ile baştan yazmak istemiyorum."*
 
-### Senaryo A
-- Go ile:
-  - Daha az bug yazıyorsun
-  - Daha net kod yazıyorsun
-  - Production’da daha rahatsın
-  - Debug seni yormuyor
+Bu yaklaşım mantıksız değildir, ancak eksiktir.
+**Gerçek:** Başarılı ürünlerin %90'ı, scale ettikçe rewrite yer. Bu bir hata değil, **büyüme belirtisidir.**
 
-Ama:
-- UI/landing yavaş ilerliyor
-
-### Senaryo B
-- Next.js ile:
-  - Landing + ürün çok hızlı çıkıyor
-  - Ama backend tarafında:
-    - “Sonra düzeltirim” dediğin borçlar birikiyor
-    - Uzun vadede huzursuzluk var
-
-Profesyonel karar:
-> **Seni daha az yoran stack, genelde doğru stack’tir.**
+### Go ile Başlamak NE ZAMAN Rasyoneldir?
+Aşağıdaki maddelerden en az 3'ü senin için "Evet" ise, Go (veya benzeri robust diller) ile başla:
+1.  [ ] Go ile CRUD ve API yazmak senin için "su içmek" kadar doğal ve hızlıysa.
+2.  [ ] Ürün yoğun CPU işlemi, concurrency veya background job gerektiriyorsa (Video işleme, Data pipeline).
+3.  [ ] Tek binary deploy etmek operasyonel yükünü hafifletiyorsa.
+4.  [ ] "İleride rewrite yapma fikri" senin motivasyonunu şimdiden düşürüyorsa (Mental blokaj).
 
 ---
 
-## ⚠️ Ama kritik uyarı (burada çoğu kişi hata yapar)
+## 🏗 Profesyonel Mimari: The Hybrid Model
 
-“Ben Go biliyorum” ile  
-“Ben Go ile **aynı hızda** MVP çıkarırım”  
-aynı şey değildir.
+"Ya hep ya hiç" demek zorunda değilsin. Modern SaaS mimarilerinde hibrit yapı çok yaygındır.
 
-Eğer Go ile:
-- MVP 2–4 hafta yerine 2–3 ay sürecekse  
-→ bu **risklidir**
+**Frontend & Pazarlama (Hız Katmanı):**
+* **Next.js / Vercel:** Landing page, auth, basit kullanıcı arayüzleri, ödeme formları.
+* *Neden?* Çünkü SEO, A/B testleri ve UI kütüphaneleri burada çok güçlü.
 
-Çünkü MVP aşamasında:
-> En pahalı şey performans değil, **geç kalmaktır**.
+**Core Logic & Worker (Güç Katmanı):**
+* **Go / Python:** Ağır iş yükü, video işleme, veri analizi, kuyruk (queue) yönetimi.
+* *Neden?* Çünkü Node.js burada tıkanabilir veya çok pahalıya patlayabilir.
 
----
-
-# 2️⃣ Go ile başlamak NE ZAMAN mantıklı?
-
-Aşağıdaki maddelerden **en az 3’ü net “evet” ise**, Go ile başlamak **tamamen rasyoneldir**:
-
-1. Go ile web + API + job yazmak seni yavaşlatmıyor  
-2. Ürün background job / queue / concurrency ağırlıklı  
-3. Tek binary deploy ve düşük RAM senin için avantaj  
-4. Debug, profiling ve production seni korkutmuyor  
-5. “MVP sonrası rewrite” fikri seni psikolojik olarak yoruyor  
-
-Bu durumda:
-> Go senin için **erken optimizasyon değil**,  
-> **erken huzur** sağlar.
+> **Sonuç:** Frontend'i her hafta değiştirebilirsin (Next.js esnekliği), ama Backend'in çekirdeği sağlam kalır (Go stabilitesi).
 
 ---
 
-# 3️⃣ Go ile başlamak NE ZAMAN riskli?
+## 🧪 Case Study: SilentCut Mimari Kararı
 
-Şu durumlarda risk artar:
+SilentCut'ta ekip (yani sen) şunu analiz etti:
 
-- UI / landing / marketing sayfaları kritik ama Go ile yavaş
-- Ürün hâlâ ciddi pivot ihtimali taşıyor
-- Kullanıcı geri bildirimi için hızlı A/B denemeler gerekiyor
-- “Her şeyi düzgün yapayım” refleksi ağır basıyor
+* **Sorun:** Tarayıcıda ffmpeg çalıştırmak güvenilmez. Sunucuda video işlemek CPU/RAM canavarı.
+* **Node.js Riski:** Büyük bir videoyu işlerken Event Loop bloklanabilir, diğer kullanıcılar hata alır.
+* **Go Avantajı:** Goroutines ile binlerce videoyu paralel işlemek çok ucuz.
 
-Burada risk:
-> “Bir daha baştan yazmayayım” diye  
-> **ilk seferde geç çıkmak**
+**Karar:**
+1.  **Frontend:** Next.js (Hızlı UI gelişimi için).
+2.  **Backend:** Go (API ve Worker).
+3.  **İletişim:** Basit REST API + Pub/Sub.
 
----
-
-# 4️⃣ Profesyonel denge modeli (çok kullanılan)
-
-Birçok deneyimli founder şu modeli kullanır:
-
-### 🎯 Çekirdek iş mantığı (core)
-- Go
-- Modüler monolit
-- Uzun ömürlü
-- “Bir daha yazmak istemediğin” kısım
-
-### 🎨 Deney & iterasyon katmanı
-- Next.js / React
-- Landing
-- UX denemeleri
-- A/B testleri
-
-Bu modelde:
-- “Sıfırdan başlamıyorsun”
-- Ama “her şeyi baştan Go ile yapmak zorunda da kalmıyorsun”
-
-> Profesyoneller “tek doğru stack” değil,  
-> **doğru sınırlar** kurar.
+*Bu bir "erken optimizasyon" değil, işin doğası gereği "zorunlu optimizasyon"du.*
 
 ---
 
-# 5️⃣ “Sonra Go + React’a geçmek zorunda mıyım?” sorusu
+## 🔄 "Sonra Nasıl Değiştireceğim?" (Strangler Fig Pattern)
 
-Hayır.  
-“Zorunda” değilsin.
+Eğer Node.js ile başlayıp sonra Go'ya geçmek istersen, "Big Bang Rewrite" (Her şeyi kapatıp yeniden açmak) yapma.
 
-Geçmek için **iyi sebepler**:
-- Trafik ciddi arttı
-- Background processing büyüdü
-- Takım genişledi
-- Performans / maliyet farkı netleşti
-- Güvenlik / izolasyon ihtiyacı arttı
-
-Geçmek için **kötü sebepler**:
-- “Go daha cool”
-- “Başta yanlış yaptık hissi”
-- “Rakip böyle”
-
-> Stack değişimi bir **teknoloji kararı değil**,  
-> **ürün olgunluk kararıdır**.
+**Strangler Fig (Boğucu İncir) Yöntemi:**
+1.  Monolit uygulaman çalışmaya devam etsin.
+2.  Sadece **en çok kaynak tüketen** veya **en sorunlu** tek bir fonksiyonu (örn: `processVideo`) Go ile mikroservis olarak yaz.
+3.  Trafiği yavaşça oraya yönlendir.
+4.  Zamanla eski monoliti parça parça "boğarak" yok et.
 
 ---
 
-# 6️⃣ Mimariyi “geri dönülebilir” kurmak (asıl ustalık)
+## ⚡️ Haftalık Görevler (Commitment Checklist)
 
-Go ile başlasan bile şunları yap:
+### 1. [ ] Skill Fit Testi
+Dürüstçe cevapla ve not et:
+* *"Ben en hızlı hangi dilde prototip çıkarırım?"* -> ...
+* *"Hangi dilde production bug'ı çözmek beni daha az strese sokar?"* -> ...
 
-- Modüler yapı (package sınırları net)
-- Interface’ler üzerinden bağımlılık
-- Storage / queue / mail soyutlaması
-- İş mantığını framework’e gömmeme
+### 2. [ ] Mimari Karar Cümlesi (Decision Record)
+Şunu doldur ve `ARCHITECTURE.md` dosyana ekle:
+> *"Projenin bu aşamasında [TEKNOLOJİ X]'i seçiyorum. Çünkü şu an benim için en kritik kaynak [HIZ / PERFORMANS / MALİYET]. Eğer [GÜNLÜK 10K KULLANICI / %50 CPU YÜKÜ] sınırına ulaşırsam, yapıyı değiştirmeyi değerlendireceğim."*
 
-Bunları yaparsan:
-- Rewrite değil
-- **Evrim** yaparsın
-
----
-
-# 7️⃣ Profesyonel karar soruları (kendine sor)
-
-Aşağıdakileri yazılı cevapla:
-
-1. Bu projede beni en çok yoran şey ne?
-2. Hangi stack’te daha az mental yüküm var?
-3. MVP’ye 1 ay geç çıkmak bana ne kaybettirir?
-4. Rewrite ihtimali mi, geç çıkma ihtimali mi daha korkutucu?
-5. Bu projeyi 6 ay sonra hâlâ ben mi taşıyacağım?
-
-Cevaplar:
-> Stack kararını zaten söylüyor.
+### 3. [ ] "Lock-in" Kontrolü
+Seçtiğin teknoloji seni bir sağlayıcıya (örn: Firebase, AWS Lambda, Vercel Functions) göbekten bağlıyor mu?
+* Eğer "Yarın sunucuyu değiştiremem" diyorsan, iş mantığını framework'ten soyutla (Hexagonal/Clean Architecture prensipleri).
 
 ---
 
-# 🧪 SilentCut bağlamında düşünürsek
+## ⛔️ Yasaklı Düşünceler (Anti-Patterns)
 
-SilentCut gibi ürünlerde:
-- İşin zor kısmı UI değil
-- **Processing pipeline**
-- **Queue**
-- **Maliyet kontrolü**
-
-Bu yüzden:
-- Core Go olması çok mantıklı
-- UI katmanı ayrı ve hızlı evrilebilir olabilir
+* *"Google/Uber mikroservis kullanıyor, ben de kullanmalıyım."* -> Onların 5000 mühendisi var, senin yok.
+* *"Bu dil çok popüler, geliştirici bulmam kolay olur."* -> Sen daha geliştirici alacak parayı kazanmadın. Kendine odaklan.
+* *"Mükemmel olsun, 1 ay geç olsun."* -> O 1 ayda rakibin pazarı domine edebilir.
 
 ---
 
-## 🛠️ Bu haftanın görevleri (güncellenmiş)
+## 🔜 Gelecek Hafta: Altyapı, Hosting & Maliyet Yönetimi
 
-### 1️⃣ Skill fit değerlendirmesi yaz
-- Ben hangi stack’te daha üretkenim?
-- Nerede yavaşlıyorum?
-
----
-
-### 2️⃣ Mimari karar cümlesi yaz
-> “Bu aşamada X stack’ini seçiyorum çünkü …  
-> Şu sinyaller gelirse tekrar değerlendiririm: …”
+Haftaya kodun çalıştığı yere, "Toprağa" iniyoruz:
+* $5'lık VPS mi, yoksa Serverless mı?
+* AWS faturaları nasıl patlamaz?
+* Veritabanı (SQL/NoSQL) kararı ve Vendor Lock-in yönetimi.
 
 ---
-
-### 3️⃣ Geri dönülemez karar listesi
-Bu hafta **bilinçli olarak almadığın** kararlar:
-- Mikroservis
-- Kubernetes
-- Cloud’a gömülü iş mantığı
-- Gereksiz soyutlama
-
----
-
-## ✅ Haftanın çıktıları
-
-Bu hafta sonunda elinde:
-
-- Stack kararının gerekçesi
-- Skill fit analizi
-- Mimari sınırlar
-- Yeniden değerlendirme kriterleri
-
-olmalı.
-
----
-
-## ⚠️ Son uyarı
-
-> En iyi teknoloji,  
-> seni **en uzun süre yormayan** teknolojidir.
-
----
-
-## 🔜 Sonraki hafta
-
-**07 – Altyapı, Hosting & Vendor Lock-in Yönetimi**
-
-- VPS vs PaaS vs Serverless
-- CI/CD ile altyapı ilişkisi
-- Storage / DB / Queue seçimleri
-- Lock-in’i pratikte azaltmak
-
----
+*Developer to Founder - Week 06*
