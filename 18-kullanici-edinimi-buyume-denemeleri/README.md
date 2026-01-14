@@ -1,315 +1,147 @@
-# 18 – Kullanıcı Edinimi & Büyüme Denemeleri  
-## “Kullanıcı Gelmez, Getirilir”
+# 18 – Growth Engineering: Kullanıcı Edinimi & Büyüme Denemeleri
 
-Bu haftanın amacı:
-> **Ürüne kullanıcı kazandırmanın bir pazarlama sloganı değil,  
-> ölçülebilir, deneysel ve tekrar edilebilir bir süreç olduğunu öğretmek.**
+> **Haftanın Mottosu:** "Kod yazmak ürünü inşa eder. Pazarlama ise ürünü satar. 'İnşa edersen gelirler' (Build it and they will come) sözü, Hollywood filmlerinde geçen bir yalandır."
 
-Bu hafta:
-- Reklamı şeytanlaştırmıyoruz
-- “Growth hack” masalları anlatmıyoruz
-- Viral olma hayali satmıyoruz
-
-Ama:
-> Paid ve organic kanalların  
-> **ne zaman, nasıl ve hangi beklentiyle** kullanılacağını netleştiriyoruz.
+Bu haftanın amacı; pazarlama gurusu olmak değil, **"Traffic Acquisition" (Trafik Edinimi)** sistemini bir mühendis gibi kurgulamaktır.
+Reklam vermek "para yakmak" değildir; reklam vermek **"veri satın almaktır".**
 
 ---
 
-## 🎯 Haftanın hedefi
+## 🎯 Haftanın Hedefleri (Learning Outcomes)
 
-Bu hafta sonunda katılımcı:
-
-- Kullanıcı edinimi kavramını net anlayacak
-- Paid ve organic kanalların farkını bilecek
-- Reklam vermenin **ne zaman mantıklı olduğunu** kavrayacak
-- Küçük bütçelerle deney yapabilmeyi öğrenecek
-- Growth mitlerinden uzak duracak
-- “Para yaktım ama bir şey öğrenmedim” tuzağına düşmeyecek
+Bu modülü tamamladığında:
+* [ ] **Paid (Paralı)** ve **Organic (Organik)** kanalları, AWS Lambda ve Dedicated Server farkı gibi teknik bir gözle ayıracaksın.
+* [ ] **CAC (Müşteri Edinme Maliyeti)** hesabını yaparak, reklam verince batıp batmayacağını göreceksin.
+* [ ] Blog yazmak yerine **"Engineering as Marketing"** (Yan Araçlar) ile trafik çekmeyi öğreneceksin.
+* [ ] **Cold Outreach** (Soğuk Temas) ile spam yapmadan potansiyel müşteriye ulaşacaksın.
 
 ---
 
-## 🧠 En büyük yanılgı
+# 1️⃣ Paid vs. Organic: Developer Analojisi
 
-> “Biraz reklam verelim, kullanıcı gelir.”
+Pazarlama kanalları ikiye ayrılır. Hangisini seçeceğin, **zamanına** ve **parana** bağlıdır.
 
-Gerçek:
-> Reklam kullanıcı **getirebilir**,  
-> ama ürün **tutmuyorsa tutmaz**.
+| Kanal Tipi | Analoji | Özellik | Örnek |
+| :--- | :--- | :--- | :--- |
+| **Paid (Reklam)** | **AWS Lambda** | Musluğu açarsın akar, kapatırsın durur. Hızlıdır ama her saniyesi para yazar. | Google Ads, Meta Ads, Reddit Ads. |
+| **Organic (SEO/İçerik)** | **Kendi Sunucunu Kurmak** | Kurması zordur, zaman alır (aylar sürer). Ama bir kere kurunca maliyeti çok düşüktür. | Blog, YouTube, Twitter, Free Tools. |
 
-Reklam:
-- Problemi çözmez
-- Ürünü iyileştirmez
-- Sadece **daha fazla insanı** ürüne getirir
+> **MVP Stratejisi:** İlk 1 ay **Paid** (Hızlı öğrenmek için), sonraki aylar **Organic** (Sürdürülebilirlik için).
 
 ---
 
-# 1️⃣ Kullanıcı edinimi nedir?
+# 2️⃣ Google Ads: Niyet Satın Almak
 
-Kullanıcı edinimi:
-> Doğru kişiyi,  
-> doğru vaadle,  
-> doğru yere getirmektir.
+Google Ads, problemini **zaten arayan** insanları bulur.
+* *Örnek:* "Video sessizlik silme programı" diye aratan birinin cüzdanı masanın üzerindedir.
 
-Yanlış kişi + yanlış vaat:
-- Reklam bütçesini yakar
-- Yanlış geri bildirim üretir
-- Moral bozar
+**Deney Kurulumu (50$ Bütçe İle):**
+1.  **Keyword:** Rakiplerinin adını veya problemini hedefle (`remove silence mp4`).
+2.  **Negatif Keyword:** `free`, `crack`, `indir` kelimelerini engelle. (Para vermeyecek adamı tıklatma).
+3.  **Hedef:** Ana sayfaya değil, o sorunu anlatan özel bir Landing Page'e yönlendir.
 
----
-
-# 2️⃣ Paid vs Organic: Temel fark
-
-| Paid | Organic |
-|----|----|
-| Hızlı | Yavaş |
-| Parayla ölçeklenir | Emekle ölçeklenir |
-| Öğrenme hızlandırır | Güven oluşturur |
-| Bütçe bitince durur | Zamanla güçlenir |
-
-> İyi ürünler genelde **ikisinin karışımıyla** büyür.
+> **Amaç:** 50$ harcadım, 50 kişi geldi, 5'i kayıt oldu. -> **CAC = 10$.** (Bu rakamı öğrenmek için reklam veriyorsun).
 
 ---
 
-# 3️⃣ Paid kanallar: Ne zaman mantıklı?
+# 3️⃣ Organic: Engineering as Marketing (Kodlayarak Büyümek)
 
-Paid kanallar:
-- Ürün tamamen oturmuşken değil
-- Ama **hiç hazır değilken de değil**
+Geliştiriciler blog yazmaktan sıkılır. Ama kod yazmayı severler.
+HubSpot veya Ahrefs gibi devler böyle büyüdü.
 
-### Paid için minimum şartlar
-- Net bir değer önerisi
-- Basit bir landing
-- En az 1 ana funnel
-- Ölçüm (event) kurulmuş olması
+**Taktik:** Ana ürünün "SilentCut" paralı. Ama "Video Bitrate Calculator" diye **ücretsiz** ve basit bir araç yap.
+1.  İnsanlar "Video bitrate hesaplama" diye aratır.
+2.  Senin ücretsiz aracını kullanır.
+3.  Sayfada "Bu arada, videondaki sessizlikleri de silmek ister misin?" banner'ını görür.
 
-> Ölçemiyorsan, reklam verme.
+> **Sonuç:** SEO uyumlu, faydalı ve sürekli trafik çeken bir "Lead Magnet" (Müşteri Mıknatısı).
 
 ---
 
-## Yaygın paid kanallar
+# 4️⃣ Cold Outreach: Sniper Atışı
 
-### 1️⃣ Google Ads
-- Problem arayan kullanıcılar
-- “Sessizlik kırpma aracı” gibi niyetli aramalar
+Reklam, tüfekle rastgele ateş etmektir. Cold Outreach (DM/Mail), sniper atışıdır.
 
-📌 Avantaj:
-- Satın almaya yakın kullanıcı
+**Kime:** YouTube kanalının "Hakkında" kısmında e-postası olan içerik üreticileri.
+**Mesaj:** (Kısa ve Net).
 
-📌 Risk:
-- Rekabet pahalı olabilir
+> "Selam [İsim],
+> Kanalındaki [X] videonu izledim, içerik süper.
+> Ancak videoda çok fazla sessiz duraklama var, bu izleyiciyi sıkabilir.
+> Geliştirdiğim SilentCut aracı ile senin videonun 5 dakikasını temizledim, farkı gör: [Link].
+> İşine yararsa sana 1 aylık ücretsiz kod: [KOD]."
 
----
-
-### 2️⃣ Meta Ads (Facebook / Instagram)
-- İlgi bazlı
-- Keşif odaklı
-
-📌 Avantaj:
-- Görsel anlatım
-📌 Risk:
-- Yanlış hedefleme = bütçe israfı
+**Püf Nokta:** Asla "Toplu Mail" atma. Kişiye özel olsun. Videoyu gerçekten işle. Emek ver.
 
 ---
 
-### 3️⃣ Diğer platformlar
-- Reddit Ads
-- X (Twitter) Ads
-- Niş topluluk sponsorluğu
+# 5️⃣ The Death Formula: CAC > LTV
 
-📌 Küçük bütçeler için daha anlamlı olabilir.
+Büyümenin matematiği şudur:
 
----
+* **CAC (Customer Acquisition Cost):** Bir müşteriyi ikna etmek için harcadığın para (Reklam / Gelen Müşteri). Örn: $20.
+* **LTV (Lifetime Value):** O müşterinin sana ömrü boyunca ödeyeceği para. Örn: $15.
 
-# 4️⃣ Paid reklamda en sık yapılan hatalar
+Eğer **CAC ($20) > LTV ($15)** ise:
+> **Tebrikler, her yeni müşteride $5 zarar ediyorsun.** Ne kadar büyürsen o kadar hızlı batarsın.
 
-❌ “Herkese gösterelim”  
-❌ Net olmayan vaat  
-❌ Landing ile reklam uyumsuzluğu  
-❌ Ölçüm yok  
-❌ Sabırsızlık  
-
-> Reklam sabır değil,  
-> **disiplin** ister.
+**Çözüm:** Ya reklamı ucuzlat (Organic kanallara geç) ya da fiyatı artır (LTV'yi yükselt).
 
 ---
 
-# 5️⃣ Küçük bütçelerle reklam denemesi nasıl yapılır?
+# 6️⃣ Case Study: SilentCut Büyüme Deneyleri
 
-Amaç:
-> Kullanıcı kazanmak değil, **öğrenmek**
+**Hipotez:** "YouTuberlar montaj yaparken en çok zamanı sessizlikleri silmeye harcıyor."
 
-### MVP seviyesi deney planı
-- Günlük küçük bütçe (ör. 5–10$)
-- Tek mesaj
-- Tek hedef
-- 3–5 gün test
+**Deney 1 (Google Ads):**
+* Anahtar Kelime: "Premiere Pro silence remover plugin".
+* Bütçe: $50.
+* Sonuç: Tıklama başı maliyet (CPC) çok yüksek ($2). Pahalı geldi. Durduruldu.
 
-Sorular:
-- Kim tıklıyor?
-- Kim kayıt oluyor?
-- Kim ilk aksiyonu yapıyor?
+**Deney 2 (Twitter/X - Organic):**
+* İçerik: "Yapay zeka ile videomu nasıl %40 kısalttım?" (Video thread).
+* Sonuç: 100 Retweet. 500 Ziyaretçi. Bedava trafik. Başarılı.
 
-> İlk reklamların görevi:  
-> para kazandırmak değil,  
-> **gerçeği göstermek**.
+**Deney 3 (Free Tool):**
+* Araç: "Video Silence Detector" (Videonuzu yükleyin, ne kadarının sessiz olduğunu analiz etsin. İndirmek yok, sadece analiz).
+* Sonuç: İnsanlar merak edip yükledi. %20'si "Temizlemek için Tıkla" diyip ana ürüne geçti.
 
 ---
 
-# 6️⃣ Organic kanallar: Yavaş ama kalıcı
+# 🛠️ Haftalık Görevler (Commitment Checklist)
 
-Organic:
-- İçerik
-- Topluluk
-- Tavsiye
-- Ağızdan ağıza yayılım
+### 1. [ ] 1 Adet "Paid" Deneyi Yap
+Bütçe: 500 TL (veya $20). Platform: Google veya Reddit.
+* Sadece 3 gün çalıştır. Kaç kişi tıkladı, kaçı üye oldu? Veriyi not al.
 
-Avantaj:
-- Güven üretir
-- Daha sadık kullanıcı getirir
+### 2. [ ] 1 Adet "Cold DM" At
+Hedef kitlenden 5 kişiye, yukarıdaki şablona benzer **kişiselleştirilmiş** bir mesaj at.
+* Cevap oranı %0 ise mesajın kötüdür. %20 ise harikadır.
 
-Dezavantaj:
-- Zaman ister
-- Sabır ister
+### 3. [ ] "Side Project" Fikri Bul
+Ana ürününe trafik çekecek basit, ücretsiz bir araç fikri bul. (Hesap makinesi, Analiz aracı, Liste vb.).
 
----
-
-## Yaygın organic kanallar
-
-### 1️⃣ İçerik (blog, video, thread)
-- Problemi anlat
-- Çözümü satma
-- Öğret
-
-📌 İnsanlar:
-> Satın almadan önce  
-> **anlamak ister**.
+### 4. [ ] CAC Hesabı Yap
+Şu ana kadar (varsa) harcadığın para / Müşteri sayısı.
+* Bu rakam, ürün fiyatından düşük mü?
 
 ---
 
-### 2️⃣ Topluluklar
-- Discord
-- Slack
-- Forumlar
-- Reddit
+# ⛔️ Yasaklı Davranışlar (Anti-Patterns)
 
-📌 Kural:
-- Önce katkı
-- Sonra ürün
+* **"Influencer'a Para Vermek":** MVP aşamasında büyük YouTuber'lara para verme. Onların kitlesi çok geniştir, senin nişine uymaz. Parana yazık olur.
+* **"Sürekli Platform Değiştirmek":** 2 gün Google dene, 2 gün Facebook dene... Algoritma öğrenemez. Bir kanala en az 1-2 hafta şans ver.
+* **"Spam Yapmak":** İnsanların DM kutusuna "Linkime tıkla" yazıp kaçmak. Markanı öldürürsün.
 
 ---
 
-### 3️⃣ Birebir temas
-- DM
-- Mail
-- Yorumlar
+## 🔜 Gelecek Hafta: Ölçeklendirme ve Performans
 
-📌 En etkili ama en zor yöntem.
-
----
-
-# 7️⃣ Growth mitleri (inanma)
-
-❌ “Viral olursak her şey çözülür”  
-❌ “Growth hack ile patlayacağız”  
-❌ “Reklamla çözeriz”  
-
-Gerçek:
-> Büyüme,  
-> küçük iyileştirmelerin bileşkesidir.
+Kullanıcıları bulduk (umarım). Şimdi trafik artınca sunucular ne yapacak?
+* **19. Hafta:** **Scaling & Cost Management.**
+* AWS faturası nasıl patlamaz?
+* Veritabanı şişerse ne yapılır?
+* "Premature Optimization" (Erken Optimizasyon) tuzağı.
 
 ---
-
-# 8️⃣ Deney kültürü: Growth’un kalbi
-
-Growth:
-- Büyük planlar değil
-- Küçük deneylerdir
-
-Her deney için:
-- Hipotez
-- Deneme
-- Ölçüm
-- Karar
-
-Örnek:
-> “Bu mesajla gelen kullanıcılar  
-> daha çok upload yapar mı?”
-
----
-
-# 9️⃣ SilentCut bağlamında düşünürsek
-
-Bu tarz ürünlerde:
-- Google Ads niyetli kullanıcı getirir
-- İçerik üreticilere birebir temas çok değerlidir
-- Organic içerik:
-  - “Video editing tips”
-  - “Sessizlik kırpma neden önemli?”
-
-Reklam:
-- Öğrenme için
-- Ölçek için değil (ilk aşamada)
-
----
-
-# 🛠️ Bu haftanın görevleri
-
-## 1️⃣ 1 paid kanal seç
-- Neden?
-
----
-
-## 2️⃣ 1 organic kanal seç
-- Neden?
-
----
-
-## 3️⃣ 1 deney tasarla
-- Hipotez
-- Süre
-- Bütçe
-
----
-
-## 4️⃣ Reklam veya içerik mesajını yaz
-- Net
-- Spesifik
-
----
-
-## 5️⃣ Deneyden ne öğrenmek istediğini yaz
-- Para değil, bilgi
-
----
-
-## ✅ Haftanın çıktıları
-
-Bu hafta sonunda elinde:
-
-- Paid vs organic farkındalığı
-- Küçük ama anlamlı deney planı
-- Growth mitlerine karşı bağışıklık
-- Daha az bütçe israfı
-
-olmalı.
-
----
-
-## ⚠️ Son söz
-
-> Reklam bütçesi yakılabilir.  
-> **Öğrenme fırsatı yakılmamalı.**
-
----
-
-## 🔜 Sonraki hafta (19. Hafta)
-
-**19 – Ölçeklendirme, Performans & Maliyet Dengesi**
-
-- Ne zaman optimize edilir?
-- Erken ölçeklendirme hataları
-- Trafik artınca neler patlar?
-- Maliyet / performans dengesi
-
----
+*Developer to Founder - Week 18*
