@@ -1,360 +1,137 @@
-# 05 – MVP Kapsamı & Ürün Kararları  
-## En Az Ürün Değil, En Az Risk
+# 05 – The Art of Cutting: MVP Kapsamı & Scope Creep
 
-Bu haftanın amacı:
-> **En az kodu yazmak değil,  
-> en büyük belirsizlikleri en erken test etmek.**
+> **Haftanın Mottosu:** "Mükemmel, iyinin düşmanıdır. MVP ise mükemmelin katilidir."
 
-MVP:
-- “Küçük ürün” değildir
-- “Eksik ürün” değildir
-- “Çirkin ama çalışıyor” hiç değildir
+Bu haftanın amacı kod yazmak değil, **yazılacak kod miktarını acımasızca azaltmaktır.**
 
-> **MVP = Yanlış ürünü yapma riskini azaltan ilk çalışan versiyon**
+Çoğu geliştirici MVP'yi *"Minimum Version of Product"* sanır.
+Oysa MVP: **"Minimum Viable Product"** (En Küçük **Yaşayabilir** Ürün) demektir.
+* Yarım araba (tekerlek) bir yere gitmez.
+* Ama bir kaykay (skateboard) seni A'dan B'ye götürür.
 
----
-
-## 🎯 Haftanın hedefi
-
-Bu hafta sonunda katılımcı:
-
-- MVP’nin ne olduğunu **doğru tanımıyla** kavrayacak
-- “MVP’ye ne girer?” sorusuna **profesyonel yöntemlerle** cevap verebilecek
-- Özellik tartışmalarını veriyle bitirecek
-- Teknik borcu **bilinçli şekilde** almayı öğrenecek
-- “Hızlı MVP için Next.js mi, sonra Go/React mı?” sorusuna net bakabilecek
-- Rewrite korkusu olmadan ilerleyebilecek
+Amaç: Arabayı inşa etmeden önce, insanların A'dan B'ye gitmek isteyip istemediğini (Market Validation) test etmektir.
 
 ---
 
-## 🧠 En yaygın MVP yanılgıları
+## 🎯 Haftanın Hedefleri (Learning Outcomes)
 
-❌ “MVP = az özellik”  
-❌ “MVP = herkes için ürün”  
-❌ “MVP’de kalite önemli değil”  
-❌ “Bunu sonra ekleriz”  
-
-Gerçek:
-> Yanlış MVP,  
-> doğru fikri bile öldürür.
+Bu modülü tamamladığında:
+* [ ] "Bunu da ekleyelim, çok kolay" tuzağına (Scope Creep) düşmeyeceksin.
+* [ ] Özellikleri "Lazım" ve "Çöp" olarak ayırabileceksin (MoSCoW Analizi).
+* [ ] Teknik Borcu (Technical Debt) bilinçli bir **yatırım aracı** olarak kullanacaksın.
+* [ ] Stack tartışmalarını (Next.js vs Go) "hız" odaklı bitireceksin.
 
 ---
 
-## 🧩 MVP’nin GERÇEK amacı (3 temel soru)
+## 🔪 Profesyonel Budama: "Risk-First" Yaklaşımı
 
-Her MVP şu üç sorudan **en az birini** net test etmelidir:
+Bir özelliği MVP'ye ekleyip eklemeyeceğine nasıl karar verirsin?
+Yazı tura atarak değil, **riske bakarak.**
 
-1️⃣ **Bu problem gerçekten var mı?**  
-2️⃣ **İnsanlar bu çözümü gerçekten kullanıyor mu?**  
-3️⃣ **Para vermeye niyetli mi?**
+Her MVP şu 3 sorudan en az birini doğrulamak zorundadır:
+1.  **Değer Riski:** İnsanlar bunu istiyor mu?
+2.  **Kullanılabilirlik Riski:** İnsanlar bunu çözebiliyor mu?
+3.  **Fizibilite Riski:** Ben bunu yapabilir miyim?
 
-Bu sorulardan hiçbiri test edilmiyorsa:
-> O şey MVP değildir.
-
----
-
-# 🧠 Profesyoneller MVP kararını nasıl veriyor?
-
-Bu bölüm, ekiplerin en çok takıldığı soruya cevap verir:
-> “Ne MVP’ye girer, ne girmez?”
+> **Kural:** Eğer bir özellik bu risklerden birini test etmiyorsa, o özellik **aksesuardır.** Ve MVP'de aksesuara yer yoktur.
 
 ---
 
-## 1️⃣ Risk-First MVP (Profesyonel yaklaşım)
+## 🧠 Metodoloji: MoSCoW Analizi
 
-Profesyoneller MVP’yi **özellik listesi** gibi yapmaz.  
-Önce **en büyük riskleri** çıkarır.
+Özellik listeni önüne al ve her birine şu etiketlerden birini yapıştır:
 
-### Tipik risk kategorileri
-- **Değer riski:** Kullanıcı gerçekten istiyor mu?
-- **Kullanılabilirlik riski:** Kullanıcı kullanabiliyor mu?
-- **Ödeme riski:** Para vermeye niyetli mi?
-- **Teknik risk:** Bu gerçekten çalışıyor mu?
-- **Operasyon riski:** Ben bunu sürdürebiliyor muyum?
+| Etiket | Anlamı | Örnek (Video App) |
+| :--- | :--- | :--- |
+| **Must Have** | Bu olmazsa ürün çalışmaz. (MVP) | Video Yükleme, İşleme, İndirme. |
+| **Should Have** | Olsa iyi olur ama acıtmaz. (v1.1) | İlerleme Çubuğu, Hata Mesajları. |
+| **Could Have** | Güzel özellik ama şart değil. (v2.0) | Dark Mode, Google Login, Geçmiş. |
+| **Won't Have** | Şimdilik hayır. (Backlog) | Takım Yönetimi, API Erişimi. |
 
-> MVP’ye giren şey:  
-> **Bu risklerden birini doğrudan test eden en küçük parça**
+> **Acı Gerçek:** Geliştiricilerin "Must Have" dediklerinin %50'si aslında "Could Have"dir.
 
 ---
 
-## 2️⃣ Walking Skeleton (Çalışan iskelet)
+## 🛠 Case Study: SilentCut'ın "Çıplak" MVP'si
 
-Profesyoneller MVP’yi:
-- “Tam ürün” diye değil
-- **Uçtan uca çalışan en küçük iskelet** olarak kurar
+SilentCut ilk çıktığında şunlar **YOKTU**:
+* ❌ Üyelik Sistemi (Login/Register).
+* ❌ Ödeme Sistemi (Stripe).
+* ❌ Dashboard / Geçmiş Videolar.
+* ❌ Ayarlar Sayfası.
 
-Örnek:
-- Kullanıcı gelir
-- Tek bir ana işi yapar
-- Net bir sonuç alır
+**Ne VARDI?**
+* ✅ Tek bir "Upload" kutusu.
+* ✅ İşleyen bir algoritma.
+* ✅ Sonucu gösteren bir "Demo" sayfası.
+* ✅ Manuel ödeme linki (Email ile).
 
-Bu zincir çalışıyorsa:
-- MVP vardır
-
-Bu zincir yoksa:
-- Elindeki şey demo olabilir
-
----
-
-## 3️⃣ One Metric MVP (Tek metrik odak)
-
-MVP’nin başarısı:
-- “Beğenildi mi?” değildir
-
-Profesyoneller **tek bir ana metrik** seçer:
-
-Örnek:
-- Upload yapanların % kaçı işlemi başlatıyor?
-- İşlem başlatanların % kaçı sonucu indiriyor?
-- Fiyat ekranını görenlerin % kaçı ödeme yapıyor?
-
-> MVP’ye giren şeyler =  
-> bu metriği hareket ettirenler
+**Neden?**
+Çünkü test edilen risk şuydu: *"İnsanlar sessizlik silme kalitesini beğenecek mi?"*
+Login sayfası yapmak, bu riski test etmez. Sadece zaman kaybettirir.
 
 ---
 
-## 4️⃣ MoSCoW yöntemi (ekipleri sakinleştirir)
+## 🏗 Teknik Borç: Ne Zaman Alınır?
 
-Her özellik şu gruplardan birine girer:
+Teknik borç, startup'ın kredi kartıdır. Doğru kullanırsan seni hızlandırır, yanlış kullanırsan batırır.
 
-- **Must-have:** olmazsa ürün çalışmıyor
-- **Should-have:** olmazsa olur ama can yakar
-- **Could-have:** güzel olur
-- **Won’t-have (şimdilik):** bilinçli yok
+### ✅ Bilinçli Borç (Smart Debt)
+* **Hard-coded Ayarlar:** Admin paneli yazmak yerine config dosyasından yönetmek.
+* **Manuel Onboarding:** Otomatik mail sistemi kurmak yerine Gmail'den elle atmak.
+* **Monolitik Yapı:** Mikroservis yerine tek repo (Next.js) kullanmak.
 
-> MVP = Must-have + çok az Should-have
-
----
-
-## 5️⃣ Feature → Job-to-be-Done çevirisi
-
-Biri “şu feature da olsun” dediğinde sor:
-
-> “Kullanıcı bu feature ile hangi işi bitiriyor?”
-
-Cevap net değilse:
-- Feature MVP dışı
-
-Örnek:
-- “Dashboard olsun” → Hangi iş? → Belirsiz → ❌
-- “Sonucu indir” → İş: çıktı almak → ✅
+### ❌ Tehlikeli Borç (Toxic Debt)
+* **Güvenlik Açıkları:** Auth kontrolü yapmamak.
+* **Veri Kaybı:** Yedekleme yapmamak.
+* **Spagetti Kod:** Okunamaz kod yazmak (Hızlı yazmak, pis yazmak demek değildir).
 
 ---
 
-## 🧪 SilentCut Case Study – MVP’de BİLİNÇLİ OLARAK OLMAYANLAR
+## ⚔️ Stack Savaşları: Next.js vs The World
 
-İlk MVP’de olmayanlar:
-- Kullanıcı hesapları
-- Abonelik sistemi
-- Dashboard
-- Gelişmiş ayarlar
-- Bildirimler
+**Soru:** "Hızlı MVP için Next.js ile çıkıp sonra Go/Rust'a dönmeli miyim?"
 
-Neden?
-> Test edilen risk şuydu:  
-> “Bu işi otomatik yapmak gerçekten değerli mi?”
+**Cevap:**
+1.  **Evet, Next.js (veya bildiğin en hızlı stack) ile çık.** Çünkü senin darboğazın CPU değil, **zaman.**
+2.  **Hayır, rewrite yapmak zorunda değilsin.** Ürün tutarsa, sadece darboğaz olan %5'lik kısmı (örn: video işleme servisini) Go'ya taşırsın. (Strangler Pattern).
+
+> **Altın Kural:** Mükemmel mimari, hiç kullanıcısı olmayan bir mezarlıktır.
 
 ---
 
-## ⚖️ MVP Kapsamı Nasıl Belirlenir? (Net kural)
+## ⚡️ Haftalık Görevler (Commitment Checklist)
 
-Her özellik için sor:
+### 1. [ ] Risk Analizi
+Kağıdı ikiye böl.
+* **Sol:** Ürünün batmasına sebep olabilecek en büyük risk ne? (Örn: Kimse video yüklemez.)
+* **Sağ:** Bu riski test etmek için gereken **tek** özellik ne?
 
-> “Bu özellik olmazsa,  
-> ana risk yine de test edilir mi?”
+### 2. [ ] The Kill List (Öldürülecekler)
+Mevcut özellik listenden en az 3 maddeyi **sil.**
+* *Örnek: "Dark mode'u sildim.", "Şifremi unuttum ekranını sildim (mail atsınlar)."*
 
-- **Evet** → MVP dışı
-- **Hayır** → MVP içi
-
----
-
-## 🧱 Kill List (Öldürülen Özellikler)
-
-MVP süreci:
-> Özellik ekleme değil,  
-> **özellik öldürme** sürecidir.
-
-Tipik kill list:
-- Dark mode
-- Çoklu dil
-- Profil sayfası
-- Sosyal özellikler
-- Bildirim sistemi
-
-Hepsi güzel ama:
-> **Bu hafta değil.**
+### 3. [ ] "One Metric" Seçimi
+MVP'nin başarısını neyle ölçeceksin? (Sadece 1 tane).
+* [ ] Ziyaretçi Sayısı (Yanlış - Vanity Metric)
+* [ ] Tamamlanan İşlem Sayısı (Doğru - Actionable Metric)
 
 ---
 
-# 🧠 Teknik borç: Nerede alınır, nerede ALINMAZ?
+## ⛔️ Yasaklı Cümleler (Scope Creep Alerts)
 
-### ✅ Alınabilir teknik borç
-- UI geçici çözümler
-- Hard-coded ayarlar
-- Manuel süreçler
-- Basit pipeline
-
-### ❌ Alınmaması gereken teknik borç
-- Veri modeli
-- Güvenlik
-- Geri dönülemez mimari kararlar
-- Vendor lock-in
-
-> MVP hız demektir,  
-> ama geleceği yakmak değildir.
+* *"Bunu eklemek sadece 2 saatimi alır."* -> O 2 saatler birleşip 2 ay olur.
+* *"Ama rakipte bu özellik var."* -> Rakip 5 yıldır piyasada, sen 5 gündür.
+* *"Kullanıcılar belki ister."* -> "Belki" yok. Veri gelene kadar varsayım yok.
 
 ---
 
-## 🧪 SilentCut – Bilinçli teknik borç örneği
+## 🔜 Gelecek Hafta: Teknik Mimari & Altyapı
 
-Alınan:
-- Manuel işlem
-- Basit job akışı
-
-Alınmayan:
-- Dosya güvenliği
-- Veri kaybı riski
-- Geri dönülemez altyapı
+Haftaya kodun derinliklerine iniyoruz:
+* Monolit mi, Mikroservis mi? (Cevap muhtemelen Monolit).
+* Veritabanı seçimi: SQL vs NoSQL.
+* Vendor Lock-in (Bağımlılık) ne kadar kötü?
 
 ---
-
-# 🧠 MVP Stack’i vs Ürün Stack’i
-
-Bu soru **çok sorulacak**, net cevaplayalım.
-
----
-
-## “Hızlı MVP için Next.js ile çıkalım mı?”
-
-**Çoğu solo founder için: EVET.**
-
-Neden?
-- Tek repo
-- Hızlı iterasyon
-- Landing + ürün birlikte
-- Deploy kolay
-
-Ama şartla:
-> **Geri dönülemez karar alma.**
-
----
-
-## “Sonra Go + React’a geçmek zorunda mıyız?”
-
-Hayır. Zorunluluk yok.
-
-### Geçmek için iyi sebepler
-- Trafik çok arttı
-- Ağır background job ihtiyacı
-- Takım büyüdü
-- Performans / maliyet avantajı net
-- Güvenlik / izolasyon ihtiyacı
-
-### Geçmek için kötü sebepler
-- “Go daha cool”
-- “Mimari mükemmel olsun”
-- “Rakip böyle yapmış”
-
----
-
-## Profesyoneller stack değişimini nasıl yapıyor?
-
-### Strangler Fig Pattern
-- Rewrite yok
-- Parça parça taşıma
-
-Örnek:
-- Önce tek bir endpoint’i ayır
-- Zamanla kritik yolları taşı
-- Monoliti küçült
-
-> Rewrite = yüksek risk  
-> Strangler = kontrollü evrim
-
----
-
-## MVP stack seçimi için 5 pratik soru
-
-1. 2–4 haftada canlıya çıkabilir miyim?
-2. Debug kolay mı?
-3. Deploy kolay mı?
-4. Maliyeti tahmin edebiliyor muyum?
-5. Kilitlenme yaratıyor mu?
-
-Çoğu “evet” ise:
-> Stack yeterince iyi.
-
----
-
-## 🛠️ Bu haftanın görevleri
-
-### 1️⃣ Ana riski yaz
-> “Bu MVP ile test ettiğim ana risk: …”
-
----
-
-### 2️⃣ MVP kapsamını yaz
-İki liste:
-
-**VAR**
-- Olmazsa olmazlar
-
-**YOK**
-- Bilinçli olarak eklenmeyenler
-
----
-
-### 3️⃣ Teknik borç kararlarını yaz
-- Ne geçici?
-- Ne zaman düzelecek?
-
----
-
-### 4️⃣ MVP karar tablosu (çok işe yarar)
-
-| Özellik | Test edilen risk | MVP metriğine etkisi | Alternatif ucuz yol | Karar |
-|-------|------------------|---------------------|---------------------|-------|
-
----
-
-## ✅ Haftanın çıktıları
-
-Bu hafta sonunda elinde:
-
-- Net MVP tanımı
-- Kill list
-- Test edilen riskler
-- Bilinçli teknik borç listesi
-- Stack kararlarının gerekçesi
-
-olmalı.
-
----
-
-## ⚠️ Son uyarı
-
-MVP sonrası şu cümle çok gelecek:
-> “Bir de şunu ekleyelim…”
-
-Diren.
-
-Çünkü:
-> MVP,  
-> odaklanma disiplinidir.
-
----
-
-## 🔜 Sonraki hafta
-
-**06 – Teknik Mimari & Teknoloji Seçimi**
-
-- Monolit vs mikroservis
-- Erken mimari hatalar
-- Vendor lock-in tuzakları
-- SilentCut altyapı kararları
-
----
-
-> **Son söz:**  
-> MVP hızlı yapılır.  
-> Ama rastgele yapılmaz.
+*Developer to Founder - Week 05*
