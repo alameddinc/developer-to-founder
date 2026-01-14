@@ -55,6 +55,31 @@ Hiç satış yapmasan bile ödediğin paralar.
 
 ---
 
+# 2.1 – Sunucu Maliyeti Satış Başına Nasıl Bölünür? (Kapasite Hesabı)
+
+Burada yapılan en büyük hata şudur:
+*"Ayda 20$ sunucu parası veriyorum. Bu ay 1 müşteri geldi. O zaman müşterinin bana maliyeti 20$."*
+**YANLIŞ.** Bu hesapla ürünün asla kârlı görünmez.
+
+**Profesyonel Hesap Yöntemi: "Utilization Rate" (Kapasite Oranı)**
+
+Sabit maliyetler (VPS, DB), **mevcut** kullanıcıya değil, **hedeflenen** kullanıcıya bölünür.
+
+**Adım 1: Kapasiteni Belirle**
+Kiraladığın o 20$'lık sunucu, çökmeden kaç kullanıcıyı (veya işlemi) kaldırır?
+*Örnek: Sunucum ayda 1.000 video işleyebilir.*
+
+**Adım 2: Birim Maliyeti Bul**
+`Maliyet / Kapasite = Birim Başı Sabit Gider`
+*Örnek: 20$ / 1.000 Video = **0.02$** (Video başı sunucu maliyeti)*
+
+**Sonuç:**
+Senin birim maliyetin **0.02$**'dır. Eğer sunucun boş duruyorsa, o 19.98$'lık fark "Ürün Maliyeti" değil, senin **"Büyüme Maliyeti"**n (Idle Cost) olur. Fiyatlandırmanı 0.02$'a göre yapmalısın, yoksa fiyatın şişer ve satamazsın.
+
+> **Kural:** Maliyeti hesaplarken "Bugünkü 1 kullanıcıya" göre değil, "Başabaş noktası olan 100. kullanıcıya" göre hesap yap.
+
+---
+
 # 3️⃣ Şirketleşme: Ne Zaman ve Nerede?
 
 Kod yazmak kolay, şirket kurmak karmaşıktır. İşte yazılımcı diliyle seçenekler:
