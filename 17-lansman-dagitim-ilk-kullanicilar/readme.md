@@ -1,277 +1,132 @@
-# 17 – Lansman, Dağıtım & İlk Kullanıcılar  
-## “Lansman = Gürültü Değil, Doğru Temas”
+# 17 – Hello World: Lansman, Dağıtım & İlk 100 Kullanıcı
 
-Bu haftanın amacı:
-> **Ürünü gerçek insanlarla buluşturmak,  
-> ilk geri bildirim döngüsünü başlatmak  
-> ve lansmanı bir “an” değil “süreç” olarak ele almak.**
+> **Haftanın Mottosu:** "Lansman bir havai fişek gösterisi değildir. Lansman, boş bir odada mikrofonu eline alıp konuşmaya başlamaktır. İlk başta kimse dinlemez, sesini duyurmak zaman alır."
 
-Bu hafta:
-- Product Hunt da konuşacağız
-- Tweet de atacağız
-- LinkedIn de kullanacağız
+Bu haftanın amacı; ürünü GitHub'dan çıkarıp insanların önüne atmaktır.
+Geliştiricilerin fantezisi şudur: *"Product Hunt'a koyarım, viral olurum, Stripe bildirimleri susmaz."*
+Gerçek şudur: *"Product Hunt'a koyarsın, 50 kişi gelir, 3'ü kayıt olur, 0'ı ödeme yapar."*
 
-Ama:
-> **Ne zaman, ne için ve hangi beklentiyle**  
-> yaptığımızı netleştireceğiz.
+Bu hafta bu sessizliği nasıl kıracağımızı konuşacağız.
 
 ---
 
-## 🎯 Haftanın hedefi
+## 🎯 Haftanın Hedefleri (Learning Outcomes)
 
-Bu hafta sonunda katılımcı:
-
-- Lansman türlerini ayırt edebilecek
-- “Sessiz lansman” ile “açık lansman” farkını anlayacak
-- İlk 10–100 kullanıcıya ulaşmak için somut yollar görecek
-- Product Hunt, sosyal medya ve birebir temasın rolünü kavrayacak
-- Geri bildirimi doğru bağlamda toplayacak
-- “Kimse kullanmıyor” hissini doğru okuyabilecek
+Bu modülü tamamladığında:
+* [ ] **Soft Launch** (Sessiz) ile **Hard Launch** (Gürültülü) arasındaki stratejik farkı anlayacaksın.
+* [ ] **"Do Things That Don't Scale"** (Ölçeklenmeyen Şeyleri Yap) prensibiyle ilk 100 kullanıcıyı *tek tek* bulacaksın.
+* [ ] Product Hunt'ın bir "iş modeli" değil, bir "backlink ve prestij kaynağı" olduğunu kavrayacaksın.
+* [ ] Lansman günü teknik olarak çuvallamamak için **OG Tags** ve **Support** hazırlığı yapacaksın.
 
 ---
 
-## 🧠 Büyük yanlış beklenti
+# 1️⃣ Lansman Türleri: Hangi Yoldan Gidiyoruz?
 
-> “Lansman yaparsam kullanıcı gelir.”
+Lansman, "Deploy" tuşuna basmak değildir. Stratejik bir karardır.
 
-Gerçek:
-> Lansman, kullanıcı **getirmez**.  
-> Lansman, **kullanıcıyla temas ihtimali yaratır**.
+### A) Soft Launch (Beta / Sessiz Lansman)
+* **Kime:** Arkadaşlara, Twitter'daki takipçilere, ilgili Discord gruplarına.
+* **Amaç:** Bug avlamak ve UX hatalarını görmek.
+* **Beklenti:** Para kazanmak değil, "sistem çalışıyor mu?" testini geçmek.
+* **Taktik:** "Kapalı Beta", "Davetiye Usulü". (İnsanlar giremedikleri yere girmek isterler).
 
-Bu ihtimali nasıl kullandığın:
-- Ürünün geleceğini belirler.
+### B) Hard Launch (Showtime)
+* **Kime:** Product Hunt, Hacker News, Reddit, Genel Sosyal Medya.
+* **Amaç:** SEO için backlink almak, "Early Adopter" bulmak, Social Proof (Sosyal Kanıt) oluşturmak.
+* **Risk:** Ürün kötüyse, kötü ilk izlenim kalıcıdır.
 
----
-
-# 1️⃣ Lansman türleri (hepsi geçerli, ama farklı amaçlarla)
-
-Lansman tek tip değildir.
-
-### 1️⃣ Sessiz lansman (soft launch)
-Amaç:
-- Ürünü küçük bir gruba açmak
-- Hataları görmek
-- Geri bildirim toplamak
-
-Örnek:
-- Arkadaşlar
-- Slack grupları
-- Discord toplulukları
-- DM ile davet
-
-📌 MVP sonrası **en sağlıklı ilk adım**.
+> **Öneri:** Önce 2 hafta Soft Launch yap, en büyük hataları çöz. Sonra Hard Launch yap.
 
 ---
 
-### 2️⃣ Açık lansman
-Amaç:
-- Daha geniş kitleye ulaşmak
-- Ürünü anlatma pratiği kazanmak
-- İlgi ölçmek
+# 2️⃣ İlk 100 Kullanıcı: El Yordamı (Hand-to-Hand Combat)
 
-Örnek:
-- Twitter / X
-- LinkedIn
-- Reddit
-- Hacker News
+Paul Graham'ın efsanevi tavsiyesi: **"Ölçeklenmeyen Şeyler Yap."**
 
-📌 Ürün biraz oturduktan sonra anlamlı.
+Sen Google değilsin. Reklam verip bekleyemezsin. İlk kullanıcılarını **tek tek** bulup içeri sokmalısın.
+
+### Nasıl Yapılır? (Utangaç Developer Rehberi)
+1.  **DM At:** Hedef kitlendeki insanları bul (Twitter/LinkedIn). *"Merhaba, X problemini yaşadığını gördüm. Ben bunu çözen Y aracını yaptım. Sana ücretsiz üyelik versem dener misin?"* de. (Satış yapma, yardım et).
+2.  **Niş Komüniteler:** Reddit (r/webdev, r/youtubers), IndieHackers, ilgili Facebook grupları. *"Reklam yapmaya gelmedim, şunu geliştirdim, sizce işe yarar mı?"* diye sor.
+3.  **Kendi Networkün:** LinkedIn'de "Ben bunu yaptım" diye paylaş. Utanma.
 
 ---
 
-### 3️⃣ Platform lansmanı (Product Hunt vb.)
-Amaç:
-- Ürünü görünür kılmak
-- Feedback almak
-- Network oluşturmak
+# 3️⃣ Product Hunt: Beklenti Yönetimi
 
-📌 **Kullanıcı yağmuru değil**,  
-📌 **öğrenme fırsatı** olarak görülmeli.
+Product Hunt (PH), indie hacker'ların mezuniyet töreni gibidir. Güzeldir ama hayat kurtarmaz.
 
----
+**Gerçekler:**
+* PH kullanıcılarının çoğu **diğer geliştiricilerdir**. Müşterin fırıncılar ise PH'de yoklar.
+* PH'den gelen trafik **"turist"** trafiğidir. Bakar ve çıkar. Dönüşüm (Conversion) düşüktür.
 
-# 2️⃣ Product Hunt: Ne zaman, ne beklemeli?
-
-Product Hunt:
-- Kötü değildir
-- Ama sihirli de değildir
-
-### Ne sağlar?
-- Görünürlük
-- Feedback
-- Network
-
-### Ne sağlamaz?
-- Kalıcı kullanıcı garantisi
-- Gelir patlaması
-
-📌 Product Hunt:
-> “Ürün bitti” değil  
-> “ürünle yüzleşiyorum” demektir.
+**Neden Yapmalı?**
+1.  Google'da üst sıralarda çıkmak için çok güçlü bir Backlink sağlar.
+2.  Yatırımcılar veya teknoloji basını orayı takip eder.
+3.  "Product of the Day" rozeti siteye hava katar (Trust Signal).
 
 ---
 
-# 3️⃣ Tweet, post, paylaşım: Evet ama bilinçli
+# 4️⃣ Teknik Lansman Hazırlığı (Launch Checklist)
 
-Tweet atmak:
-- Gereklidir
-- Ama rastgele değil
+Lansman günü sitenin patlamaması ve doğru görünmesi için:
 
-### Yanlış yaklaşım
-> “Ürün çıktı, buyurun link”
-
-### Sağlıklı yaklaşım
-- Hangi problemi çözüyor?
-- Kim için?
-- Neyi kolaylaştırıyor?
-
-📌 İnsanlar ürünü değil,  
-📌 **derdi** paylaşır.
+1.  **Open Graph (OG) Tags:** Linki Twitter'a veya WhatsApp'a attığında güzel bir resim ve açıklama çıkıyor mu? (`metatags.io` ile kontrol et).
+2.  **Support Kanalı:** Sitenin sağ altına bir Chat (Crisp/Tawk.to) veya net bir "Destek" maili koy. Hata alan kullanıcı küfür etmez, mail atar.
+3.  **Analytics:** PostHog/Google Analytics çalışıyor mu? Gelen trafiğin nereden geldiğini göremezsen kör uçuş yaparsın.
+4.  **Hoşgeldin Maili:** Kayıt olana otomatik "Merhaba" maili gidiyor mu?
 
 ---
 
-# 4️⃣ İlk kullanıcılar nereden gelir?
+# 5️⃣ Case Study: SilentCut Lansman Stratejisi
 
-İlk kullanıcılar genelde:
-- Arkadaşlardan
-- Meslektaşlardan
-- Topluluklardan
-- DM’lerden
+**Hedef Kitle:** Küçük YouTuberlar ve Podcast Yayıncıları.
 
-Bu kötü bir şey değildir.
+**Adım 1 (Soft Launch):**
+* r/NewTubers subreddit'inde bir post: *"Video editlemekten nefret ediyorum, o yüzden bunu yazdım. Bedava denemek isteyen?"*
+* **Sonuç:** 20 Tester, 5 kritik bug raporu, 1 sadık kullanıcı.
 
-Aksine:
-> İlk kullanıcılar **konfor alanından** gelir.
+**Adım 2 (Hard Launch):**
+* Product Hunt lansmanı.
+* Twitter'da ` #buildinpublic` etiketiyle sürecin hikayesi.
+* **Sonuç:** 500 ziyaretçi, 50 kayıt, 2 ödeme. (Rakamlar küçük görünse de başlangıç için harika).
 
----
-
-# 5️⃣ İlk 10–100 kullanıcıdan beklenti ne olmalı?
-
-Yanlış beklenti:
-- “Her şeyi kullanacaklar”
-- “Para ödeyecekler”
-- “Sadık olacaklar”
-
-Doğru beklenti:
-- Kullanacaklar
-- Takılacaklar
-- Şikâyet edecekler
-- Sorular soracaklar
-
-📌 İlk kullanıcı:
-> Gelir değil, **öğrenme kaynağıdır**.
+**Adım 3 (Cold Outreach):**
+* YouTube'da abonesi 10k-50k arası olan kanalların "About" kısmındaki maillere kişisel e-posta: *"Son videondaki sessizlikleri SilentCut ile temizledim, işte sonuç. Denemek istersen link burada."*
 
 ---
 
-# 6️⃣ Geri bildirim nasıl toplanmalı?
+# 🛠️ Haftalık Görevler (Commitment Checklist)
 
-Soru:
-- “Beğendin mi?” ❌
-- “Nerede zorlandın?” ✅
+### 1. [ ] OG Görseli Tasarla
+Canva veya Figma'da 1200x630 boyutunda, ürünün ekran görüntüsü ve sloganı olan bir görsel yap. Meta etiketlerine ekle.
 
-Odak:
-- Nerede takıldı?
-- Ne bekliyordu?
-- Ne buldu?
+### 2. [ ] "Lansman Tweeti" Taslağı
+Sadece link atma. Hikaye anlat.
+* *"Başladığımda X sorunum vardı. 2 aydır Y üzerinde çalışıyorum. Bugün canlıya alıyorum. İşte SilentCut..."*
 
-📌 Geri bildirim:
-> Ürünü değil, **akışı** anlatır.
+### 3. [ ] 10 Kişiye DM At
+Potansiyel müşterin olabilecek 10 kişiyi belirle ve onlara spam olmayan, samimi bir mesaj at.
 
----
-
-# 7️⃣ “Kimse kullanmıyor” hissiyle başa çıkmak
-
-Bu his:
-- Evrenseldir
-- Normaldir
-- Geçicidir
-
-Önemli soru:
-> “Kimse kullanmıyor” mu,  
-> yoksa “ben henüz doğru kişiye ulaşmadım” mı?
-
-Çoğu zaman ikincisi.
+### 4. [ ] Product Hunt Hesabı
+Hesabın yoksa aç. 1 hafta boyunca aktif ol (başka ürünlere oy ver, yorum yap). Yeni açılan hesaplar lansman yaparsa spama düşebilir.
 
 ---
 
-# 8️⃣ SilentCut bağlamında düşünürsek
+# ⛔️ Yasaklı Davranışlar (Anti-Patterns)
 
-Bu tarz ürünlerde:
-- İlk kullanıcılar genelde içerik üreticileridir
-- Geri bildirim:
-  - Süre
-  - Akış
-  - Bekleme hissi
-  üzerinden gelir
-
-Product Hunt:
-- Tanıtım için yapılır
-- Ama asıl öğrenme:
-  - birebir konuşmalardan gelir
+* **"Spam Yapmak":** İlgisiz Facebook gruplarına link yapıştırıp kaçmak.
+* **"Bot Basmak":** Product Hunt oyları satın almak. (Banlanırsın ve markan lekelenir).
+* **"Mükemmeli Beklemek":** "Şu özellik de bitsin öyle duyurayım" dersen asla duyuramazsın. Utanç verici olsa bile duyur.
 
 ---
 
-# 🛠️ Bu haftanın görevleri
+## 🔜 Gelecek Hafta: Büyüme Denemeleri
 
-## 1️⃣ Lansman stratejini yaz
-- Sessiz mi?
-- Açık mı?
-- Platform bazlı mı?
-
----
-
-## 2️⃣ 3 dağıtım kanalı seç
-- Twitter
-- LinkedIn
-- Product Hunt
-- DM
-- Topluluk
+Lansmanı yaptık, ilk dalga geldi ve geçti. Şimdi gerçek hayat başlıyor.
+* **18. Hafta:** **Acquisition Channels (Edinim Kanalları).**
+* SEO mu, Reklam mı, İçerik mi?
+* "Growth Hacking" efsaneleri ve gerçekleri.
 
 ---
-
-## 3️⃣ Lansman metni hazırla
-- 1 kısa
-- 1 uzun
-
----
-
-## 4️⃣ İlk 10 kullanıcıdan ne öğrenmek istediğini yaz
-- Özellikle nereleri gözlemleyeceksin?
-
----
-
-## 5️⃣ Lansmandan ne beklemediğini yaz
-- Bilinçli beklenti yönetimi
-
----
-
-## ✅ Haftanın çıktıları
-
-Bu hafta sonunda elinde:
-
-- Dengeli bir lansman planı
-- Gerçekçi beklentiler
-- İlk temas kanalları
-- Geri bildirim toplama refleksi
-
-olmalı.
-
----
-
-## ⚠️ Son söz
-
-> Lansman bir gösteri değil,  
-> **öğrenme davetidir**.
-
----
-
-## 🔜 Sonraki hafta (18. Hafta)
-
-**18 – Kullanıcı Edinimi & Büyüme Denemeleri**
-
-- Paid vs organic
-- Küçük deneyler
-- Growth mitleri
-- Ne işe yaramaz?
-
----
+*Developer to Founder - Week 17*
