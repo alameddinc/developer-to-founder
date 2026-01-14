@@ -103,18 +103,18 @@ Gerektiğinde **20 haftaya kadar genişleyen**, modüler bir yapıya sahiptir.
 
 ---
 ### 🔹 3. Faz – Üretim Kalitesi & Operasyon (Hafta 11–15)
-11. Backend, Veri Modeli & İş Mantığı
-12. Frontend / Mobil Uygulama
-13. Test, Kalite & Teknik Borç
-14. Güvenlik & Veri Gizliliği
-15. Monitoring, Logging & Observability
+11. Domain, Veri Modeli & İş Kuralları
+12. Kullanıcı Akışları, Frontend & Deneyim Tutarlılığı
+13. Test Stratejisi, Kalite Eşiği & Teknik Borç
+14. Güvenlik, Yetkilendirme & Veri Sorumluluğu
+15. Monitoring, Logging & Kriz Yönetimi
 
 ---
 ### 🔹 4. Faz – Ölçüm, Büyüme & Sürdürülebilirlik (Hafta 16–20)
-16. Analitik & Kullanıcı Davranışı (GA dahil)
-17. Lansman & Dağıtım Stratejisi
-18. Kullanıcı Edinimi & Büyüme
-19. Ölçeklendirme & Performans
-20. Teknik Borç Yönetimi & Uzun Vadeli Yol Haritası
+16. Analitik, Kullanıcı Davranışı & GA
+17. Lansman, Dağıtım & İlk Kullanıcılar
+18. Kullanıcı Edinimi & Büyüme Denemeleri
+19. Ölçeklendirme, Performans & Maliyet Dengesi
+20. Teknik Borç, Ürün Olgunluğu & Uzun Vadeli Yol Haritası
 
 
