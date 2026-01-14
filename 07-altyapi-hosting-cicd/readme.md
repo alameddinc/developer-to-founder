@@ -1,355 +1,161 @@
-# 07 – Altyapı, Hosting & CI/CD  
-## Lokalden Production’a: Güvenli, Taşınabilir ve Yönetilebilir Kurulum
+# 07 – Infrastructure as a Product: Altyapı, Hosting & CI/CD
 
-Bu haftanın amacı:
-> **Ürünü sadece yazmak değil, güvenli şekilde çalıştırmak ve tekrar tekrar deploy edebilmek.**  
-> Founder gerçekliği: “Kod yazmak” işin %50’si; **yayınlamak + işletmek** diğer %50.
+> **Haftanın Mottosu:** "Amatörler kodu düzeltir, profesyoneller sistemi düzeltir. 'Benim makinemde çalışıyor' cümlesi, bir shipping şirketi kurup 'benim limanımda gemi yüzüyordu' demek gibidir."
 
-Bu hafta özellikle şunları hedefliyoruz:
-- Cloud bağımsız düşünmek (GCP/AWS/DigitalOcean/Railway benzeri)
-- Vendor lock-in’i azaltmak
-- MVP akışında “lokal → staging → prod” düzeni kurmak
-- CI/CD’yi “kurumsal DevOps” gibi değil, **solo founder** gibi kurmak
+Bu haftanın amacı; ürünü sadece kodlamak değil, onu canlı tutmak, güvenli bir şekilde güncellemektir.
+Cloud dünyasında kaybolmak çok kolaydır. Amacımız AWS sertifikası almak değil, ürünü en az baş ağrısıyla yayına almaktır.
 
 ---
 
-## 🎯 Haftanın hedefi
+## 🎯 Haftanın Hedefleri (Learning Outcomes)
 
-Bu hafta sonunda katılımcı:
-
-- Hosting seçeneklerini (VPS/PaaS/Serverless) doğru yerde kullanabilecek
-- GCP + AWS’yi birlikte kullanırken “nerede ne var?” netleştirecek
-- DigitalOcean gibi VPS/PaaS dünyasında deploy edebilecek
-- Railway benzeri platformlarla hızlı MVP deploy’ı anlayacak
-- CI/CD’nin minimum gerekli halini kurabilecek (test + build + deploy)
-- Lokal debug → staging → production yayın akışını oturtacak
-- Prod ortamında log/monitoring ve rollback planı yapacak
+Bu modülü tamamladığında:
+* [ ] VPS, PaaS ve Serverless arasındaki seçimi "trendlere" göre değil, "ihtiyaca" göre yapacaksın.
+* [ ] **Vendor Lock-in** (Sağlayıcı Kilidi) riskini kod seviyesinde minimize etmeyi öğreneceksin.
+* [ ] Tek kişilik dev kadro olsan bile **CI/CD pipeline** kurarak "FTP ile dosya atma" devrini kapatacaksın.
+* [ ] Lokal ortamın ile Production ortamın arasındaki farkı (Environment Parity) sıfıra indireceksin.
 
 ---
 
-# 1) Hosting seçenekleri: Ne zaman hangisi?
+# 1️⃣ Hosting Matrisi: Nerede Barınmalı?
 
-## 1️⃣ VPS (DigitalOcean / Hetzner / VM / EC2 / Compute Engine)
-**Ne zaman iyi?**
-- Düşük maliyet
-- Tam kontrol
-- Tek makineyle hızlı ilerleme
+Her seçeneğin bir "bedeli" vardır. Bu bedel ya paradır ya da zamandır.
 
-**Artı**
-- Basit: Docker compose ile bile yürür
-- Taşınabilirlik yüksek
+| Model | Örnekler | Kimin İçin? | Avantaj (Pros) | Dezavantaj (Cons) |
+| :--- | :--- | :--- | :--- | :--- |
+| **VPS** | DigitalOcean Droplet, Hetzner, EC2 | **Kontrol Delisi & Bütçe Dostu** | Çok ucuz, tam kontrol, Docker ile taşınabilir. | Patch, güvenlik, yedekleme senin işin. (Ops Yükü Yüksek) |
+| **PaaS** | Railway, Render, Fly.io, Heroku | **Hız Tutkunu (Solo Founder)** | "Git Push" ile deploy, sıfır sunucu ayarı, auto-SSL. | Daha pahalı, platform limitlerine takılabilirsin. |
+| **Serverless** | AWS Lambda, Google Cloud Run | **Dalgalı Trafik & Event-Driven** | 0 trafiğe 0 fatura, sonsuz scale. | "Cold Start" sorunu, debug zorluğu, yüksek lock-in riski. |
 
-**Eksi**
-- Patch, update, güvenlik sorumluluğu sende
-- Monitoring/backup sorumluluğu sende
-
-> Solo founder için “kontrollü basitlik” isteyenlerde çok iyi.
+> **Founder Tavsiyesi:** MVP için **PaaS (Railway/Render)** ile başla. Para kazanmaya başladığında ve fatura $100'ı geçtiğinde VPS veya Cloud Run'a geçersin.
 
 ---
 
-## 2️⃣ PaaS (Render / Fly.io / Railway benzeri / DO App Platform vb.)
-**Ne zaman iyi?**
-- Ops yükünü azaltmak istiyorsan
-- Hızlı deploy + auto restart + domain/ssl kolaylığı istiyorsan
+# 2️⃣ Vendor Lock-in: "Taşınabilirlik" Sigortası
 
-**Artı**
-- Hızlı setup
-- Daha az bakım
+Lock-in, AWS kullanmak değil; AWS'nin **içine gömülmektir.**
+Kodunu öyle yaz ki, sağlayıcıyı değiştirmek bir "rewrite" değil, bir "config değişikliği" olsun.
 
-**Eksi**
-- Sınırlamalar ve platform kuralları
-- Bazı yerlerde lock-in riski
+### 🛡 Nasıl Korunursun? (Abstraction Layers)
 
-> MVP’de “hız” için harika, ama kritik bileşenleri taşınabilir kur.
+1.  **Storage:** Kodunda `AWS.S3.upload()` çağırma. `FileService.upload()` çağır. Arkada S3 uyumlu herhangi bir şey (Minio, R2, DO Spaces) kullanabilirsin.
+2.  **Queue:** `SQS` veya `PubSub`'a göbekten bağlanma. Bir interface arkasında Redis veya RabbitMQ kullanılabilsin.
+3.  **Database:** Managed Postgres kullanıyorsan, stored procedure'lere veya o cloud'a özel eklentilere aşırı yüklenme.
 
 ---
 
-## 3️⃣ Serverless (Cloud Run / Lambda / Functions)
-**Ne zaman iyi?**
-- Trafik dalgalıysa
-- “0’dan başlat” maliyet avantajı varsa
-- Background job + event temelli iş çoksa
+# 3️⃣ The Golden Pipeline: Local → Stage → Prod
 
-**Artı**
-- Auto scale
-- Yönetim düşük
+Profesyonel bir akışta kodun yolculuğu şöyle olmalıdır:
 
-**Eksi**
-- Soğuk başlangıç
-- Observability ve IAM karmaşıklığı
-- Lock-in riski artabilir
+```mermaid
+graph LR
+    A[Lokal Geliştirme] -->|Git Push| B(CI: Test & Build)
+    B -->|Success| C{Branch?}
+    C -->|Develop/PR| D[Staging Ortamı]
+    C -->|Main/Tag| E[Production Ortamı]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style E fill:#9f9,stroke:#333,stroke-width:2px
+```
 
-> Özellikle API + job trigger için güçlü, ama her şeyi serverless yapmak şart değil.
+### 0️⃣ Lokal Ortam (DevX)
+* **Hedef:** `docker compose up` (veya benzeri tek komut) ile DB, Redis ve App ayağa kalkmalı.
+* **Kural:** Prod'daki DB Postgres ise, lokalde SQLite kullanma. **Aynısını kullan.** Environment Parity (Ortam Eşitliği) bozulursa, "bende çalışıyordu" bahanesi başlar.
 
----
+### 1️⃣ Staging (Prova Sahnesi)
+* **Hedef:** Production'ın birebir kopyası (daha küçük kaynaklısı).
+* **Amaç:** Environment variable hatalarını, migration sorunlarını ve build config farklarını burada yakalamak. Müşteri görmeden önce son kale.
 
-# 2) “Multi-cloud” (GCP + AWS birlikte) nasıl düşünülmeli?
-
-MVP aşamasında multi-cloud “havalı” değil, çoğu zaman “yük” olabilir.  
-Ama senin gibi ihtiyaçlarda (ör. BigQuery GCP’de, cache/Dynamo AWS’de vs.) gerçekçi.
-
-### Profesyonel kural:
-> Multi-cloud kararını **veri yerleşimi** ve **maliyet/perf** belirler.  
-> “Yedek olsun” diye erken multi-cloud genelde gereksizdir.
-
-### Sağlıklı yaklaşım:
-- Birincil cloud: ana compute + ana network
-- İkincil cloud: gerçekten mecbur olan parça
-- Arayüzler/SDK bağımlılıklarını minimize et
+### 2️⃣ Production (Sahne)
+* **Hedef:** Stabilite ve Gözlemlenebilirlik.
+* **Kural:** Asla "elle" (SSH ile girip) kod değiştirme. Sadece CI/CD deploy yapabilir. Read-only filesystem mantığıyla hareket et.
 
 ---
 
-# 3) Vendor lock-in’i azaltma (07’nin ana teması)
+# 4️⃣ CI/CD: Solo Founder İçin "Minimum" Kurulum
 
-Lock-in genelde “servis”ten değil, **kodun içine gömülen varsayımlardan** gelir.
+DevOps mühendisi tutacak bütçen yoksa, GitHub Actions en iyi dostundur.
 
-## Pratik önlemler:
-- Storage: S3-uyumlu seç (S3/R2/Minio/DO Spaces)
-- Queue: arayüz ile soyutla (PubSub/SQS/Rabbit/Redis queue)
-- Email/SMS: provider’ı interface arkasına al
-- Secrets: environment değişkenleri + secret manager (opsiyona bağlı)
+**Minimum Pipeline Adımları:**
+1.  **Lint & Test:** Kod standartlara uyuyor mu? Testler geçiyor mu? (Geçmezse build alma).
+2.  **Build:** Docker imajını oluştur ve Registry'ye (GHCR/DockerHub) at.
+3.  **Deploy:** SSH ile sunucuya bağlanıp `docker pull && docker up` yap VEYA Webhook ile PaaS'ı tetikle.
 
-> Amaç: “1 günde taşırım” değil, “taşınmak mümkün olsun”.
-
----
-
-# 4) Lokal → Staging → Production: MVP akış standardı
-
-## 0️⃣ Lokal ortam (developer experience)
-Minimum hedef:
-- Tek komutla ayağa kalkmalı
-- Debug edilebilir olmalı
-
-Örnek hedefler:
-- `make dev` veya `docker compose up`
-- DB + cache + app birlikte kalksın
-- Hot reload mümkünse
-
-### Lokal debug prensipleri
-- Her request’e `request_id` bas
-- Log’larda user_id/job_id taşı
-- Hata mesajı geliştiriciye “ne yapacağını” söylemeli
-
-> “Çalışmıyor” değil, “Nerede bozuldu?” görülebilmeli.
+> **Otomasyon Kuralı:** Eğer bir şeyi günde 2 kereden fazla elle yapıyorsan, script yaz.
 
 ---
 
-## 1️⃣ Staging (prod’e benzeyen test ortamı)
-Staging’in amacı:
-- Prod’e sürpriz taşımamak
-- Migration, env, secrets, build farklarını görmek
+# 5️⃣ Deployment Tarifleri (Recipes)
 
-Minimum staging kuralı:
-- Aynı Docker image
-- Aynı env formatı
-- Aynı DB şeması (küçük veriyle)
+Hangi malzemelere sahip olduğuna göre menüyü seç:
 
----
+### 🍔 Menü A: "Gariban Dostu" (VPS + Docker)
+* **Stack:** Hetzner/DigitalOcean VPS ($5-10/ay).
+* **Araç:** Coolify (Kendi PaaS'ın) veya düz Docker Compose.
+* **Avantaj:** En ucuz maliyet.
+* **Dezavantaj:** Sunucu güncellemesi, güvenliği senin sorumluluğunda.
 
-## 2️⃣ Production
-Prod’de amaç:
-- Stabilite
-- Geri dönüş planı (rollback)
-- Observability
+### 🍱 Menü B: "Zengin ve Hızlı" (PaaS)
+* **Stack:** Vercel (Frontend) + Railway/Render (Backend & DB).
+* **Araç:** GitHub entegrasyonu (Otomatik deploy).
+* **Avantaj:** Sıfır ops, maksimum hız. Gece rahat uyursun.
+* **Dezavantaj:** Trafik artarsa cüzdanı yakar.
 
-MVP’de prod şu üç şeye sahip olmalı:
-1) Log’lar erişilebilir
-2) Basit healthcheck
-3) Crash edince yeniden başlatma
+### 🥗 Menü C: "Hybrid & Scalable" (Cloud Native)
+* **Stack:** Frontend (Vercel/Netlify) + Backend (Cloud Run/Lambda) + Data (Managed DB).
+* **Avantaj:** Scale sorunu yok.
+* **Dezavantaj:** Cold start, karmaşık IAM rolleri, log takibi zorluğu.
 
 ---
 
-# 5) CI/CD: Solo founder için “minimum profesyonel” kurulum
+# 🧪 Case Study: SilentCut Altyapısı
 
-CI/CD’yi “kurumsal” gibi değil, **1–3 kişilik ekip** gibi kuracağız.
+SilentCut'ın ihtiyaçları:
+* Yüksek Disk Alanı (Video dosyaları).
+* Anlık Yüksek CPU (Video işleme).
 
-## ✅ Minimum pipeline (önerilen)
-**PR/Push olduğunda:**
-1) Lint + test
-2) Build (Docker image veya artifact)
-3) Deploy staging (opsiyonel ama çok faydalı)
+**Seçilen Model:** **Menü C (Hybrid)**
+1.  **Web:** Vercel (Next.js).
+2.  **API & Worker:** Google Cloud Run (Sadece video işlenirken para yazar).
+3.  **Storage:** Cloudflare R2 (S3 uyumlu ama egress ücreti yok - video indirme maliyeti için kritik).
+4.  **Queue:** Redis (Upstash - serverless).
 
-**Tag/Release olduğunda:**
-1) Build
-2) Deploy production
-3) Smoke test (basit endpoint kontrolü)
-
-> Bu kadar. Daha fazlası şu an şart değil.
+*Neden? Çünkü video işleme işi "burst" (patlamalı) bir iştir. Sunucu kiralarsak %90 boş yatacak. Serverless burada maliyeti %80 düşürdü.*
 
 ---
 
-## 🧱 CI/CD için karar noktaları (stack bağımsız)
+# ⚡️ Haftalık Görevler (Commitment Checklist)
 
-### Build tipi
-- Docker image önerilir (taşınabilirlik için)
+### 1. [ ] Hosting Modelini Seç
+VPS mi, PaaS mı? Karar ver ve nedenini yaz.
+> *"Ben [MODEL]'i seçtim çünkü şu an [HIZ/MALİYET] benim için daha önemli."*
 
-### Registry
-- GitHub Container Registry / Docker Hub / ECR / GCR
+### 2. [ ] "Hello World" Deploy
+Basit bir `index.html` veya `/health` endpoint'ini seçtiğin platformda canlıya al. SSL (https) kilidini gör.
 
-### Deploy stratejisi (MVP için)
-- “Rolling” veya “replace”
-- Blue/Green erken aşamada opsiyonel
+### 3. [ ] GitHub Actions (CI) Kurulumu
+Basit bir `.github/workflows/deploy.yml` dosyası oluştur. En azından "Push yapıldığında testleri çalıştır" adımı olsun.
 
-### Secrets yönetimi
-- CI secrets (GitHub Actions Secrets vb.)
-- Prod secret manager (opsiyonel)
-
----
-
-# 6) Platformlara göre pratik yerleşim (örnek modeller)
-
-Bu bölüm “Vercel yoksa ne var?” sorusunu çözer.
-
-## Model A – VPS + Docker Compose (çok taşınabilir)
-- DigitalOcean droplet
-- Nginx + app + db + redis (compose)
-- GitHub Actions → SSH ile deploy veya docker pull + restart
-
-**Artı:** taşınabilir, ucuz  
-**Eksi:** bakım sende
+### 4. [ ] Lock-in Check
+Projenin konfigürasyon dosyasına bak. AWS/GCP'ye özel hard-coded ID'ler veya region'lar kodun içinde mi, yoksa `.env` dosyasında mı?
 
 ---
 
-## Model B – PaaS (Railway benzeri) + Managed DB
-- App platform üzerinde deploy
-- DB managed (Postgres)
-- Object storage S3 uyumlu
+# ⛔️ Yasaklı İşlemler (Anti-Patterns)
 
-**Artı:** hızlı, ops az  
-**Eksi:** bazı limitler, fiyat büyüyebilir
+* **"FTP ile dosya atmak."** -> Yıl 202X. Yapma.
+* **"Production veritabanına lokalden bağlanmak."** -> Bir gün yanlışlıkla `DROP TABLE` yazacaksın. Yapma.
+* **"Kubernetes (K8s) kurmak."** -> Google ölçeğinde değilsen, MVP için K8s, nükleer santralle yumurta pişirmektir.
 
 ---
 
-## Model C – Serverless API + Background Jobs ayrı
-- API: Cloud Run / Lambda
-- Jobs: queue + worker
-- Storage: S3 uyumlu
-- DB: managed
+## 🔜 Gelecek Hafta: Monitoring & Operasyon
 
-**Artı:** scale iyi  
-**Eksi:** IAM ve gözlemleme karmaşık
+Kod canlıda ama sağlıklı mı?
+* Kullanıcılar hata alıyor mu? (Sentry).
+* Sunucu yavaşladı mı? (APM).
+* Gece 3'te site çökerse seni kim uyandıracak? (Alerting).
 
 ---
-
-## Model D – Hybrid (GCP + AWS)
-Örn:
-- Data & analytics GCP (BQ)
-- App compute AWS (ECS/EC2/Lambda)
-- Storage S3 uyumlu
-
-**Artı:** ihtiyaç bazlı optimum  
-**Eksi:** karmaşıklık
-
-> MVP’de hybrid kullanacaksan, “neden” dokümante et.
-
----
-
-# 7) MVP’de “prod’a çıkma” kontrol listesi (gerçekçi)
-
-## ✅ Zorunlu (MVP bile olsa)
-- HTTPS (domain + SSL)
-- Basic auth/session güvenliği
-- Upload limitleri (size/type)
-- Rate limit (en azından kaba)
-- Logs erişimi
-- Basit backup planı (DB snapshot)
-
-## ✅ Çok önerilen
-- Error tracking (Sentry vb.)
-- Uptime check (basit ping)
-- Minimal dashboard (CPU/RAM)
-
-## ❌ Şimdilik gereksiz (çoğu ürün için)
-- Kubernetes
-- Service mesh
-- Multi-region
-- Tam SRE setup
-
----
-
-# 🧪 SilentCut Case Study – Bu hafta neye denk geliyor?
-
-SilentCut benzeri ürünlerde pratik ihtiyaçlar:
-- Upload → processing → download
-- Background job + worker
-- Object storage (S3 uyumlu)
-- CDN veya download performansı
-- Maliyet görünürlüğü
-- Burst trafik yönetimi
-
-Bu yüzden “iyi MVP altyapısı” şuna benzer:
-- UI/API hızlı deploy (PaaS veya VPS)
-- Worker ayrı ölçeklenebilir (gerekirse)
-- Storage S3 uyumlu (taşınabilir)
-
-> İlk gün mikroservis değil, **doğru sınır ve doğru deploy** önemli.
-
----
-
-# 🛠️ Bu haftanın görevleri
-
-## 1️⃣ Kendi ürünün için “deployment modeli” seç
-Aşağıdakilerden birini seç ve gerekçelendir:
-- VPS + Docker
-- PaaS + managed DB
-- Serverless + worker
-- Hybrid (GCP+AWS)
-
-> Seçim kriteri: hız + maliyet + bakım yükü
-
----
-
-## 2️⃣ Lokal geliştirme akışını tanımla (tek sayfa)
-- Projeyi çalıştırma komutu
-- Debug adımları
-- Env variable formatı
-- Minimum dependency list
-
----
-
-## 3️⃣ Staging planı yaz
-- Aynı image mi?
-- Aynı env mi?
-- Migration nasıl?
-
----
-
-## 4️⃣ CI/CD pipeline taslağı çiz
-- PR → test/build
-- Tag → prod deploy
-- Rollback planı
-
----
-
-## ✅ Haftanın çıktıları
-
-Bu hafta sonunda elinde:
-
-- Seçtiğin hosting modelinin gerekçesi
-- Lokal → staging → prod akışı
-- Minimum CI/CD pipeline
-- Lock-in azaltma planı
-- Prod checklist
-
-olmalı.
-
----
-
-## ⚠️ Son uyarı
-
-> Deployment düzeni olmayan ürün,  
-> büyüyünce değil, **ilk kriz anında** kaybeder.
-
----
-
-## 🔜 Sonraki hafta
-
-**08 – Monitoring, Logging, Alerting & Operasyon**
-
-- Log standardı (request_id, job_id)
-- Metric’ler (latency, error, queue depth)
-- Alerting (ne zaman sayfa atarsın?)
-- Runbook (krizde ne yapacaksın?)
-- MVP’de minimum observability
-
----
+*Developer to Founder - Week 07*
