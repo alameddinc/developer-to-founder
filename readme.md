@@ -109,5 +109,4 @@ Eksik gördüğünüz, "şunu da ekle" dediğiniz yerler için Pull Request gön
 > *"Mükemmel kod, hiç yazılmamış koddur. Lakin En iyi ürün, insanların hayatına dokunan üründür."*
 
 ---
-*Created by Alameddin Çelik - Building in Public*
-https://silentcut.io
+*Created by Alameddin Çelik - Building in Public with https://silentcut.io*
