@@ -1,290 +1,145 @@
-# 09 – Versiyon Kontrolü, Proje Yönetimi & Founder Disiplini  
-## “Ürünü Değil, Kendini Yönetemezsen Ürün de Yürümez”
+# 09 – Project Management for One: Git, Trello & Founder Disiplini
 
-Bu haftanın amacı:
-> **Solo veya küçük ekipte çalışan bir geliştiricinin  
-> hem kodu hem kendini hem de ürünün geleceğini yönetebilir hale gelmesi.**
+> **Haftanın Mottosu:** "Plansız çalışan bir deha, planlı çalışan bir aptaldan daha az iş üretir."
 
-Bu hafta:
-- Git sadece bir araç
-- Asıl mesele **düzen, takip ve bitirme alışkanlığı**
-- MVP sonrası kaosun önüne geçme haftası
+Bu haftanın amacı; seni Jira ticket'larına boğmak değil, **"Ne yapıyordum ben?"** sorusunu hayatından çıkarmaktır.
+Solo founder veya küçük ekipken en büyük düşmanın **bağlam kaybıdır (context switching).** Bir an kod yazarken, bir an fatura keserken, bir an bug düzeltirken bulursun kendini. Bu kaos, düzenli bir sistemle yönetilmezse tükenmişlik (burnout) garantidir.
 
 ---
 
-## 🎯 Haftanın hedefi
+## 🎯 Haftanın Hedefleri (Learning Outcomes)
 
-Bu hafta sonunda katılımcı:
-
-- Kendi için sürdürülebilir TODO list’ler oluşturabilecek
-- MVP sonrası fikir ve notlarını kaybetmeyecek
-- “Sonra bakarız” çöplüğünü kontrol altına alacak
-- Test düşünmeye erken başlayacak (ama boğulmayacak)
-- Farklı cihaz ve senaryolarda test refleksi kazanacak
-- Versiyonlama + iş yönetimini birlikte düşünecek
+Bu modülü tamamladığında:
+* [ ] **GitFlow** gibi karmaşık yapılar yerine, tek kişilik dev kadro için **Feature Branch** veya **Trunk Based** akışını oturtacaksın.
+* [ ] Fikirlerini çöp kutusuna değil, **"Icebox"**a (Buzluk) atmayı öğreneceksin.
+* [ ] "Definition of Done" (Bitti Tanımı) kavramını netleştireceksin. (Kod bitti ≠ İş bitti).
+* [ ] Kendi kendinin QA (Quality Assurance) ekibi olmayı öğreneceksin.
 
 ---
 
-## 🧠 Büyük gerçek
+# 1️⃣ Git Stratejisi: Solo Founder Nasıl Çalışmalı?
 
-> Bazende ürünler:
-> - Yanlış mimariden değil  
-> - Yanlış pazarlamadan değil  
->  
-> **takipsizlikten** ölür.
+Kurumsal şirketlerdeki `release/v1.2`, `hotfix/xy`, `develop` dalları senin için zaman kaybıdır. Ama `main` dalına direkt commit atmak da intihardır.
 
----
+### Önerilen Model: "Basitleştirilmiş Feature Branch"
 
-# 1️⃣ Versiyon kontrolü = değişim yönetimi (kısa hatırlatma)
+1.  **Main (Master):** Burası kutsaldır. Buradaki kod her zaman **Canlıya (Production)** çıkabilir durumda olmalıdır.
+2.  **Feature Branch:** Her yeni özellik veya fix için yeni dal aç.
+    * `feat/video-upload`
+    * `fix/login-error`
+    * `chore/update-deps`
+3.  **Kural:** İşi bitir, test et, `main`'e merge et, dalı sil.
 
-Git:
-- Sadece kod saklama aracı değildir
-- **Geri dönebilme cesareti** verir
-
-Temel kural:
-> `main` her zaman deploy edilebilir olmalı.
-
-Ama bu hafta Git’i **tek başına bırakıyoruz**, çünkü yetmez.
+> **Neden?** Çünkü bir özellik üzerinde çalışırken (`feat/dark-mode`), acil bir hata (`fix/payment-crash`) çıkarsa, dark mode kodlarını canlıya almadan hatayı düzeltebilmelisin.
 
 ---
 
-# 2️⃣ Founder için kişisel TODO list: şart mı?
+# 2️⃣ Görev Yönetimi: The Anti-Jira Approach
 
-**Evet. Ama doğru şekilde.**
+Jira, yöneticilerin seni takip etmesi içindir. Trello/Notion/Linear ise senin işi bitirmen içindir.
 
-## ❌ Yanlış TODO kullanımı
-- Sonsuz liste
-- Her şey “yüksek öncelik”
-- Aylarca dokunulmayan maddeler
+### 3 Kutu Tekniği (Kanban)
 
-Bu:
-> Moral bozar, odak öldürür.
+Board'unda sadece şu kolonlar olsun:
 
----
+| Kolon | Anlamı | Kural |
+| :--- | :--- | :--- |
+| **1. Todo (Backlog)** | Yapılacak her şey. | Burası karışık olabilir, sorun değil. |
+| **2. This Week (Sprint)** | Bu hafta bitecekler. | **Pazartesi sabahı** buraya 3-5 madde çek ve kilitle. Hafta ortası ekleme yapma. |
+| **3. In Progress** | Şu an kodladığım. | **Sadece 1 tane** kart olabilir. Aynı anda 2 iş yapma. |
+| **4. Done** | Bitenler. | Cuma günü buraya bakıp kendini tebrik et. |
 
-## ✅ Doğru TODO yaklaşımı (founder versiyonu)
-
-### 3 ayrı liste kullan
-1️⃣ **Şimdi** (aktif – max 3 madde)  
-2️⃣ **Sonra** (yakın gelecek)  
-3️⃣ **Fikirler / Belki** (park alanı)
-
-> Her şeyi “şimdi”ye koyma.  
-> Şimdi listesi kutsaldır.
+### 🧠 The "Icebox" (Fikir Mezarlığı Değil, Park Alanı)
+Aklına harika bir fikir geldi: *"Referans sistemi yapalım!"*
+Bunu hemen `Todo`ya atma. Ayrı bir sayfa (`Ideas` veya `Icebox`) aç ve oraya yaz.
+* **Kural:** Fikirler demlenmelidir. 1 hafta sonra baktığında hala heyecanlanıyorsan `Todo`ya alırsın.
 
 ---
 
-## MVP sonrası için not almak gerekli mi?
-**Kesinlikle evet.**
+# 3️⃣ Definition of Done (DoD): İş Ne Zaman Biter?
 
-Ama:
-- TODO’ya atılmaz
-- Ayrı bir yere yazılır
+Geliştiricilerin en büyük yalanı: *"Kod bitti, sadece testi kaldı."*
+Bu, *"Yemek bitti, sadece pişmesi kaldı"* demek gibidir.
 
-Örnek:
-- “Kullanıcılar pricing’i anlamıyor olabilir”
-- “Export isteyen oldu”
-- “Mobilde upload zor”
+Senin için **"Bitti"** şu anlama gelmeli:
+1.  Kod yazıldı.
+2.  Lokalde çalıştı.
+3.  `Main` dalına merge edildi.
+4.  Canlı ortamda (Production/Staging) görüldü.
 
-Bunlar:
-> **Henüz iş değil**, sinyaldir.
+> **Disiplin:** Bu 4 madde tamamlanmadan Trello kartını "Done" kolonuna çekme.
 
 ---
 
-# 3️⃣ Feature fikirleri: backlog’a atmalı mıyım?
+# 4️⃣ QA for One: Test Mühendisi Sensin
 
-Evet, ama **etiketleyerek**.
+Otomasyon testleri (Unit/Integration) harikadır ama MVP aşamasında %100 kapsama (coverage) hayaldir.
 
-### Önerilen etiketler
-- `post-mvp`
-- `user-feedback`
-- `nice-to-have`
-- `riskli`
-- `deney`
+### Manuel Test Ritüeli (Smoke Testing)
+Her deploy sonrası şu 3 şeyi **gerçek bir cihazda** (Chrome DevTools mobil görünümünde değil, elindeki telefonda) dene:
+1.  **Critical Path:** Yeni kullanıcı kaydolup, ana işlemi (video yükleme) yapabiliyor mu?
+2.  **Payment:** Ödeme sayfası açılıyor mu? (Kart girmene gerek yok, sayfa patlamasın yeter).
+3.  **Layout:** Butonlar ekranın dışına taşıyor mu?
 
-Bu sayede:
-- MVP’yi bozmaz
-- Ama unutmazsın
-
-> Unutulan fikir değil,  
-> **kontrolsüz fikir** öldürür.
+> **Founder Körlüğü:** Kendi bilgisayarında (localhost) her şey çalışır. Çünkü cache var, cookie var, admin yetkisi var. Testi **Gizli Sekme (Incognito)** veya **Telefondan** yap.
 
 ---
 
-# 4️⃣ Test düşünmek: Ne kadar erken?
+# 5️⃣ Haftalık Çalışma Ritmi (Founder's Rhythm)
 
-### ❌ Yanlış uç
-- “MVP’de teste gerek yok”
+Patron yoksa, mesai de yoktur. Bu tehlikelidir çünkü ya hiç çalışmazsın ya da hep çalışırsın.
 
-### ❌ Diğer yanlış uç
-- “Her şeyin testini yazalım”
+* **Pazartesi (Planlama):** Kahveni al, `Backlog`'a bak. Bu hafta en kritik 3 iş ne? Onları `This Week`'e çek. Kod yazma, plan yap.
+* **Salı - Perşembe (Deep Work):** Sadece koda odaklan. Telefonu sessize al.
+* **Cuma (Maintenance & Release):** Kodlamayı bırak. Deploy yap. Bugları temizle. Dokümantasyonu güncelle. Hafta sonuna kafan rahat gir.
 
-### ✅ Sağlıklı orta yol
-
-Bu hafta testten beklenti:
-> **Senaryo düşünme**
+> **Tavsiye:** Cuma akşamı 17:00'de deploy yapma. Hafta sonun zehir olur. Perşembe akşamı veya Cuma sabahı yap.
 
 ---
 
-## Test case düşünme (kod yazmadan)
+# 🧪 Case Study: SilentCut'ta Kaos Yönetimi
 
-Her ana özellik için şunu sor:
-- Mutlu senaryo (happy path)
-- Yanlış input
-- Yarım kalan işlem
-- Aynı işlemi 2 kez yaparsa ne olur?
+**Sorun:**
+SilentCut'ı geliştirirken bir yandan "Video işleme çok yavaş" şikayetleri geliyor, bir yandan "Logo mobilde kayık duruyor" deniyordu.
+Ben ne yaptım? Hepsine aynı anda saldırdım ve veritabanını bozdum.
 
-Bunları:
-- Kod yazmadan
-- Not olarak yazman yeterli
-
----
-
-# 5️⃣ Cihaz & ortam testleri: MVP seviyesinde ne yeterli?
-
-Kimse senden şunu beklemiyor:
-- 20 cihaz
-- 10 tarayıcı
-- Otomasyon cenneti
-
-Ama **şunlar şart**:
-
-## Minimum test seti
-- Desktop (Chrome)
-- Mobil tarayıcı (iOS veya Android)
-- Küçük ekran (responsive)
-- Yavaş internet simülasyonu
-
-Özellikle:
-- Upload
-- Ödeme
-- Formlar
-
-> Founder körlüğü burada çok olur.  
-> Kendi cihazın her zaman yalan söyler.
+**Çözüm (Ders Alındı):**
+1.  **Labeling:** İşleri etiketledim. `bug/critical` (Video yavaş) vs `ui/minor` (Logo kayık).
+2.  **Priority:** Önce sistemi kilitleyen (kritik) bug çözüldü. Logo 3 gün yamuk kaldı, kimse ölmedi.
+3.  **Focus:** Video işleme kodunu yazarken, frontend dosyalarına dokunmadım.
 
 ---
 
-# 6️⃣ “Sonra yaparız” listesi (çok kritik)
+# 🛠️ Haftalık Görevler (Commitment Checklist)
 
-Bu liste:
-- MVP’yi korur
-- Aklını rahatlatır
+### 1. [ ] Yönetim Aracını Seç ve Kur
+Trello, Notion, GitHub Projects veya Linear. Birini seç. (Basitlik > Özellik).
+* Kolonları aç: `Backlog`, `This Week`, `Doing`, `Done`.
 
-İçine şunlar girer:
-- Büyük refactor
-- Gelişmiş ayarlar
-- Güzel ama gereksiz UX
-- Edge case’ler
+### 2. [ ] Backlog Temizliği
+Aklındaki her şeyi (feature, bug, hayal) backlog'a dök. Sonra %80'ini `Icebox` (Buzluk) sayfasına taşı. `This Week` için sadece 3-5 tane bırak.
 
-Ama:
-> Bu listeye bakıp **iş yapma**.  
-> Sadece bil ki oradalar.
+### 3. [ ] Git Temizliği
+Projede bekleyen, merge edilmemiş, unutulmuş `dal` (branch) var mı? Hepsini ya merge et ya sil. `Main` tertemiz olsun.
 
----
-
-# 7️⃣ Haftalık çalışma düzeni (güncellenmiş)
-
-### Pazartesi
-- Aktif TODO’yu seç (max 3)
-- Test senaryolarını gözden geçir
-
-### Günlük
-- Yeni fikir gelirse → “Fikirler” listesine at
-- Aktif iş değiştirme
-
-### Cuma
-- Deploy
-- Şu 3 soruya cevap yaz:
-  - Ne yaptım?
-  - Ne öğrendim?
-  - Ne kafamı karıştırdı?
+### 4. [ ] "Release Day" Belirle
+Haftanın hangi günü deploy yapacaksın? (Örn: Perşembe sabahları). Bunu takvime işle.
 
 ---
 
-# 8️⃣ Versiyonlama + iş disiplini birlikte
+# ⛔️ Yasaklı Davranışlar (Anti-Patterns)
 
-Her deploy:
-- Bir versiyon
-- Bir öğrenme
-- Bir kapanan iş demek
-
-Bu yüzden:
-> Deploy olmayan iş = bitmemiş iştir.
+* **"Shiny Object Syndrome":** O an yaptığın işi bırakıp, aklına gelen yeni ve havalı bir özelliği kodlamaya başlamak. (Bunu `Icebox`a at).
+* **"Main'de Kodlamak":** *"Küçük bir değişiklik ya"* diyip `git push origin main` yapmak.
+* **"Sonsuz Backlog":** Backlog'unda 500 madde varsa, o bir plan değil, suçluluk listesidir. Sil gitsin.
 
 ---
 
-# 🧪 SilentCut bağlamında düşünürsek
+## 🔜 Gelecek Hafta: Launch Prep & Go-to-Market (Lansman Hazırlığı)
 
-Bu tarz ürünlerde:
-- “Bir tık daha iyileştireyim” tuzağı çok güçlü
-- Testler genelde upload/processing etrafında yoğunlaşır
-- Mobil test atlanır (hata!)
-
-Disiplin:
-- Küçük feature
-- Sık deploy
-- Not al, hemen yapma
+Artık teknik ve yönetimsel altyapımız tamam. Ürünü dünyaya açma vakti yaklaşıyor.
+* 10. Hafta'da teknik CI/CD yerine (onu 7'de hallettik), **"Ürünü Yayına Hazırlama (Launch Checklist)"** ve **"Soft Launch"** stratejilerini konuşalım mı?
+* Beta kullanıcıları, Feedback döngüsü ve "Waitlist" yönetimi.
 
 ---
-
-# 🛠️ Bu haftanın görevleri (güncellenmiş)
-
-## 1️⃣ Kişisel TODO sistemini kur
-- Şimdi / Sonra / Fikirler
-
----
-
-## 2️⃣ MVP sonrası not alanı oluştur
-- Ayrı bir doküman
-- TODO’dan bağımsız
-
----
-
-## 3️⃣ 5 ana feature için test senaryosu yaz
-- Kod yok
-- Senaryo var
-
----
-
-## 4️⃣ En az 2 cihazda test yap
-- Desktop + mobil
-
----
-
-## 5️⃣ Bu hafta en az 1 deploy yap
-- Küçük bile olsa
-
----
-
-## ✅ Haftanın çıktıları
-
-Bu hafta sonunda elinde:
-
-- Kontrol altında bir backlog
-- Kaybolmayan fikirler
-- Daha az yarım iş
-- Daha az sürpriz bug
-- Daha yüksek mental rahatlık
-
-olmalı.
-
----
-
-## ⚠️ Son söz
-
-> Disiplin seni kısıtlamaz.  
-> Disiplin seni **özgürleştirir**.
-
----
-
-## 🔜 Sonraki hafta (10. Hafta)
-
-**10 – CI/CD & Yayına Alma (Ürün Odaklı)**
-
-- Deploy ritmi
-- Hotfix & rollback
-- “Her gün deploy edilir mi?”
-- Korkmadan prod’a çıkmak
-
----
+*Developer to Founder - Week 09*
