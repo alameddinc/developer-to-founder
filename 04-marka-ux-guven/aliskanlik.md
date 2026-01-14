@@ -1,205 +1,106 @@
-# EK – Kullanıcı Alışkanlıklarını Miras Almak  
-## UX’te Kopya Değil, Süreklilik
+# 04.2 – Don't Re-Invent the Wheel: Kullanıcı Alışkanlıklarını Miras Almak
 
-Bu ek bölümün amacı:
-> **Kullanıcıyı eğitmeye çalışmak yerine,  
-> zaten bildiği davranışları ürüne taşımak.**
+> **Haftanın Mottosu (Part 2):** "Kullanıcılar zamanlarının çoğunu senin sitende değil, diğer sitelerde geçirirler. Bu yüzden senin sitenin de diğerleri gibi çalışmasını beklerler." — Jakob Nielsen (Jakob's Law)
 
-UX’te en pahalı hata:
-> “Biz farklıyız, kullanıcıyı alıştırırız.”
-
-Gerçek:
-- Facebook bile alışkanlıkları yavaş değiştirir
-- Instagram bile tamamen sıfırdan UX öğretmez
-- Küçük ürünler **asla** bu lükse sahip değildir
+Bu bölümün amacı: **Kullanıcıyı eğitmek zorunda kalmamaktır.**
+Eğitim masraflıdır. Kullanıcının zaten bildiği kas hafızasını (Muscle Memory) projenize `extend` etmek varken, neden sıfırdan `class` yazasınız?
 
 ---
 
-## 🧠 “Alışkanlık mirası” ne demek?
+## 🧠 "Habit Inheritance" (Alışkanlık Mirası) Nedir?
 
-Alışkanlık mirası:
-> Kullanıcının başka ürünlerde öğrendiği davranışları  
-> senin ürününde **bilinçli şekilde kullanmaktır**.
+Yazılımda nasıl ki `BaseController`dan miras alıp ortak fonksiyonları tekrar yazmıyorsak, UX'te de devlerden miras alırız.
 
-Bu:
-- Kopya çekmek değildir
-- Tembellik değildir
-- UX zekâsıdır
+* **Kopya Çekmek:** Tasarımı, renkleri, logoyu çalmaktır. (Hırsızlık)
+* **Miras Almak:** Akışı, buton yerleşimini, beklentiyi almaktır. (Standart)
+
+> **Gerçek:** Dünyanın en yenilikçi uygulaması olduğunu iddia eden Instagram bile, "beğenme" ve "kaydırma" alışkanlıklarını Facebook ve Tinder'dan miras almıştır.
 
 ---
 
-## 📘 Facebook → Instagram → TikTok örneği
+## 🛒 E-Ticaret Anayasası: Neden "Sepet" Sağ Üsttedir?
 
-Instagram ilk çıktığında:
+E-ticaret siteleri sıkıcı derecede birbirine benzer. Neden? Çünkü orada **para** vardır. Para harcanan yerde kullanıcı **sürpriz** istemez.
 
-- Feed aşağı doğru akıyordu
-- Like, comment, share ikonları tanıdıktı
-- Profil yapısı Facebook’a benziyordu
+Bir e-ticaret sitesinde "Sepet" ikonunu sol alta koyarsan:
+1.  Bu bir inovasyon değildir.
+2.  Bu bir "Tasarım Hatası"dır.
+3.  Sonuç: Ciro kaybı.
 
-Sonra:
-- Stories → Snapchat’ten alındı
-- Reels → TikTok alışkanlığına göre şekillendi
-
-Instagram şunu yapmadı:
-❌ “Biz tamamen farklıyız, yeni bir akış öğretelim”
-
-Şunu yaptı:
-✅ “Kullanıcının zaten bildiği refleksi kullanalım”
-
-UX dersi:
-> En hızlı öğrenilen arayüz,  
-> **zaten öğrenilmiş olandır.**
+### Kutsal UX Standartları (Dokunma Yanarsın)
+| Eleman | Beklenen Konum/Davranış | Neden? |
+| :--- | :--- | :--- |
+| **Logo** | Sol Üst | Ana sayfaya dönmek için evrensel kaçış butonu. |
+| **Sepet/Profil** | Sağ Üst | Kullanıcı ekranı tararken çıkışı veya sonucu orada arar. |
+| **Linkler** | Mavi/Altı Çizili/Farklı Renk | Tıklanabilir olduğu belli olmalı. |
+| **Mobilde Menü** | Hamburger (≡) veya Alt Bar | Başparmak erişim alanı. |
 
 ---
 
-## 🛒 E-ticaret UX’i: Kopya değil, standart
+## 🧪 Case Study: SilentCut ve "Upload" Refleksi
 
-E-ticaret özel bir örnek çünkü:
+SilentCut'ta bir "Video Yükleme" süreci tasarlarken iki yol vardı:
 
-- Kullanıcı burada **para harcar**
-- Streslidir
-- Hata yapmak istemez
+**Yol A (Over-Engineering / Yenilikçi):**
+* Ekranda uçuşan partiküller.
+* "Videonu Sahneye Davet Et" yazan bir buton.
+* Yükleme bitince konfetiler.
 
-Bu yüzden e-ticarette bazı akışlar **neredeyse kutsaldır**.
+**Yol B (Miras Alan / Standart):**
+* Kesikli çizgilerle (Dashed Border) bir kutu.
+* Ortada bir "Bulut/Yükle" ikonu.
+* Metin: "Dosyanı buraya sürükle veya seç."
+* Yüklenirken: Yeşil bir Progress Bar.
 
-### Beklenen e-ticaret alışkanlıkları
-
-- Sepet → sağ üstte
-- Sepete ekle → belirgin buton
-- Ürün sayfasında:
-  - Fiyat
-  - Kargo bilgisi
-  - İade politikası
-- Checkout:
-  - Adım adım
-  - Net toplam fiyat
-  - Sürpriz yok
-
-Bunları değiştirmek:
-- Yenilik değildir
-- **Güven kırmaktır**
-
-> “Biz checkout’u farklı tasarladık”  
-> cümlesi genelde şu anlama gelir:
-> “Dönüşüm oranımız düştü.”
+**Karar:** Yol B seçildi.
+**Sonuç:** Kullanıcı ne yapacağını 0.1 saniyede anladı. "Nasıl yükleniyor?" sorusu hiç gelmedi. Çünkü kullanıcı bunu Google Drive'dan, WeTransfer'den, Dropbox'tan zaten biliyordu.
 
 ---
 
-## 🔁 “Kopya” ile “alışkanlık mirası” farkı
+## 🔁 Kopyalamak vs. Esinlenmek (Cheat Sheet)
 
-### ❌ Kötü kopya
-- Rengi aynen almak
-- Metni aynen almak
-- Marka kimliğini taklit etmek
+Neyi alıp neyi almayacağını karıştıranlar için basit bir tablo:
 
-### ✅ Doğru miras
-- Akışı almak
-- Davranışı almak
-- Beklentiyi karşılamak
-
-Örnek:
-- “Sepete ekle” demek → normal
-- “Ürünü sepetleştir” demek → UX riski
+| ✅ Miras Al (Inherit) | ❌ Kopyalama (Clone) |
+| :--- | :--- |
+| **User Flow:** Sepet -> Adres -> Ödeme | **Microcopy:** Rakibin yazdığı hata mesajının aynısını yazmak. |
+| **Layout:** Menü yerleşimi, Footer yapısı. | **Visual Identity:** Rakibin renk paleti ve fontu. |
+| **Terminology:** "Giriş Yap", "Kaydol", "İndir". | **Tone of Voice:** Rakibin espri anlayışını taklit etmek. |
 
 ---
 
-## 🧭 Ne zaman alışkanlık mirası kullanmalısın?
+## ⚠️ Ne Zaman "Override" Edebilirsin?
 
-Özellikle şu durumlarda:
+Miras aldığın alışkanlığı ne zaman bozabilirsin?
+Sadece ve sadece **yeni yöntem eskisinden 10 kat daha iyiyse.**
 
-- Kullanıcıyı **hızla aksiyona sokmak istiyorsan**
-- Para / dosya / veri riski varsa
-- Ürün B2C ise
-- Kullanıcı teknik değilse
+* **Örnek:** Tinder'ın "Sola/Sağa Kaydırma" (Swipe) özelliği.
+    * Eski yöntem: Profili aç -> İncele -> Butona tıkla -> Geri dön.
+    * Yeni yöntem: Kaydır. (10x Hız).
+    * *Bu bir devrimdi, ama riskliydi. Tuttu.*
 
-SilentCut’ta:
-- “Upload” butonu
-- “Progress bar”
-- “Download” akışı
-
-Bunlar:
-- Yenilik değil
-- **Alışkanlık devamı**
+Eğer senin çözümün sadece "farklı" ama "daha iyi" değilse, **standarda sadık kal.**
 
 ---
 
-## 🧪 SilentCut Case Study – Bilinçli Miras
+## 🛠️ Haftalık Egzersiz: Pattern Hunt
 
-SilentCut’ta şu varsayım yapıldı:
+Kendi ürünün için şu analizi yap:
 
-> “Kullanıcı daha önce:
-> - Dosya yüklemiştir
-> - Progress bar görmüştür
-> - Download’a basmıştır”
+### 1. [ ] Rakip Davranış Analizi
+Benim problemimi çözen en büyük 3 siteye gir. Şunlara bak:
+* "Kaydol" butonu nerede?
+* Ayarlar menüsü nerede?
+* İşlem bittiğinde ne gösteriyorlar?
 
-Bu yüzden:
-- Özel ikon icat edilmedi
-- Farklı kelimeler kullanılmadı
-- “Upload → Process → Download” zinciri bozulmadı
+### 2. [ ] "Bilinçli Miras" Listesi
+* *"Kullanıcılarım [X] sitesine alışkın olduğu için, ben de [Y] özelliğini aynı yere koyacağım."*
+* Bunu `README` veya tasarım notlarına ekle.
 
-Sonuç:
-- Öğrenme süresi düştü
-- İlk kullanım başarı oranı arttı
-- “Nasıl çalışıyor?” sorusu azaldı
-
----
-
-## ⚠️ Alışkanlık bozmanın bedeli
-
-Eğer ürün:
-- “Bunu niye böyle yapmışlar?” dedirtiyorsa
-- Kullanıcıyı durduruyorsa
-- Ek açıklama gerektiriyorsa
-
-Bu:
-- UX inovasyonu değil
-- **UX sürtünmesidir**
+### 3. [ ] "Sürtünme" (Friction) Testi
+Tasarımına bak ve sor:
+* *"Burada kullanıcının duraksayıp 'Acaba?' diyeceği bir yer var mı?"*
+* Varsa, o kısmı standartlaştır.
 
 ---
-
-## 🛠️ Mini egzersiz (çok önemli)
-
-Kendi ürünün için şunları yaz:
-
-1. Kullanıcı bu problemi daha önce **nerede yaşamış olabilir?**
-2. Bu problemi çözen başka ürünlerde:
-   - Hangi akışlar var?
-   - Hangi butonlar nerede?
-3. Ben hangilerini **bilinçli olarak devralıyorum?**
-4. Hangilerini **bilinçli olarak değiştirdim ve neden?**
-
-“Çünkü farklı olsun istedim”  
-→ **geçersiz neden**
-
----
-
-## ✋ Ne zaman alışkanlık bozabilirsin?
-
-Sadece şu durumda:
-- Daha az adım varsa
-- Daha az hata ihtimali varsa
-- Kullanıcıya açıkça fayda sağlıyorsa
-
-Aksi hâlde:
-> Alışkanlık bozmak = kullanıcı kaybetmek
-
----
-
-## ✅ Bu ek bölümün özeti
-
-> **İyi UX, kullanıcıya yeni bir şey öğretmez.  
-> Bildiği şeyi daha rahat yaptırır.**
-
----
-
-Bu `extras.md` ile birlikte **4. hafta artık çok güçlü**:
-
-- UI kararları  
-- Renk / font / düzen  
-- Güven  
-- Kullanıcı alışkanlıkları  
-- Alışkanlık mirası (Facebook / Instagram / E-ticaret)
-
-hepsi tamamlandı.
-
-👉 Hazırsan artık **5. hafta – MVP Kapsamı & Ürün Kararları**’na geçmek için mükemmel bir noktadayız.
+*Developer to Founder - Week 04 (Part 2)*
