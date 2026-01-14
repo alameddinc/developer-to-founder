@@ -1,222 +1,135 @@
-# 01 – Fikir Doğrulama & Problem Keşfi
+# 01 – Debugging the Idea: Fikir Doğrulama & Problem Keşfi
 
-Bu haftanın amacı **ürün yapmak değil**,  
-**yanlış bir ürünü yapmaktan kaçınmaktır**.
+> **Haftanın Mottosu:** "Kod yazmak, problemi anlamaktan daha kolaydır. Bu yüzden çoğu geliştirici yanlış şeyi inşa eder."
 
-> Çoğu ürün teknik olarak başarısız olmaz.  
-> **Yanlış problem için doğru ürün yapıldığı için başarısız olur.**
+Bu haftanın amacı bir **ürün geliştirmek** değil; **yanlış bir ürünü geliştirmekten kaçınmaktır.**
 
----
-
-## 🎯 Haftanın hedefi
-
-Bu hafta sonunda katılımcı:
-
-- Çözmek istediği problemi **net bir cümleyle** ifade edebilmeli
-- Bu problemin:
-  - Kime ait olduğunu
-  - Ne sıklıkla yaşandığını
-  - Ne kadar can yaktığını
-- “Ben beğendim” ile “pazar var” arasındaki farkı anlamalı
-- Fikrine değil, **probleme bağlanmayı** öğrenmeli
+Çoğu startup veya indie proje teknik yetersizlikten batmaz. **Kimsenin ihtiyaç duymadığı bir problemi, mükemmel bir kodla çözdükleri için batarlar.**
 
 ---
 
-## 🧠 En yaygın hata (ve neden tehlikeli)
+## 🎯 Haftanın Hedefleri (Learning Outcomes)
 
-> “Benim ihtiyacım vardı, başkalarının da vardır.”
-
-Bu cümle:
-- %50 ihtimalle doğrudur
-- %50 ihtimalle **kişisel bias**’tır
-
-Problem:
-- Kendi ihtiyacını genelleyip
-- Doğrulama yapmadan kod yazmaya başlamak
-
-Bu repo tam olarak **bunu engellemek için** var.
+Bu modülü tamamladığında:
+* [ ] Çözmek istediğin problemi **tek bir cümleyle** tanımlayabileceksin.
+* [ ] "Güzel fikir" ile "Pazar problemi" arasındaki farkı ayırt edebileceksin.
+* [ ] Kendi fikrine aşık olmaktan vazgeçip, **probleme aşık olmayı** öğreneceksin.
+* [ ] Kullanıcı görüşmelerinde "yalan duyma" (false positive) riskini minimize edeceksin.
 
 ---
 
-## 🔍 Problem nedir? (Yanlış tanımlar)
+## 🛑 En Büyük Tuzak: "Scratching Your Own Itch" Yanılgısı
 
-❌ “Bir uygulama yapacağım”  
-❌ “Bir SaaS fikrim var”  
-❌ “Şu rakibin aynısını ama daha iyisini yapacağım”
+Yazılımcıların en sık kurduğu cümle:
+> *"Benim buna ihtiyacım vardı, kesin başkalarının da vardır."*
 
-Bunlar problem değildir.
+Bu varsayım %50 ihtimalle doğrudur, %50 ihtimalle ise sadece **senin hobindir.**
 
-### ✅ Doğru problem tanımı şuna benzer:
-
-> “X işi yapan insanlar, Y sürecinde Z probleminden dolayı zaman/para/enerji kaybediyor.”
-
-Örnek:
-> “Uzun video üreten içerik üreticiler, montaj sürecinde sessizlikleri manuel temizlerken ciddi zaman kaybediyor.”
+Kendi ihtiyacını genele yaymak ve doğrulama yapmadan IDE'yi açmak, bir girişimcinin yapabileceği en pahalı hatadır. Bu repo, seni bu hatadan korumak (debug etmek) için tasarlandı.
 
 ---
 
-## 🧪 SilentCut Case Study – Problem Gerçek miydi?
+## 🔍 Problem Nedir? (Yanlış vs. Doğru Tanımlar)
 
-SilentCut’ın çıkış noktası şuydu:
+Bir problem tanımı "çözüm" içermez. Problem, acının kendisidir.
 
-> “Uzun videolarda sessizlikleri tek tek bulup kesmek çok vakit alıyor.”
+| ❌ Yanlış Tanım (Çözüm Odaklı) | ✅ Doğru Tanım (Acı Odaklı) |
+| :--- | :--- |
+| "Bir yapay zeka uygulaması yapacağım." | "İnsanlar X sürecinde çok vakit kaybediyor." |
+| "Şu rakibin daha ucuzunu yapacağım." | "Mevcut çözümler küçük işletmeler için çok pahalı ve karmaşık." |
+| "Video editleme SaaS'ı fikrim var." | "İçerik üreticiler, sessizlikleri temizlerken saatlerini harcıyor." |
 
-Buradaki kritik sorular:
+### 📐 Altın Formül
+Gerçek bir problem tanımı şu şablona uymalıdır:
 
-- Bu problem **sadece benim mi başıma geliyor?**
-- Her video üreten mi yaşıyor, yoksa belli bir segment mi?
-- Bu problem:
-  - Haftada kaç kez yaşanıyor?
-  - Çözülmezse ne kaybettiriyor?
-
-SilentCut için gerçek problem şurada çıktı:
-- **Kısa video üreticilerinde değil**
-- **Uzun form içerik üretenlerde**
-- **Montajı kendi yapanlarda**
-
-Yani problem:
-> “Herkesin” değil, **spesifik bir grubun** problemiydi.
+> **"[KİM], [HANGİ DURUMDA], [HANGİ PROBLEMİ] yaşıyor ve bu ona [NEYE MAL OLUYOR] (Zaman/Para/Enerji)."**
 
 ---
 
-## 🧠 The Mom Test (neden önemli?)
+## 🛠 Case Study: SilentCut (Gerçek Dünya Örneği)
 
-The Mom Test’in özeti:
+SilentCut yola çıkarken hipotez şuydu: *"Videolardaki sessizlikleri kesmek zor iş, bunu otomatize edelim."*
 
-> **Annen bile seni eleştirebileceği sorular sormalısın.**
+Ancak "problem" analiz edildiğinde detaylar ortaya çıktı:
 
-Yanlış soru örnekleri:
-- “Böyle bir ürün olsa kullanır mısın?”
-- “Bu fikir sence güzel mi?”
-- “Buna para verir misin?”
+* **Yanlış Hedef:** TikTok/Reels çekenler (Videolar zaten kısa, kesmek sorun değil).
+* **Doğru Hedef:** YouTube için 20+ dk "talking head" videosu çekenler.
+* **Acı Noktası:** Editör kullanmayan üreticiler, videonun içeriğine değil, teknik temizliğe vakit harcıyor. Dikkatleri dağılıyor.
 
-Bunların cevabı:
-- Herkes için “evet”tir  
-- Ama **hiçbir veri üretmez**
+**Sonuç:** Problem "herkesin" değil, **spesifik bir grubun (Solo Creators)**, **spesifik bir durumda (Long-form content)** yaşadığı **zaman kaybıydı.**
 
 ---
 
-## ✅ Doğru soru nasıl sorulur?
+## 🧠 The Mom Test: Anneni Bile Kandıramayacağın Sorular
 
-Amaç:
-- Fikri **satmak değil**
-- Problemi **ortaya çıkarmak**
+Girişimcilik kitaplarının kutsal kasesi "The Mom Test"in özeti şudur: **İnsanlara fikrini sorarsan, seni kırmamak için yalan söylerler.**
 
-### Doğru soru örnekleri:
+Amacın fikrini "pitch" etmek (satmak) değil, onların hayatındaki "bug"ı bulmaktır.
 
-- “Son ne zaman bu problemi yaşadın?”
-- “Bunu çözmek için şu an ne yapıyorsun?”
-- “Bu sana neye mal oluyor?”
-- “Bunu çözmek için daha önce para verdin mi?”
+### Soru Sorma Sanatı
 
----
+| ❌ Kötü Soru (Övgü Arar) | ✅ İyi Soru (Gerçek Arar) |
+| :--- | :--- |
+| "Böyle bir ürün yapsam kullanır mısın?" | "Bu problemi en son ne zaman yaşadın?" |
+| "Sence bu fikir güzel mi?" | "Bunu çözmek için şu an ne kullanıyorsun?" |
+| "Buna 10$ verir misin?" | "Bu problemi çözmek için daha önce para harcadın mı?" |
 
-## 🧪 SilentCut – Yanlış & Doğru Soru Örneği
-
-❌ Yanlış:
-> “Videodaki sessizlikleri otomatik silen bir araç yapsam kullanır mısın?”
-
-✅ Doğru:
-> “Uzun video montajlarken en çok zamanını alan kısım ne?”
-
-Gerçek cevaplar şunları ortaya çıkardı:
-- “Sessizlikleri bulmak”
-- “Timeline’da tek tek kesmek”
-- “Konsantrasyonun bozulması”
-
-Yani insanlar:
-- Aracı değil
-- **Acıyı** anlattı
+> **Unutma:** Geleceğe dair sorular ("Yapar mısın?") yalan üretir. Geçmişe dair sorular ("Yaptın mı?") veri üretir.
 
 ---
 
-## 📉 Sahte doğrulama (False Validation)
+## 📉 Sahte Doğrulama (False Validation) Nedir?
 
-Şunlar **doğrulama değildir**:
+Aşağıdakiler birer **"Vanity Metric"**tir (Şişirilmiş Ölçüm) ve fikrinin tutacağını kanıtlamaz:
+* Twitter'da like almak / Retweet edilmek.
+* Arkadaşlarının "Abi çok iyi fikir" demesi.
+* Discord gruplarında heyecanlanılması.
+* *Landing page olmadan* yapılan anketler.
 
-- Twitter’da like almak
-- Arkadaşlardan olumlu yorum
-- Discord grubunda “güzel fikir” denmesi
-- Anket (özellikle problem tanımlamadan)
-
-Gerçek doğrulama:
-- İnsanların **geçmiş davranışlarına** bakar
-
-> İnsanlar ne dediğinden çok,  
-> **daha önce ne yaptığıyla** gerçektir.
+**Gerçek Doğrulama:** İnsanların cüzdanını çıkarması veya ciddi bir zaman/emek yatırımı yapmasıdır (Skin in the game).
 
 ---
 
-## 🛠️ Bu haftanın görevi (zorunlu)
+## ⚡️ Haftalık Görevler (Commitment Checklist)
 
-### 1️⃣ Problem cümlesini yaz
+Bu hafta kod yazmak yok. Sokağa (veya Zoom'a) çıkıyoruz.
 
-Şu formatta:
+### 1. [ ] Problem Cümlesini Yaz
+Yukarıdaki formülü kullanarak problemini tek cümlede tanımla ve bir yere not et.
 
-> “[KİM], [HANGİ DURUMDA], [HANGİ PROBLEMİ] yaşıyor ve bu ona [NEYE MAL OLUYOR].”
+### 2. [ ] 5 Kişiyle Görüş (User Interviews)
+* Hedef kitlenden 5 kişi bul (LinkedIn, Twitter DM, Reddit, Forumlar).
+* Arkadaşın veya annen olmasın.
+* Ürününden bahsetmeden sadece dertlerini dinle.
+* *İpucu: "Sadece 10 dk deneyimlerinizi öğrenmek istiyorum, bir şey satmayacağım" dersen kabul ederler.*
 
----
-
-### 2️⃣ En az 5 kişiyle konuş
-
-- Hedef kitleden olacak
-- Akraba / yakın arkadaş değil
-- Soru sormak için değil, **dinlemek için**
-
-Not al:
-- Aynı cümleler tekrar ediyor mu?
-- Aynı acılar var mı?
-- Kim gerçekten mutsuz?
+### 3. [ ] "Pain Level" (Acı Seviyesi) Testi
+Görüşmelerden sonra şu soruya dürüstçe cevap ver:
+> *"Ben bu ürünü yapmasam, bu insanlar hayatına 'bir şekilde' devam eder mi, yoksa çözüm için kıvranıyorlar mı?"*
+* Cevap "Fark etmez" ise -> **Pivot.**
+* Cevap "Çok zorlanıyorlar" ise -> **Devam.**
 
 ---
 
-### 3️⃣ Şu soruya dürüst cevap ver
+## ⛔️ Yasaklı İşlemler Listesi (Anti-Patterns)
 
-> “Bu problemi ben çözmezsem, bu insanlar hayatına devam eder mi?”
+Bu hafta şunları yaparsan, kendini kandırmış olursun:
 
-Eğer cevap:
-- “Evet ama çok zor” → iyi işaret
-- “Evet hiç fark etmez” → dur ve yeniden düşün
+1.  IDE açmak / `git init` yazmak.
+2.  Database şeması tasarlamak.
+3.  Logo tasarlamak veya Domain satın almak.
+4.  UI Kit aramak.
 
----
-
-## ✅ Haftanın çıktıları
-
-Bu hafta sonunda elinde şunlar olmalı:
-
-- Net bir problem tanımı
-- Hedeflenen kullanıcı tipi (genel değil, Herkese hitap eden kimseye hitap etmiyordur)
-- Gerçek konuşmalardan notlar
-- “Bu problemi çözmeye değer mi?” sorusuna dürüst cevap
+> **Uyarı:** Yanlış problem için yazılan kod, teknik borçtan (Technical Debt) daha pahalıdır. O, **zaman borcudur** ve geri ödenemez.
 
 ---
 
-## ⚠️ Önemli uyarı
+## 🔜 Gelecek Hafta: Hedef Kitle & Pazar Analizi
 
-Bu hafta bitmeden:
-- Kod yazmak
-- UI çizmek
-- Domain almak
-- Logo düşünmek
-**yasak.**
-
-Çünkü:
-> Yanlış problem için yazılan kod,
-> teknik borçtan bile daha pahalıdır.
+Haftaya şunları konuşacağız:
+* "Herkes benim müşterim" yalanından kurtulmak.
+* Rakipleri doğru analiz etmek (Rakip varsa korkmalı mısın, sevinmeli misin?).
+* SilentCut örneğinde rakip paniği neden gereksizdi?
 
 ---
-
-## 🔜 Sonraki hafta
-
-**02 – Hedef Kitle, Pazar & Rakip Analizi**
-
-- “Herkes benim müşterim” yanılgısı
-- Rakipleri doğru okuma
-- “Çok rakip var” korkusunu veriyle yenme
-- SilentCut’ta rakip paniği neden yanlıştı?
-
----
-
-**Devam etmeden önce şunu unutma:**
-> Founder’lık, önce düşünme disiplinidir. Problemi tespit edeceğiz, riskleri analiz edeceğiz, ihtiyacı çözümleyeceğiz.  
-> Kod yazmak kolay iş ve sonrasında gelecektir :)
+*Developer to Founder - Week 01*
