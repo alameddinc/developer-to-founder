@@ -14,6 +14,7 @@ Bu modülü tamamladığında:
 * [ ] Çözmek istediğin problemi **tek bir cümleyle** tanımlayabileceksin.
 * [ ] "Güzel fikir" ile "Pazar problemi" arasındaki farkı ayırt edebileceksin.
 * [ ] Kendi fikrine aşık olmaktan vazgeçip, **probleme aşık olmayı** öğreneceksin.
+* [ ] Fikrini sadece ticari değil, **yasal, etik ve toplumsal** riskler açısından analiz edip "Tamam mı, Devam mı?" kararı verebileceksin.
 * [ ] Kullanıcı görüşmelerinde "yalan duyma" (false positive) riskini minimize edeceksin.
 
 ---
@@ -43,6 +44,36 @@ Bir problem tanımı "çözüm" içermez. Problem, acının kendisidir.
 Gerçek bir problem tanımı şu şablona uymalıdır:
 
 > **"[KİM], [HANGİ DURUMDA], [HANGİ PROBLEMİ] yaşıyor ve bu ona [NEYE MAL OLUYOR] (Zaman/Para/Enerji)."**
+
+---
+
+## ⚖️ The "Black Mirror" Test: Etik ve Yasal Risk Analizi
+
+Bir fikrin teknik olarak yapılabilir olması, **onu yapman gerektiği anlamına gelmez.**
+Arkadaşın sana "Süper bir fikrim var" diye geldiğinde, o fikrin illegal işlerde kullanılma ihtimali %90 ise, o fikir "süper" değil, **"saatli bombadır".**
+
+Kod yazmadan önce şu **Risk Analizini** yap ve kendine karşı dürüst ol:
+
+### 1. Kötüye Kullanım (Abuse) Senaryoları
+Sistemi tasarladığın "İdeal Kullanıcı" (Happy Path) değil, **"Kötü Niyetli Kullanıcı"** (Dark Path) nasıl kullanır?
+* *Örnek:* Anonim SMS atma servisi yaptın. Zorbalar bunu okulda çocukları tehdit etmek için kullanır mı? (Evet).
+* *Örnek:* Deepfake video aracı yaptın. Dolandırıcılar bunu şantaj veya sahte haber için kullanır mı? (Evet).
+
+### 2. Yasal Sınırlar (Legal Boundaries)
+* Fikrin KVKK/GDPR gibi veri kanunlarına baştan aykırı mı?
+* Finansal bir düzenlemeyi (BDDK/MASAK) deliyor mu?
+* Telif haklarını (Copyright) ihlal ederek mi değer üretiyor?
+
+### 🚦 Karar Mekanizması: Mitigate or Kill (Çöz veya Öldür)
+
+Riskleri belirledikten sonra 2 seçeneğin var:
+
+* **Seçenek A: Önlem Al (Mitigate):** "Bu riski teknoloji veya süreçle engelleyebilir miyim?"
+    * *Örnek:* SMS servisi için -> "Anonimliği kaldırırım, gönderenin kimliği doğrulanmalı ve loglanmalı." (Çözüm bulundu).
+* **Seçenek B: Projeyi Öldür (Kill):** "Bu riski engelleyemiyorum. Ürün doğası gereği suça veya zarara açık."
+    * *Karar:* **Projeyi İptal Et.** (Bu bir başarısızlık değil, topluma karşı sorumluluktur).
+
+> **Unutma:** Yasal veya etik açığı olan bir proje, büyüdükçe bir şirket değil, **bir suç örgütü** potansiyeli taşır.
 
 ---
 
@@ -97,13 +128,18 @@ Bu hafta kod yazmak yok. Sokağa (veya Zoom'a) çıkıyoruz.
 ### 1. [ ] Problem Cümlesini Yaz
 Yukarıdaki formülü kullanarak problemini tek cümlede tanımla ve bir yere not et.
 
-### 2. [ ] 5 Kişiyle Görüş (User Interviews)
+### 2. [ ] "Black Mirror" ve Yasal Risk Testi
+Kağıdı ikiye böl:
+* **Sol:** "Bu uygulama en kötü ne için kullanılabilir?" (Kara Senaryolar).
+* **Sağ:** "Bunu teknik veya hukuki olarak engelleyebilir miyim?" (Çözümler).
+    * Eğer sağ taraf boş kalıyorsa, **projeyi iptal et.**
+
+### 3. [ ] 5 Kişiyle Görüş (User Interviews)
 * Hedef kitlenden 5 kişi bul (LinkedIn, Twitter DM, Reddit, Forumlar).
 * Arkadaşın veya annen olmasın.
 * Ürününden bahsetmeden sadece dertlerini dinle.
-* *İpucu: "Sadece 10 dk deneyimlerinizi öğrenmek istiyorum, bir şey satmayacağım" dersen kabul ederler.*
 
-### 3. [ ] "Pain Level" (Acı Seviyesi) Testi
+### 4. [ ] "Pain Level" (Acı Seviyesi) Testi
 Görüşmelerden sonra şu soruya dürüstçe cevap ver:
 > *"Ben bu ürünü yapmasam, bu insanlar hayatına 'bir şekilde' devam eder mi, yoksa çözüm için kıvranıyorlar mı?"*
 * Cevap "Fark etmez" ise -> **Pivot.**
