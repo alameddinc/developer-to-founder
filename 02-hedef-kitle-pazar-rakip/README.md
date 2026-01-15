@@ -55,11 +55,14 @@ Bu varsayımla yola çıkıldığında şu sorunlar oluştu:
 * **Ajans Sahibi:** "Ben yapmıyorum ki, editörüm yapsın." dedi.
 
 **Düzeltilmiş (Pivoted) Hedef Kitle:**
-> *"YouTube için 10+ dakika 'Talking Head' (konuşan kafa) videosu çeken ve montajını kendi yapan solo içerik üreticileri."*
+> *"YouTube için 15+ dakika 'Talking Head' (konuşan kafa) videosu çeken ve montajını kendi yapan solo içerik üreticileri."*
+> *"Podcast Hazırlayan ama editi ile ilgilmek istemeyen veya vakit bulamayan"*
+> *"Udemy tarzı eğitim platformlarına içerik çeken saatlerce içeriği olan ama düzenleme vakti çok olmayan"*
+> *"İş Yükü yoğun olan Video Editorler"*
 
 Bu netleşme neleri değiştirdi?
 1.  **Özellik:** TikTok entegrasyonu çöpe atıldı, XML export eklendi.
-2.  **Dil:** "Hızlı video" yerine "Production Workflow" denildi.
+2.  **Dil:** "Hızlı video" yerine "Temiz Videoya Hızlı ulaşmak" denildi.
 3.  **Fiyat:** "Ucuz olsun" değil, "Zaman kazandırsın" odagiyla fiyat belirlendi.
 
 ---
