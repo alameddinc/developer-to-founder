@@ -84,7 +84,7 @@ SilentCut.io yola çıkarken hipotez şuydu: *"Videolardaki sessizlikleri kesmek
 Ancak "problem" analiz edildiğinde detaylar ortaya çıktı:
 
 * **Yanlış Hedef:** TikTok/Reels çekenler (Videolar zaten kısa, kesmek sorun değil).
-* **Doğru Hedef:** YouTube için 20+ dk "talking head" videosu çekenler.
+* **Doğru Hedef:** YouTube için 20+ dk "talking head" videosu çekenler, podcast yayıncıları, zoom toplantı kayıtlarını tekrar izlemek ihtiyacında olanlar ve gün aşırı video atacak ama editor tutabilecek maddi imkanı olmayanlar ve en niş senaryoda ise editorleri olan ama seri içerik çıkartması gereken ajanslar.
 * **Acı Noktası:** Editör kullanmayan üreticiler, videonun içeriğine değil, teknik temizliğe vakit harcıyor. Dikkatleri dağılıyor.
 
 **Sonuç:** Problem "herkesin" değil, **spesifik bir grubun (Solo Creators)**, **spesifik bir durumda (Long-form content)** yaşadığı **zaman kaybıydı.**
