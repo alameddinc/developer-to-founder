@@ -32,11 +32,12 @@ Teorik bilgi karın doyurmaz. Bu repo boyunca tüm süreçleri **SilentCut.io** 
 
 * **Proje:** YouTuber'lar için videolardaki sessizlikleri otomatik silen bir SaaS.
 * **Gerçekler:**
-    * "Herkes kullanır" sanırken ilk ay neden kimse gelmedi?
-    * AWS faturası nasıl $5'dan $200'a fırladı?
-    * Kod mükemmelken ürün neden satmadı?
+    * Mükemmel bir uygulama olsun derken nasıl tüm kodu sıfırdan yazmak zorunda kaldım
+    * Maliyetlerimi 10$'a sınırlamayı düşünürken 200$+ maliyetle nasıl karşılaştım,
+    * Güzel başlangıç sonrasında neden herşey bir yerde tıkandı? ve nasıl düzenledim
+    * Kazanç Planlamamda nasıl eksik noktalar bırakmışım; gibi bir çok konuya gireceğiz
 
-Tüm bu sancılı süreçleri, başarıları ve **daha önemlisi başarısızlıkları** adım adım analiz ediyoruz.
+Tüm bu sancılı süreçleri, başarıları ve **daha önemlisi başarısızlıkları** adım adım analiz edip, canlı bir uygulamayı gün gün büyütürken bizlerde kendi uygulamalarımızı geliştireceğiz.
 
 ---
 
