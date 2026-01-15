@@ -59,14 +59,19 @@ Yazılımcı diliyle en yaygın modelleri inceleyelim:
 ## 🛠 Case Study: SilentCut.io Fiyatlandırma Pivotu
 
 **Hipotez v1:** *"Aylık $29 Abonelik yapalım."*
+
 **Sonuç:** Çuvalladı.
+
 **Neden:** Hedef kitlemiz olan YouTuber'lar her gün video atmıyor. Ayda 2 video atan adam, aboneliği "gereksiz masraf" gördü.
 
 **Hipotez v2 (Pivot):** *"Kredi (Token) Sistemi."*
+
 **Mantık:**
 * 5 Dakika = 1 Kredi.
 * Kullanıcı 30 kredi alsa bile, isterse 1 ayda harcar, isterse 1 yılda.
-**Sonuç:** Satışlar arttı. Kullanıcı "kontrol bende" hissini sevdi.
+
+**Sonuç:** Satış ihtmali arttı. Kullanıcı "kontrol bende" hissini sevdi.
+
 **Subscription**: Eğer Kullanıcılar daha yoğun kullanım hedefliyorsa onlar için detaylı preview ve sınırsız işleme hakkı sağlandı.
 
 > **Ders:** İş modelini, kullanıcının **tüketim alışkanlığına** (Frequency of Use) göre seçmelisin.
