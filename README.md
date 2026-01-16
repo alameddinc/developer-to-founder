@@ -1,5 +1,7 @@
 # Developer to Founder 🚀
 
+<p align="right">Alameddin Çelik Github - <a href="https://github.com/alameddinc/developer-to-founder"><img src="https://img.shields.io/github/stars/alameddinc/developer-to-founder?style=social" alt="GitHub stars"></a> </p>
+
 ### Kod Yazmaktan Ürün Çıkarmaya: 2026 SaaS Yol Haritası
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg) ![Status](https://img.shields.io/badge/status-active-success.svg) ![Focus](https://img.shields.io/badge/focus-Engineering%20%2B%20Business-orange)
