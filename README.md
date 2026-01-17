@@ -39,7 +39,7 @@ Bu repo; **"Sadece kod yazan"** bir geliştiriciyi, kısıtlı imkanlarla **"Ür
 
 ## 🧪 Case Study: SilentCut.io
 
-Teorik bilgi karın doyurmaz. Bu repo boyunca tüm süreçleri **SilentCut.io** adlı gerçek bir proje üzerinden anlatıyoruz.
+Teorik bilgi karın doyurmaz. Bu repo boyunca tüm süreçleri **SilentCut.io** adlı gerçek bir proje üzerinden **hayali senaryolar ile** anlatıyoruz.
 
 * **Proje:** YouTuber'lar için videolardaki sessizlikleri otomatik silen bir SaaS.
 * **Gerçekler:**
