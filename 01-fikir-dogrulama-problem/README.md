@@ -106,7 +106,7 @@ Ancak "problem" analiz edildiğinde detaylar ortaya çıktı:
 
 Girişimcilik kitaplarının kutsal kasesi "The Mom Test"in özeti şudur: **İnsanlara fikrini sorarsan, seni kırmamak için yalan söylerler.**
 
-Amacın fikrini "pitch" etmek (satmak) değil, onların hayatındaki "bug"ı bulmaktır.
+Amacın fikrini satmak değil, onların hayatındaki "buglar"ı (yaşadıkları sorunları) bulmaktır.
 
 ### Soru Sorma Sanatı
 
